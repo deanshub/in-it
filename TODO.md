@@ -2,7 +2,7 @@ TODOs
 ======
 
 - [x] Generate stats (rollup, vite, webpack)
-- [ ] Test (fixture)
+- [x] Test (fixture)
 - [ ] Upload it (gh action, s3)
 - [ ] Web app to watch (show, compare)
 - [ ] Build break (cli, file to config, PR status and comment or link)
@@ -12,6 +12,6 @@ TODOs
 ## Tasks
 - [x] eslint
 - [x] prettier
-- [ ] vitest
+- [x] vitest
 - [ ] npm publish packages (gh action)
 - [ ] syncpack

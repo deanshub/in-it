@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "devDependencies": {
-    "typescript": "^5.0.4"
+    "@types/fs-extra": "^11.0.1",
+    "execa": "^7.1.1",
+    "fs-extra": "^11.1.1",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
   },
   "dependencies": {
     "rollup": "^3.20.2"
