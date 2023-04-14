@@ -1,0 +1,14 @@
+{
+  "name": "in-it",
+  "version": "1.0.0",
+  "repository": "git@github.com:deanshub/in-it.git",
+  "author": "Dean Shub <deanshub@gmail.com>",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
+}
