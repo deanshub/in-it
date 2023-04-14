@@ -1,20 +1,21 @@
 import { NormalizedOutputOptions, OutputBundle, Plugin } from 'rollup';
 import fs from 'fs-extra'
+import path from 'path'
 import type {RollupStatsPluginOptions, Stats, } from 'shared-types'
 
 
 export default class RollupStatsPlugin implements Plugin {
-  private readonly statsPluginOptions: RollupStatsPluginOptions;
+  public readonly statsPluginOptions: RollupStatsPluginOptions;
   public readonly name: string
 
   constructor(options: RollupStatsPluginOptions = { entry: 'main.js', output: 'stats.json' }) {
-    this.statsPluginOptions = options;
     this.name = 'rollup-stats-plugin'
+    this.statsPluginOptions = options;
   }
 
   public generateBundle(options: NormalizedOutputOptions, outputBundle: OutputBundle): void {
     const stats: Stats = {
-      entry: this.statsPluginOptions.entry,
+      entry: this.statsPluginOptions?.entry ?? 'main.js',
       chunks: {},
       assets: {},
     };
@@ -31,7 +32,7 @@ export default class RollupStatsPlugin implements Plugin {
               id: moduleId,
               size: module.code!.length,
             //   name: module.name,
-              name: moduleId,
+              name: fileName,
               rendered: module.renderedExports,
             //   imported: module.importedIds,
             //   dependedOn: module.dependentIds,
@@ -48,6 +49,7 @@ export default class RollupStatsPlugin implements Plugin {
     });
 
     // Write stats to a file
-    fs.writeJSONSync(this.statsPluginOptions.output, stats, { spaces: 2 });
+    const statsFilePath = path.join(process.cwd(), options.dir ?? '', this.statsPluginOptions?.output ?? 'stats.json')
+    fs.writeJSONSync(statsFilePath, stats, { spaces: 2 });
   }
 }
