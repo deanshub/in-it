@@ -1,0 +1,16 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "rollup": "^3.20.2"
+  }
+}
