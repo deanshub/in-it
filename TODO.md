@@ -1,7 +1,7 @@
 TODOs
 ======
 
-- [ ] Generate stats (rollup, vite, webpack)
+- [x] Generate stats (rollup, vite, webpack)
 - [ ] Test (fixture)
 - [ ] Upload it (gh action, s3)
 - [ ] Web app to watch (show, compare)
@@ -10,7 +10,8 @@ TODOs
 
 
 ## Tasks
-- [ ] eslint
+- [x] eslint
+- [x] prettier
 - [ ] vitest
 - [ ] npm publish packages (gh action)
 - [ ] syncpack

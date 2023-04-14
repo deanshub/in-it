@@ -26,7 +26,7 @@ export default class RollupStatsPlugin implements Plugin {
         stats.chunks[chunk.name] = {
           size: chunk.code.length,
           modules: Object.entries(chunk.modules)
-          .filter(([moduleId, module]) => module.code)
+          .filter(([_, module]) => module.code)
           .map(([moduleId, module]) => {
             return {
               id: moduleId,
