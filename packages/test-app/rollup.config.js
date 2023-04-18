@@ -1,12 +1,12 @@
 import inItPlugin from 'rollup-plugin-in-it-stats';
 
-const InIt = inItPlugin.default
+const InIt = inItPlugin.default;
 
-export default  {
+export default {
   input: './build/index.js',
   output: {
-      format: 'es',
-      dir: 'dist',
+    format: 'es',
+    dir: 'dist',
   },
-  plugins: [new InIt()]
+  plugins: [new InIt()],
 };
