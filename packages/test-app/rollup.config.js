@@ -1,4 +1,4 @@
-import inItPlugin from 'rollup-plugin-in-it';
+import inItPlugin from 'rollup-plugin-in-it-stats';
 
 const InIt = inItPlugin.default
 

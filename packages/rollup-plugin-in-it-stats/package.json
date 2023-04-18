@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-in-it",
+  "name": "rollup-plugin-in-it-stats",
   "version": "1.0.0",
   "description": "rollup plugin to generate in-it stats",
   "main": "dist/index.js",
