@@ -1,5 +1,7 @@
 import { execa } from 'execa';
 import fs from 'fs-extra';
+import prompts, { type PromptObject } from 'prompts';
+import pc from 'picocolors';
 
 type VersionType = 'patch' | 'minor' | 'major';
 interface YarnWorkspace {
@@ -25,6 +27,43 @@ async function bump(type: VersionType) {
     ['add', 'package.json', 'yarn.lock'].concat(packages.map((p) => `${p.location}/package.json`)),
     { stdio: 'inherit' },
   );
+
+  const pkg = await fs.readJSON('package.json');
+  const version = pkg.version;
+
+  // ask should commit?
+  const questions: PromptObject[] = [
+    {
+      type: 'confirm',
+      name: 'commit',
+      message: `Can I commit version "${version}"?`,
+      initial: true,
+    },
+    {
+      type: (prev: boolean) => (prev ? 'text' : null),
+      name: 'message',
+      message: 'Commit message',
+      initial: `version bump ${version}`,
+    },
+  ];
+
+  const { commit, message } = await prompts(questions);
+  // if no remind user to git tag and git push --tags
+  if (!commit) {
+    console.log(
+      `Don't forget to \n${pc.bold(
+        pc.green(`git tag -a "${version}" -m "version bump ${version}`),
+      )}"\n and \n${pc.bold(pc.green('git push --tags'))}`,
+    );
+    return;
+  }
+  // if yes ask for commit message
+  // git commit -m "message"
+  await execa('git', ['commit', '-m', message], { stdio: 'inherit' });
+  // git tag -a "v1.0.0" -m "message"
+  await execa('git', ['tag', '-a', version, '-m', message], { stdio: 'inherit' });
+  // git push --tags
+  await execa('git', ['push', '--tags'], { stdio: 'inherit' });
 }
 
 function getRealeaseContent(packages: YarnWorkspace[], type: VersionType) {
