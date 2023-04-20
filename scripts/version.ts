@@ -63,7 +63,7 @@ async function bump(type: VersionType) {
   // git tag -a "v1.0.0" -m "message"
   await execa('git', ['tag', '-a', version, '-m', message], { stdio: 'inherit' });
   // git push --tags
-  await execa('git', ['push', '--tags'], { stdio: 'inherit' });
+  await execa('git', ['push', '--follow-tags'], { stdio: 'inherit' });
 }
 
 function getRealeaseContent(packages: YarnWorkspace[], type: VersionType) {
