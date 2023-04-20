@@ -2,6 +2,7 @@ import { execa } from 'execa';
 import fs from 'fs-extra';
 import prompts, { type PromptObject } from 'prompts';
 import pc from 'picocolors';
+import isCi from 'is-ci';
 
 type VersionType = 'patch' | 'minor' | 'major';
 interface YarnWorkspace {
@@ -22,6 +23,11 @@ async function bump(type: VersionType) {
   const versionFile: string = versions[0];
   await fs.writeFile(`.yarn/versions/${versionFile}`, getRealeaseContent(packages, type));
   await execa('yarn', ['version', 'apply', '--all'], { stdio: 'inherit' });
+
+  if (isCi) {
+    return;
+  }
+
   await execa(
     'git',
     ['add', 'package.json', 'yarn.lock'].concat(packages.map((p) => `${p.location}/package.json`)),
