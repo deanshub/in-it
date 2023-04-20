@@ -1,7 +1,7 @@
 import { NormalizedOutputOptions, OutputBundle, Plugin, type RenderedModule } from 'rollup';
 import fs from 'fs-extra';
 import path from 'path';
-import type { RollupStatsPluginOptions, Stats } from 'shared-types';
+import type { RollupStatsPluginOptions, Stats } from 'in-it-shared-types';
 
 type NotNullableObject<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 
@@ -61,6 +61,7 @@ export default class RollupStatsPlugin implements Plugin {
       options.dir ?? '',
       this.statsPluginOptions?.output ?? 'stats.json',
     );
+    fs.ensureDirSync(path.dirname(statsFilePath));
     fs.writeJSONSync(statsFilePath, stats, { spaces: 2 });
   }
 }

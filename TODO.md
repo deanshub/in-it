@@ -16,3 +16,5 @@ TODOs
 - [x] version bumping script
 - [x] npm publish packages (gh action)
 - [x] syncpack
+- [ ] add tag createion on version bump
+- [ ] gh action to create version bump
