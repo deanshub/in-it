@@ -1,8 +1,8 @@
 name: Create promotion pull request
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 jobs:
   productionPromotion:
     runs-on: ubuntu-latest
