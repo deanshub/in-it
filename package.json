@@ -9,7 +9,15 @@
     "packages/*"
   ],
   "scripts": {
-    "version:bump": "node --loader @swc-node/register/esm scripts/version.ts"
+    "version:bump": "node --loader @swc-node/register/esm scripts/version.ts",
+    "list-mismatches": "syncpack list-mismatches",
+    "fix-mismatches": "syncpack fix-mismatches",
+    "lint": "eslint . && npm run fix-mismatches"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run list-mismatches # && wsrun --serial --changedSince HEAD lint-staged"
+    }
   },
   "devDependencies": {
     "@swc-node/register": "^1.6.4",
@@ -20,8 +28,10 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "execa": "^7.1.1",
+    "husky": "^8.0.3",
     "prettier": "^2.8.7",
     "prettier-eslint": "^15.0.1",
+    "syncpack": "^9.8.4",
     "typescript": "^5.0.4"
   },
   "packageManager": "yarn@3.5.0"

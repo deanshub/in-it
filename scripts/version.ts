@@ -7,7 +7,11 @@ interface YarnWorkspace {
   location: string;
 }
 async function bump(type: VersionType) {
-  await fs.rmdir('.yarn/versions', { recursive: true }).catch(() => {});
+  try {
+    await fs.rmdir('.yarn/versions', { recursive: true });
+  } catch (error) {
+    // Nothing to do
+  }
   const { stdout } = await execa('yarn', ['workspaces', 'list', '--json']);
   const packages: YarnWorkspace[] = JSON.parse(`[${stdout.split('\n').join(',')}]`);
   await execa('yarn', ['version', type, '--deferred'], { stdio: 'inherit' });

@@ -1,9 +1,9 @@
 {
-    "name": "in-it-shared-types",
-    "version": "1.0.1",
-    "description": "",
-    "main": "index.ts",
-    "keywords": [],
-    "author": "Dean Shub <deanshub@gmail.com>",
-    "license": "ISC"
+  "name": "in-it-shared-types",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.ts",
+  "keywords": [],
+  "author": "Dean Shub <deanshub@gmail.com>",
+  "license": "ISC"
 }

@@ -15,4 +15,4 @@ TODOs
 - [x] vitest
 - [x] version bumping script
 - [x] npm publish packages (gh action)
-- [ ] syncpack
+- [x] syncpack
