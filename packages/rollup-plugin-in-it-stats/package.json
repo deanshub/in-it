@@ -2,7 +2,7 @@
   "name": "rollup-plugin-in-it-stats",
   "version": "1.0.8",
   "description": "rollup plugin to generate in-it stats",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "author": "Dean Shub <deanshub@gmail.com>",
   "license": "ISC",
   "scripts": {
