@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && rollup -c",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
