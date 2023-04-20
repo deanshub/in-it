@@ -13,5 +13,6 @@ TODOs
 - [x] eslint
 - [x] prettier
 - [x] vitest
-- [ ] npm publish packages (gh action)
+- [x] version bumping script
+- [x] npm publish packages (gh action)
 - [ ] syncpack
