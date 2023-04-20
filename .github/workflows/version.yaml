@@ -22,14 +22,13 @@ jobs:
 
       - name: Version bump
         run: yarn version:bump
-        with:
-          DEFAULT_BUMP: patch
 
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.61.0 # Don't use @master unless you're happy to test the latest version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
+          DEFAULT_BUMP: patch
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
