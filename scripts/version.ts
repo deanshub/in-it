@@ -29,7 +29,7 @@ async function bump(type: VersionType) {
   );
 
   const pkg = await fs.readJSON('package.json');
-  const version = pkg.version;
+  const version = `v${pkg.version}`;
 
   // ask should commit?
   const questions: PromptObject[] = [
