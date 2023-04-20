@@ -36,5 +36,3 @@ jobs:
           automatic_release_tag: "latest"
           files: |
             packages/test-app/dist/stats.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
