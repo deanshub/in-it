@@ -35,3 +35,8 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "**/dist/stats.json"
+
+      - name: Publish npm packages
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
