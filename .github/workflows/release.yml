@@ -38,6 +38,6 @@ jobs:
           artifacts: "**/dist/stats.json"
 
       - name: Publish npm packages
-        run: yarn publish
+        run: yarn npm:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
