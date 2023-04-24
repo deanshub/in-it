@@ -7,8 +7,7 @@
   "license": "ISC",
   "scripts": {
     "build": "tsc -b",
-    "test": "vitest run",
-    "publish": "npm publish --access public"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
