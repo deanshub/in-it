@@ -11,7 +11,7 @@
   "scripts": {
     "build": "yarn workspaces foreach -pt run build",
     "test": "yarn workspaces foreach -p run test",
-    "publish": "yarn workspaces foreach -p run publish",
+    "publish": "yarn workspaces foreach run publish",
     "lint": "eslint . && npm run fix-mismatches",
     "version:bump": "node --loader @swc-node/register/esm scripts/version.ts",
     "list-mismatches": "syncpack list-mismatches",
