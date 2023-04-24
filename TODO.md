@@ -18,3 +18,4 @@ TODOs
 - [x] syncpack
 - [x] add tag createion on version bump
 - [ ] gh action to create version bump in PR
+- [ ] readme for the rollup plugin
