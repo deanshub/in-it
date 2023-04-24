@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc -b",
     "test": "vitest run",
-    "publish": "npm publish --access public"
+    "npm:publish": "npm publish --access public"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
