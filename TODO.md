@@ -9,7 +9,7 @@ TODOs
 - [ ] Test
     - [x] fixture - e2e
     - [ ] unit
-- [ ] Upload it (, gh action, s3)
+- [ ] Upload it
     - [x] send to your server
     - [x] upload to github release
     - [ ] send to s3

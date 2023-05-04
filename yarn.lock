@@ -521,6 +521,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/is-ci@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/is-ci@npm:3.0.0"
+  dependencies:
+    ci-info: ^3.1.0
+  checksum: 7c1f1f16c1fa2134de7400d82766c83fa76057261ba890628af77a09382ebb92d945bb077b98cfcf3d40ab1469c9ffbd2278112867edbe57aa655f53547eb139
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:*, @types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -1122,7 +1131,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.2.0":
+"ci-info@npm:^3.1.0, ci-info@npm:^3.2.0":
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
   checksum: d0a4d3160497cae54294974a7246202244fff031b0a6ea20dd57b10ec510aa17399c41a1b0982142c105f3255aff2173e5c0dd7302ee1b2f28ba3debda375098
@@ -3041,8 +3050,10 @@ __metadata:
   resolution: "rollup-plugin-in-it-stats@workspace:packages/rollup-plugin-in-it-stats"
   dependencies:
     "@types/fs-extra": ^11.0.1
+    "@types/is-ci": ^3.0.0
     fs-extra: ^11.1.1
     in-it-shared-types: 1.0.20
+    is-ci: ^3.0.1
     rollup: ^3.20.2
     typescript: ^5.0.4
     vitest: ^0.30.1
