@@ -14,7 +14,7 @@ TODOs
     - [x] upload to github release
     - [ ] send to s3
 - [ ] Web app to watch (receive stats api, show, compare)
-    - [ ] receive stats api
+    - [ ] store stats api
     - [ ] show stats in sizes chart
     - [ ] compare sizes chart
 - [ ] Build break
@@ -34,3 +34,11 @@ TODOs
 - [ ] gh action to create version bump in PR
 - [ ] readme for the rollup plugin
 - [ ] lighter data format than json
+
+
+## Ideas
+- [ ] find a way to connect user to app
+- [ ] log url of the in-it analyze in ci
+    - [ ] regular logger
+    - [ ] TC logger
+- [ ] allow local stats file upload\usage
