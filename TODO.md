@@ -31,6 +31,8 @@ TODOs
 - [x] npm publish packages (gh action)
 - [x] syncpack
 - [x] add tag createion on version bump
+- [ ] deploy web app
+- [ ] connect domain to web app
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR
 - [ ] readme for the rollup plugin
