@@ -8,5 +8,10 @@ export default {
     format: 'es',
     dir: 'dist',
   },
-  plugins: [new InIt()],
+  plugins: [
+    new InIt({
+      appId: 'test-app',
+      serverUrl: null,
+    }),
+  ],
 };

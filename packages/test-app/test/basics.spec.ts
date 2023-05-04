@@ -1,11 +1,12 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-test('stats exists', async () => {
+test('stats exists (after build)', async () => {
   const statsFilePath = path.join(__dirname, '../dist/stats.json');
   expect(await fs.exists(statsFilePath)).toBe(true);
   const stats = await fs.readJson(statsFilePath);
   expect(stats).toEqual({
+    appId: 'test-app',
     assets: {},
     chunks: {
       index: {

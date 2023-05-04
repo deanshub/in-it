@@ -13,12 +13,17 @@ export interface ChunkInfo {
 }
 
 export interface Stats {
+  appId?: string;
+  // version: string;
+  // commit: string;
   entry: string;
   chunks: Record<string, ChunkInfo>;
   assets: Record<string, { size: number }>;
 }
 
 export interface RollupStatsPluginOptions {
+  appId?: string;
   entry: string;
   output: string;
+  serverUrl: string;
 }
