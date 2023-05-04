@@ -31,6 +31,7 @@ TODOs
 - [x] npm publish packages (gh action)
 - [x] syncpack
 - [x] add tag createion on version bump
+- [ ] gh action test PRs
 - [ ] gh action to create version bump in PR
 - [ ] readme for the rollup plugin
 - [ ] lighter data format than json
