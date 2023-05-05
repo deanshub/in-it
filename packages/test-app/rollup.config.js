@@ -11,7 +11,7 @@ export default {
   plugins: [
     new InIt({
       appId: 'test-app',
-      serverUrl: 'http://localhost:3001/api/stats',
+      // serverUrl: 'http://localhost:3001/api/stats',
     }),
   ],
 };

@@ -9,7 +9,7 @@ type NotNullableObject<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNul
 const rollupStatsDefaultPluginOptions: RollupStatsPluginOptions = {
   entry: 'main.js',
   output: 'stats.json',
-  serverUrl: 'https://nissix.com/in-it/api/stats',
+  serverUrl: 'https://nissix.com/api/stats',
 };
 
 const hasCode = (
