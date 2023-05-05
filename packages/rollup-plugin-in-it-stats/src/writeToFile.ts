@@ -15,11 +15,9 @@ export async function writeToFile(
     await fs.writeJSON(statsFilePath, stats, { spaces: 2 });
 
     console.log(
-      pc.green(
-        `Rollup In-It Plugin: wrote stats to ${pc.underline(
-          path.relative(process.cwd(), statsFilePath),
-        )}`,
-      ),
+      `Rollup In-It Plugin: ${pc.green(
+        `Wrote stats to ${pc.underline(path.relative(process.cwd(), statsFilePath))}`,
+      )}`,
     );
 
     return statsFilePath;

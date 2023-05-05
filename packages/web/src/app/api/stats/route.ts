@@ -12,5 +12,5 @@ export async function POST(request: Request) {
     version: '0.0.0',
     url: 'http://nissix.com/in-it/stats/0.0.0',
   };
-  return NextResponse.json({ res });
+  return NextResponse.json(res);
 }

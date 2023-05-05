@@ -14,10 +14,9 @@ export async function sendToServer(
       body: JSON.stringify(stats),
     });
 
-    const { data } = await response.json();
-    const postData: PostStatsResponse = data;
-    console.log(pc.green(`Rollup In-It Plugin: stats sent, see ${pc.underline(postData.url)}`));
-    return postData;
+    const data: PostStatsResponse = await response.json();
+    console.log(`Rollup In-It Plugin: ${pc.green(`Stats sent, see ${pc.underline(data.url)}`)}`);
+    return data;
   }
   return null;
 }
