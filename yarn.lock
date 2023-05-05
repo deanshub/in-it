@@ -2988,6 +2988,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"in-it-web@workspace:packages/web":
+  version: 0.0.0-use.local
+  resolution: "in-it-web@workspace:packages/web"
+  dependencies:
+    "@types/node": 18.16.3
+    "@types/react": 18.2.5
+    "@types/react-dom": 18.2.3
+    autoprefixer: 10.4.14
+    eslint: 8.39.0
+    eslint-config-next: 13.4.0
+    in-it-shared-types: 1.0.20
+    next: 13.4.0
+    postcss: 8.4.23
+    react: 18.2.0
+    react-dom: 18.2.0
+    tailwindcss: 3.3.2
+    typescript: 5.0.4
+  languageName: unknown
+  linkType: soft
+
 "in-it@workspace:.":
   version: 0.0.0-use.local
   resolution: "in-it@workspace:."
@@ -4714,6 +4734,7 @@ __metadata:
     fs-extra: ^11.1.1
     in-it-shared-types: 1.0.20
     is-ci: ^3.0.1
+    picocolors: ^1.0.0
     rollup: ^3.20.2
     typescript: ^5.0.4
     vitest: ^0.30.1
@@ -5674,25 +5695,6 @@ __metadata:
   checksum: 8cc751e9fc2bfba93664ad8945732ab1c97791f9123e703de8669b65670d1e01906d80436bf4932d7ee6fa6174ed4545e8abb059206c88f4bd71957ca6cf7ba8
   languageName: node
   linkType: hard
-
-"web@workspace:packages/web":
-  version: 0.0.0-use.local
-  resolution: "web@workspace:packages/web"
-  dependencies:
-    "@types/node": 18.16.3
-    "@types/react": 18.2.5
-    "@types/react-dom": 18.2.3
-    autoprefixer: 10.4.14
-    eslint: 8.39.0
-    eslint-config-next: 13.4.0
-    next: 13.4.0
-    postcss: 8.4.23
-    react: 18.2.0
-    react-dom: 18.2.0
-    tailwindcss: 3.3.2
-    typescript: 5.0.4
-  languageName: unknown
-  linkType: soft
 
 "well-known-symbols@npm:^2.0.0":
   version: 2.0.0

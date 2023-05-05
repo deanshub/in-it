@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "version": "0.1.0",
+  "name": "in-it-web",
+  "version": "1.0.20",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,5 +21,8 @@
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "in-it-shared-types": "1.0.20"
   }
 }

@@ -1,18 +1,28 @@
-import { NormalizedOutputOptions } from 'rollup';
 import fs from 'fs-extra';
 import path from 'path';
-import { RollupStatsPluginOptions, Stats } from 'in-it-shared-types';
+import pc from 'picocolors';
+import type { NormalizedOutputOptions } from 'rollup';
+import type { RollupStatsPluginOptions, Stats } from 'in-it-shared-types';
 
 export async function writeToFile(
   stats: Stats,
   statsPluginOptions: RollupStatsPluginOptions,
   options: NormalizedOutputOptions,
-): Promise<void> {
-  const statsFilePath = path.join(
-    process.cwd(),
-    options?.dir ?? '',
-    statsPluginOptions?.output ?? 'stats.json',
-  );
-  await fs.ensureDir(path.dirname(statsFilePath));
-  await fs.writeJSON(statsFilePath, stats, { spaces: 2 });
+): Promise<null | string> {
+  if (statsPluginOptions.output) {
+    const statsFilePath = path.join(process.cwd(), options?.dir ?? '', statsPluginOptions.output);
+    await fs.ensureDir(path.dirname(statsFilePath));
+    await fs.writeJSON(statsFilePath, stats, { spaces: 2 });
+
+    console.log(
+      pc.green(
+        `Rollup In-It Plugin: wrote stats to ${pc.underline(
+          path.relative(process.cwd(), statsFilePath),
+        )}`,
+      ),
+    );
+
+    return statsFilePath;
+  }
+  return null;
 }
