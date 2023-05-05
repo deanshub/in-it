@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   // store in DB
   // responed with hash & url
   const res: PostStatsResponse = {
-    type: 'local',
+    type: stats.type,
     appId: stats.appId ?? 'unknown',
     version: '0.0.0',
     url: 'http://nissix.com/in-it/stats/0.0.0',

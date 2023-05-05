@@ -1,4 +1,5 @@
 import { NormalizedOutputOptions, OutputBundle, type RenderedModule } from 'rollup';
+import isCI from 'is-ci';
 import { sendToServer } from './sendToServer';
 import { writeToFile } from './writeToFile';
 import type { RollupStatsPluginOptions, Stats } from 'in-it-shared-types';
@@ -30,6 +31,7 @@ export default function RollupStatsPlugin(
     generateBundle: async (options: NormalizedOutputOptions, outputBundle: OutputBundle) => {
       const stats: Stats = {
         appId: rollupStatsGivvenPluginOptions.appId, // TODO: use package.json name, path in repo, ...
+        type: isCI ? 'ci' : 'local',
         // version: ,
         // commit: ,
         entry: statsPluginOptions.entry,

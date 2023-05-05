@@ -1,4 +1,3 @@
-import isCI from 'is-ci';
 import pc from 'picocolors';
 import type { PostStatsResponse, Stats } from 'in-it-shared-types';
 
@@ -6,7 +5,7 @@ export async function sendToServer(
   stats: Stats,
   serverUrl: string,
 ): Promise<PostStatsResponse | null> {
-  if (serverUrl && isCI) {
+  if (serverUrl) {
     const response = await fetch(serverUrl, {
       method: 'POST',
       headers: {
