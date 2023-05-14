@@ -899,6 +899,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/blob@npm:^0.8.3":
+  version: 0.8.3
+  resolution: "@vercel/blob@npm:0.8.3"
+  dependencies:
+    undici: 5.22.0
+  checksum: 1050616d27f0d8b70a6f664582cb6ed6d6a9adc124dbcce24e9b1650f11b422957a327da0d133525f82b863374d70698a5a5d7f863e7e273b617fdd40063591d
+  languageName: node
+  linkType: hard
+
 "@vitest/expect@npm:0.30.1":
   version: 0.30.1
   resolution: "@vitest/expect@npm:0.30.1"
@@ -1354,7 +1363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"busboy@npm:1.6.0":
+"busboy@npm:1.6.0, busboy@npm:^1.6.0":
   version: 1.6.0
   resolution: "busboy@npm:1.6.0"
   dependencies:
@@ -3002,6 +3011,7 @@ __metadata:
     "@types/node": 18.16.3
     "@types/react": 18.2.5
     "@types/react-dom": 18.2.3
+    "@vercel/blob": ^0.8.3
     autoprefixer: 10.4.14
     clsx: ^1.2.1
     eslint: 8.39.0
@@ -5517,6 +5527,15 @@ __metadata:
     has-symbols: ^1.0.3
     which-boxed-primitive: ^1.0.2
   checksum: b7a1cf5862b5e4b5deb091672ffa579aa274f648410009c81cca63fed3b62b610c4f3b773f912ce545bb4e31edc3138975b5bc777fc6e4817dca51affb6380e9
+  languageName: node
+  linkType: hard
+
+"undici@npm:5.22.0":
+  version: 5.22.0
+  resolution: "undici@npm:5.22.0"
+  dependencies:
+    busboy: ^1.6.0
+  checksum: 8dc55240a60ae7680798df344e8f46ad0f872ed0fa434fb94cc4fd2b5b2f8053bdf11994d15902999d3880f9bf7cd875a2e90883d2702bf0f366dacd9cbf3fc6
   languageName: node
   linkType: hard
 
