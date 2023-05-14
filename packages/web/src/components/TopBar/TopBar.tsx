@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SiGithub } from 'react-icons/si';
 import { useSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 
 export function TopBar() {
   const { data: session } = useSession();
@@ -24,14 +25,31 @@ function Logout() {
   const { data: session } = useSession();
   const user = session?.user;
 
-  return <a href="/api/auth/signout">{user?.name}</a>;
+  return (
+    <Link
+      onClick={(e) => {
+        e.preventDefault();
+        signOut();
+      }}
+      href="/api/auth/signout"
+    >
+      {user?.name}
+    </Link>
+  );
 }
 
 function Login() {
   return (
-    <a href="/api/auth/signin" className="flex items-center gap-2">
+    <Link
+      href="/api/auth/signin"
+      className="flex items-center gap-2"
+      onClick={(e) => {
+        e.preventDefault();
+        signIn('github');
+      }}
+    >
       <SiGithub />
       Login
-    </a>
+    </Link>
   );
 }
