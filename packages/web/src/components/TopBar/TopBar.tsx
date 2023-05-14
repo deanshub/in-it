@@ -1,13 +1,13 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SiGithub } from 'react-icons/si';
-import type { User } from 'in-it-shared-types';
+import { useSession } from 'next-auth/react';
 
-interface TopBarProps {
-  user?: User;
-}
+export function TopBar() {
+  const { data: session } = useSession();
+  const user = session?.user;
 
-export function TopBar({ user }: TopBarProps) {
   return (
     <header className="flex items-start justify-between p-4">
       <div className="flex flex-center gap-4">
@@ -21,7 +21,10 @@ export function TopBar({ user }: TopBarProps) {
 }
 
 function Logout() {
-  return <a href="/api/auth/logout">Logout</a>;
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  return <a href="/api/auth/signout">{user?.name}</a>;
 }
 
 function Login() {

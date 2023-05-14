@@ -1,18 +1,6 @@
 import NextAuth from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
-import { getOrThrow } from '@/utils/getOrThrow';
+import { nextAuthOptions } from '@/utils/auth';
 
-const authOptions = {
-  // Configure one or more authentication providers
-  providers: [
-    GithubProvider({
-      clientId: getOrThrow('GITHUB_ID'),
-      clientSecret: getOrThrow('GITHUB_SECRET'),
-    }),
-    // ...add more providers here
-  ],
-};
-
-const handler = NextAuth(authOptions);
+const handler = NextAuth(nextAuthOptions);
 
 export { handler as GET, handler as POST };

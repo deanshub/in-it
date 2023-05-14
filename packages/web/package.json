@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "genereateKey": "jose newkey -s 512 -t oct -a HS512"
   },
   "dependencies": {
     "@types/node": "18.16.3",
@@ -27,6 +28,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "in-it-shared-types": "1.0.20"
+    "in-it-shared-types": "1.0.20",
+    "node-jose-tools": "^2.0.2"
   }
 }
