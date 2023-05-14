@@ -26,7 +26,7 @@ function Logout() {
 
 function Login() {
   return (
-    <a href="/api/auth/login" className="flex items-center gap-2">
+    <a href="/api/auth/signin" className="flex items-center gap-2">
       <SiGithub />
       Login
     </a>
