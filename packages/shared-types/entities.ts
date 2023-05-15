@@ -22,12 +22,16 @@ export interface Stats {
   assets: Record<string, { size: number }>;
 }
 
-export interface RollupStatsPluginOptions {
+export interface InItStatsPluginOptions {
   appId?: string;
   entry: string;
   output: string;
   serverUrl: string;
 }
+export type RollupStatsPluginOptions = InItStatsPluginOptions;
+export type NextStatsPluginOptions = Omit<InItStatsPluginOptions, 'entry' | 'output'> & {
+  outDir?: string;
+};
 
 export interface User {
   githubUsername: string;

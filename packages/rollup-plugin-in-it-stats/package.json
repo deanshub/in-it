@@ -6,6 +6,7 @@
   "author": "Dean Shub <deanshub@gmail.com>",
   "license": "ISC",
   "scripts": {
+    "clean": "rm -rf dist/",
     "build": "tsc -b",
     "test": "vitest run",
     "npm:publish": "npm publish --access public"

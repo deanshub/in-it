@@ -81,7 +81,7 @@ export default function Home() {
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-          ></div>
+          />
         )}
       </form>
     </main>

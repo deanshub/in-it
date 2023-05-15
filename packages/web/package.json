@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "in-it-shared-types": "1.0.20",
+    "next-in-it-stats": "1.0.20",
     "node-jose-tools": "^2.0.2"
   }
 }

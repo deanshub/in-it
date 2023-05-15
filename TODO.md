@@ -33,7 +33,7 @@ TODOs
 - [x] add tag createion on version bump
 - [x] deploy web app
 - [x] connect domain to web app
-- [ ] make stats file writting optional
+- [x] make stats file writting optional
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR
 - [ ] readme for the rollup plugin
@@ -41,7 +41,7 @@ TODOs
 
 
 ## Ideas
-- [ ] find a way to connect user to app
+- [x] find a way to connect user to app
 - [ ] log url of the in-it analyze in ci
     - [ ] regular logger
     - [ ] TC logger

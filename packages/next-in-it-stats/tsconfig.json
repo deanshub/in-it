@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "types": ["vitest", "vitest/globals"],
+        "module": "commonjs",
+        "target": "ES2015",
+        "rootDir": "src",
+        "outDir": "dist/cjs",
+        "allowSyntheticDefaultImports": true,
+    },
+    "exclude":["vitest.config.ts"]
+}

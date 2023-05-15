@@ -1,0 +1,38 @@
+{
+  "name": "next-in-it-stats",
+  "version": "1.0.20",
+  "description": "next plugin to generate in-it stats",
+  "main": "dist/cjs/index.js",
+  "exports": {
+    "require": "./dist/cjs/index.js",
+    "import": "./dist/esm/index.js"
+  },
+  "author": "Dean Shub <deanshub@gmail.com>",
+  "license": "ISC",
+  "scripts": {
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "test": "vitest run",
+    "npm:publish": "npm publish --access public"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/is-ci": "^3.0.0",
+    "@types/webpack-bundle-analyzer": "^4.6.0",
+    "in-it-shared-types": "1.0.20",
+    "next": "^13.4.2",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.1"
+  },
+  "dependencies": {
+    "fs-extra": "^11.1.1",
+    "is-ci": "^3.0.1",
+    "picocolors": "^1.0.0",
+    "webpack-bundle-analyzer": "^4.8.0"
+  },
+  "peerDependencies": {
+    "next": "*"
+  }
+}
