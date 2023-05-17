@@ -4,7 +4,7 @@ TODOs
 - [ ] Generate stats
     - [x] rollup
     - [ ] vite
-    - [ ] nextjs
+    - [x] nextjs
     - [ ] webpack
 - [ ] Test
     - [x] fixture - e2e
@@ -34,9 +34,19 @@ TODOs
 - [x] deploy web app
 - [x] connect domain to web app
 - [x] make stats file writting optional
+- [x] send nextjs stats to server
+- [ ] show bundle analyzer in web app
+- [ ] yarn\next dev should indicate local type of build
+- [ ] model the data
+- [ ] store the data
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR
-- [ ] readme for the rollup plugin
+- [ ] readme for the plugins
+    - [ ] rollup
+    - [ ] vite
+    - [ ] nextjs
+    - [ ] webpack
+    - [ ] nextjs
 - [ ] lighter data format than json
 
 

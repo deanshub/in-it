@@ -1,4 +1,6 @@
-const withInItStats = require('next-in-it-stats')();
+const withInItStats = require('next-in-it-stats')({
+  serverUrl: '', // 'http://localhost:3001/api/stats'
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withInItStats({
