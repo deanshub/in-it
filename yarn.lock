@@ -3585,6 +3585,7 @@ __metadata:
     "@types/node": 18.16.3
     "@types/react": 18.2.5
     "@types/react-dom": 18.2.3
+    "@types/webpack-bundle-analyzer": ^4.6.0
     "@vercel/blob": ^0.8.3
     autoprefixer: 10.4.14
     clsx: ^1.2.1
@@ -3601,6 +3602,7 @@ __metadata:
     react-icons: ^4.8.0
     tailwindcss: 3.3.2
     typescript: 5.0.4
+    webpack-bundle-analyzer: ^4.8.0
   languageName: unknown
   linkType: soft
 

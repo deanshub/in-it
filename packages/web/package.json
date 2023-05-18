@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/app/bundle-analyzer/public",
     "start": "next start",
     "lint": "next lint",
     "genereateKey": "jose newkey -s 512 -t oct -a HS512"
@@ -25,9 +25,11 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "tailwindcss": "3.3.2",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "webpack-bundle-analyzer": "^4.8.0"
   },
   "devDependencies": {
+    "@types/webpack-bundle-analyzer": "^4.6.0",
     "in-it-shared-types": "1.0.20",
     "next-in-it-stats": "1.0.20",
     "node-jose-tools": "^2.0.2"
