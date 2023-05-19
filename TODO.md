@@ -37,6 +37,7 @@ TODOs
 - [x] send nextjs stats to server
 - [x] show bundle analyzer in web app
 - [x] bundle analyze in dev only if explicitly asked
+- [ ] temporariliy store file and data in server memory
 - [ ] support old bundle-analyzer report only if legacy flag is on
 - [ ] yarn\next dev should indicate local type of build
 - [ ] model the data
