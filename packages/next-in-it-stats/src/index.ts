@@ -1,6 +1,7 @@
 import { join } from 'path';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import InItStatsWebpackPlugin from './InItStatsWebpackPlugin';
+// FOR OPTIMIZATION PURPOSES IMPORTS MOVED TO REQUIERING AT RUNTIME
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import InItStatsWebpackPlugin from './InItStatsWebpackPlugin';
 import type { NextStatsPluginOptions } from 'in-it-shared-types';
 import type { NextConfig } from 'next';
 
@@ -10,6 +11,10 @@ function nextInItStats({
   serverUrl = 'https://nissix.com/api/stats',
 }: Partial<NextStatsPluginOptions> = {}) {
   return (nextConfig: NextConfig = {}) => {
+    // if in dev mode and not requested explicitly
+    if (process.env.NODE_ENV !== 'production' && process.env.ANALYZE !== 'true') {
+      return nextConfig;
+    }
     const nextConfigWithInItStats: NextConfig = {
       ...nextConfig,
       webpack(config, options) {
@@ -24,6 +29,11 @@ function nextInItStats({
         } else {
           reportFilename = join(outDir, `${options.nextRuntime ?? 'client'}.json`);
         }
+
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const InItStatsWebpackPlugin = require('./InItStatsWebpackPlugin').default;
 
         config.plugins.push(
           new BundleAnalyzerPlugin({

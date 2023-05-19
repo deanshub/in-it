@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/app/bundle-analyzer/public",
+    "build": "next build",
+    "postbuild": "cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/app/bundle-analyzer/public",
     "start": "next start",
     "lint": "next lint",
     "genereateKey": "jose newkey -s 512 -t oct -a HS512"

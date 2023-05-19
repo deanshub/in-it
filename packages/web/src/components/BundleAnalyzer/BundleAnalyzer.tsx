@@ -2,16 +2,26 @@
 
 import { useState } from 'react';
 
-export function BundleAnalyzer() {
-  const [runtime, setRuntime] = useState('client');
+interface Option {
+  value: string;
+  label: string;
+}
+interface BundleAnalyzerProps {
+  options: Option[];
+}
+
+export function BundleAnalyzer({ options }: BundleAnalyzerProps) {
+  const [runtime, setRuntime] = useState(options[0].value);
 
   return (
     <div className="flex flex-col gap-2">
       <div>
         <select className="text-black" value={runtime} onChange={(e) => setRuntime(e.target.value)}>
-          <option value="client">Browser</option>
-          <option value="nodejs">Node.js</option>
-          <option value="edge">Edge</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
         </select>
       </div>
       <iframe

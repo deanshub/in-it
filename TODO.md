@@ -35,7 +35,9 @@ TODOs
 - [x] connect domain to web app
 - [x] make stats file writting optional
 - [x] send nextjs stats to server
-- [ ] show bundle analyzer in web app
+- [x] show bundle analyzer in web app
+- [x] bundle analyze in dev only if explicitly asked
+- [ ] support old bundle-analyzer report only if legacy flag is on
 - [ ] yarn\next dev should indicate local type of build
 - [ ] model the data
 - [ ] store the data
