@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { BASE_URL } from '@/utils/url';
 // import { sql } from '@vercel/postgres';
 import type {
   PostStatsResponse,
@@ -29,7 +28,7 @@ export async function POST(request: Request) {
     type,
     appId: appId ?? 'unknown',
     version: '0.0.0',
-    url: `${BASE_URL}/analyze`,
+    url: `/analyze`,
   };
   return NextResponse.json(res);
 }
