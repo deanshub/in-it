@@ -3,8 +3,8 @@ import path from 'path';
 import { BundleAnalyzer } from '@/components/BundleAnalyzer/BundleAnalyzer';
 
 async function getRuntimes() {
-  const inItStatsPath = path.join(process.cwd(), '.next/in-it-stats');
-  const files = await fs.readdir(inItStatsPath);
+  const storedInItStatsPath = path.join(process.cwd(), '../../test-in-it-stats');
+  const files = await fs.readdir(storedInItStatsPath);
   const runtimes = files.map((file) => {
     return path.basename(file, '.json');
   });

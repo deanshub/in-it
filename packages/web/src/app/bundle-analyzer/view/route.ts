@@ -7,7 +7,8 @@ import path from 'path';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const runtime = searchParams.get('runtime') ?? 'client';
-  const inItStatsPath = path.join(process.cwd(), '.next/in-it-stats', `${runtime}.json`);
+  // const inItStatsPath = path.join(process.cwd(), '.next/in-it-stats', `${runtime}.json`);
+  const inItStatsPath = path.join(process.cwd(), '../../test-in-it-stats', `${runtime}.json`);
   if (!(await exists(inItStatsPath))) {
     return new NextResponse(`in-it stats "${runtime}" does not exist`, {
       status: 404,

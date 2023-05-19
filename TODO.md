@@ -38,6 +38,9 @@ TODOs
 - [x] show bundle analyzer in web app
 - [x] bundle analyze in dev only if explicitly asked
 - [ ] temporariliy store file and data in server memory
+- [ ] don't upload stats of empty data (empty object\array) edge test-case
+- [ ] handle errors in upload in the ui
+- [ ] compare in-it entrypoints with the bundle-analyzer entrypoints
 - [ ] support old bundle-analyzer report only if legacy flag is on
 - [ ] yarn\next dev should indicate local type of build
 - [ ] model the data
