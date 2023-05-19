@@ -1,5 +1,5 @@
 const withInItStats = require('next-in-it-stats')({
-  serverUrl: '',
+  // serverUrl: '',
   // serverUrl: 'http://localhost:3001/api/stats',
 });
 

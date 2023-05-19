@@ -896,6 +896,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/terminal-link@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@types/terminal-link@npm:1.2.0"
+  dependencies:
+    terminal-link: "*"
+  checksum: 0223ac5f05034396132755efdee8d4b77adff3cc8934e8487555786e520d3cc23f59552cd7a2136067619a5e7c7116ef8fd9f6b8e9fe144b0e5b82f21842da97
+  languageName: node
+  linkType: hard
+
 "@types/webpack-bundle-analyzer@npm:^4.6.0":
   version: 4.6.0
   resolution: "@types/webpack-bundle-analyzer@npm:4.6.0"
@@ -1345,6 +1354,15 @@ __metadata:
     json-schema-traverse: ^0.4.1
     uri-js: ^4.2.2
   checksum: 874972efe5c4202ab0a68379481fbd3d1b5d0a7bd6d3cc21d40d3536ebff3352a2a1fabb632d4fd2cc7fe4cbdcd5ed6782084c9bbf7f32a1536d18f9da5007d4
+  languageName: node
+  linkType: hard
+
+"ansi-escapes@npm:^4.2.1":
+  version: 4.3.2
+  resolution: "ansi-escapes@npm:4.3.2"
+  dependencies:
+    type-fest: ^0.21.3
+  checksum: 93111c42189c0a6bed9cdb4d7f2829548e943827ee8479c74d6e0b22ee127b2a21d3f8b5ca57723b8ef78ce011fbfc2784350eb2bde3ccfccf2f575fa8489815
   languageName: node
   linkType: hard
 
@@ -4621,12 +4639,14 @@ __metadata:
   dependencies:
     "@types/fs-extra": ^11.0.1
     "@types/is-ci": ^3.0.0
+    "@types/terminal-link": ^1.2.0
     "@types/webpack-bundle-analyzer": ^4.6.0
     fs-extra: ^11.1.1
     in-it-shared-types: 1.0.20
     is-ci: ^3.0.1
     next: ^13.4.2
     picocolors: ^1.0.0
+    terminal-link: ^2.0.0
     typescript: ^5.0.4
     vitest: ^0.30.1
     webpack-bundle-analyzer: ^4.8.0
@@ -6218,7 +6238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-hyperlinks@npm:^2.2.0":
+"supports-hyperlinks@npm:^2.0.0, supports-hyperlinks@npm:^2.2.0":
   version: 2.3.0
   resolution: "supports-hyperlinks@npm:2.3.0"
   dependencies:
@@ -6323,6 +6343,26 @@ __metadata:
     mkdirp: ^1.0.3
     yallist: ^4.0.0
   checksum: a1be0815a9bdc97dfca7c6c2d71d1b836f8ba9314684e2c412832f0f59cc226d4c13da303d6bc30925e82f634cc793f40da79ae72f3e96fb87c23d0f4efd5207
+  languageName: node
+  linkType: hard
+
+"terminal-link@npm:*":
+  version: 3.0.0
+  resolution: "terminal-link@npm:3.0.0"
+  dependencies:
+    ansi-escapes: ^5.0.0
+    supports-hyperlinks: ^2.2.0
+  checksum: 85a78ae50a2cd3c43df25922e7572f1008c92b1ea98c6c4579bbbe02fa54677a487123c3cae44fecd1a36cac782d0be2cec212a916818abb2b4df6fbb8eed341
+  languageName: node
+  linkType: hard
+
+"terminal-link@npm:^2.0.0":
+  version: 2.1.1
+  resolution: "terminal-link@npm:2.1.1"
+  dependencies:
+    ansi-escapes: ^4.2.1
+    supports-hyperlinks: ^2.0.0
+  checksum: ce3d2cd3a438c4a9453947aa664581519173ea40e77e2534d08c088ee6dda449eabdbe0a76d2a516b8b73c33262fedd10d5270ccf7576ae316e3db170ce6562f
   languageName: node
   linkType: hard
 
@@ -6523,6 +6563,13 @@ __metadata:
   version: 0.20.2
   resolution: "type-fest@npm:0.20.2"
   checksum: 4fb3272df21ad1c552486f8a2f8e115c09a521ad7a8db3d56d53718d0c907b62c6e9141ba5f584af3f6830d0872c521357e512381f24f7c44acae583ad517d73
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^0.21.3":
+  version: 0.21.3
+  resolution: "type-fest@npm:0.21.3"
+  checksum: e6b32a3b3877f04339bae01c193b273c62ba7bfc9e325b8703c4ee1b32dc8fe4ef5dfa54bf78265e069f7667d058e360ae0f37be5af9f153b22382cd55a9afe0
   languageName: node
   linkType: hard
 
