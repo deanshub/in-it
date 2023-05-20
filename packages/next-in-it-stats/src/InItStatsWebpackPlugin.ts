@@ -1,6 +1,8 @@
 import fs from 'fs-extra';
 import terminalLink from 'terminal-link';
 import pc from 'picocolors';
+import fetch from 'node-fetch';
+import FormData from 'form-data';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
@@ -10,6 +12,8 @@ interface InItStatsWebpackPluginOptions {
 }
 
 const pluginName = 'InItStatsWebpackPlugin';
+
+// const log = (...args: any[]) => console.log(...args.map((a) => pc.bold(pc.gray(a))));
 
 export default class InItStatsWebpackPlugin {
   constructor(private options: InItStatsWebpackPluginOptions) {}
@@ -24,21 +28,17 @@ export default class InItStatsWebpackPlugin {
         const serverUrl = new URL(this.options.serverUrl);
 
         const file = await fs.readFile(this.options.reportFilename);
-        const blob = new Blob([file], { type: 'application/octet-stream' });
-        const headers = {
-          'Content-Type': 'multipart/form-data',
-        };
-
         const formData = new FormData();
-        formData.append('file', blob);
+        formData.append('file', file, this.options.reportFilename);
+
         const response = await fetch(serverUrl.toString(), {
           method: 'POST',
           body: formData,
-          headers,
         });
         if (!response.ok) {
-          console.log(response.statusText);
-          console.warn(`in-it stats could not send to server`);
+          // console.log(response);
+          console.log(pc.yellow(response.statusText));
+          console.log(pc.yellow(`Can't send in-it stats to the server`));
         } else {
           const data = (await response.json()) as PostStatsResponse;
           console.log(
@@ -48,7 +48,7 @@ export default class InItStatsWebpackPlugin {
           );
         }
       } else {
-        console.warn(`in-it stats "${this.options.reportFilename}" does not exist`);
+        console.log(pc.yellow(`in-it stats "${this.options.reportFilename}" does not exist`));
       }
     });
   }
