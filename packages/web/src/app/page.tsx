@@ -2,8 +2,10 @@
 
 import React, { useRef, useState } from 'react';
 import clsx from 'clsx';
-import type { FormEvent, DragEvent } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import type { FormEvent, DragEvent } from 'react';
+
 // import type { BlobResult } from '@vercel/blob';
 
 export default function Home() {
@@ -13,12 +15,27 @@ export default function Home() {
   // const [blob, setBlob] = useState<BlobResult | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const submitStatsFile = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
       const formData = new FormData(formRef.current!);
+      if (user?.email) {
+        formData.append('userEmail', user.email);
+      }
+      if (user?.name) {
+        formData.append('userName', user?.name);
+      }
+      // TODO: extend the type of user to include id
+      // @ts-expect-error-next-line
+      if (user?.id) {
+        // @ts-expect-error-next-line
+        formData.append('githubUsername', user?.id);
+      }
+
       const response = await fetch('/api/stats', {
         method: 'POST',
         body: formData,

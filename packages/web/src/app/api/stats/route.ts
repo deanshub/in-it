@@ -16,6 +16,16 @@ export async function POST(request: Request) {
 
   const type = (form.get('type') as null | string) ?? 'local';
   const appId = form.get('appId') as null | string;
+  const userEmail = form.get('userEmail') as null | string;
+  const userName = form.get('userName') as null | string;
+  const githubUsername = form.get('githubUsername') as null | string;
+
+  // TODO: use the data to store in DB
+  console.log({
+    userEmail,
+    userName,
+    githubUsername,
+  });
 
   if (type !== 'local' && type !== 'ci') {
     return new NextResponse(`in-it stats "${type}" is not supported`, {

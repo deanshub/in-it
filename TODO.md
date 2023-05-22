@@ -43,7 +43,11 @@ TODOs
 - [ ] compare in-it entrypoints with the bundle-analyzer entrypoints
 - [ ] support old bundle-analyzer report only if legacy flag is on
 - [ ] yarn\next dev should indicate local type of build
-- [ ] model the data
+- [x] model the data
+- [ ] send bundle sizes
+- [ ] cosmiconfig settings
+    - [ ] what to track
+    - [ ] limits (absolute, precent)
 - [ ] store the data
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR

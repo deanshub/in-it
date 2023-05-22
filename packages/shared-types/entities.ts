@@ -36,3 +36,16 @@ export type NextStatsPluginOptions = Omit<InItStatsPluginOptions, 'entry' | 'out
 export interface User {
   githubUsername: string;
 }
+
+export interface BasicPackageData {
+  repository: string;
+  packagePath: string;
+  name?: string;
+  packageName?: string;
+}
+
+export interface CompilationSizes {
+  statSize: number;
+  gzipSize: number;
+  parsedSize: number;
+}
