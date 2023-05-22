@@ -4,7 +4,9 @@ TODOs
 - [ ] Generate stats
     - [x] rollup
     - [ ] vite
-    - [x] nextjs
+    - [ ] nextjs (legacy)
+        - [x] legacy
+        - [ ] modern
     - [ ] webpack
 - [ ] Test
     - [x] fixture - e2e

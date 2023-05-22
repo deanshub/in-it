@@ -39,7 +39,7 @@ export interface StatsDocument extends BasicPackageData, CompilationSizes {
   version: string;
   buildId: string;
   createdAt: Date;
-  envirmonet: 'local' | 'ci';
+  envirmonet: 'local' | 'ci' | 'web';
   branch: string;
   compilationStatsUrl: string;
   compilation: string;

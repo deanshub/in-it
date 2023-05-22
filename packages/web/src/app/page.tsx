@@ -23,6 +23,7 @@ export default function Home() {
     setLoading(true);
     try {
       const formData = new FormData(formRef.current!);
+      formData.append('enviroment', 'web'); // TODO: make it so it's not needed (maybe a different endpoint)
       if (user?.email) {
         formData.append('userEmail', user.email);
       }
