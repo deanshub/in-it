@@ -1,14 +1,17 @@
 import fs from 'fs-extra';
+import path from 'path';
 import terminalLink from 'terminal-link';
 import pc from 'picocolors';
 import fetch from 'node-fetch';
 import FormData from 'form-data';
+import isCI from 'is-ci';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
 interface InItStatsWebpackPluginOptions {
   reportFilename: string;
   serverUrl: string;
+  buildId: string;
 }
 
 const pluginName = 'InItStatsWebpackPlugin';
@@ -21,7 +24,9 @@ export default class InItStatsWebpackPlugin {
     compiler.hooks.done.tap(pluginName, async (compilation) => {
       const exists = await fs.exists(this.options.reportFilename);
       if (exists) {
-        if (!this.options.serverUrl) {
+        const fileStat = await fs.stat(this.options.reportFilename);
+        const emptyStats = fileStat.size < 3;
+        if (!this.options.serverUrl || emptyStats) {
           //   console.warn(`in-it stats serverUrl is not defined`);
           return;
         }
@@ -30,6 +35,8 @@ export default class InItStatsWebpackPlugin {
         const file = await fs.readFile(this.options.reportFilename);
         const formData = new FormData();
         formData.append('file', file, this.options.reportFilename);
+        formData.append('envirmonet', isCI ? 'ci' : 'local');
+        formData.append('buildId', this.options.buildId);
 
         const response = await fetch(serverUrl.toString(), {
           method: 'POST',
@@ -41,9 +48,13 @@ export default class InItStatsWebpackPlugin {
           console.log(pc.yellow(`Can't send in-it stats to the server`));
         } else {
           const data = (await response.json()) as PostStatsResponse;
+          const name = path.basename(this.options.reportFilename, '.json');
           console.log(
             pc.green(
-              terminalLink('Analyze Bundle', `${serverUrl.protocol}${serverUrl.host}${data.url}`),
+              terminalLink(
+                `Analyze ${pc.bold(name)} Bundle`,
+                `${serverUrl.protocol}${serverUrl.host}${data.url}`,
+              ),
             ),
           );
         }

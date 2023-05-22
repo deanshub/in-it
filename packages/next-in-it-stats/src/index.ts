@@ -52,6 +52,7 @@ function nextInItStats({
           new InItStatsWebpackPlugin({
             serverUrl,
             reportFilename,
+            buildId: options.buildId,
           }),
         );
         if (typeof nextConfig.webpack === 'function') {
