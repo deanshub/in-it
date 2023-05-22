@@ -31,6 +31,7 @@ export interface InItStatsPluginOptions {
 export type RollupStatsPluginOptions = InItStatsPluginOptions;
 export type NextStatsPluginOptions = Omit<InItStatsPluginOptions, 'entry' | 'output'> & {
   outDir?: string;
+  legacy?: boolean;
 };
 
 export interface User {

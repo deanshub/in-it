@@ -7,6 +7,7 @@ import type { NextConfig } from 'next';
 
 // TODO: use options (appId)
 function nextInItStats({
+  legacy = false,
   outDir = './in-it-stats',
   serverUrl = 'https://nissix.com/api/stats',
 }: Partial<NextStatsPluginOptions> = {}) {
@@ -18,6 +19,9 @@ function nextInItStats({
     const nextConfigWithInItStats: NextConfig = {
       ...nextConfig,
       webpack(config, options) {
+        if (!legacy) {
+          throw new Error('next-in-it-stats: modern mode is not supported yet');
+        }
         let reportFilename;
         if (outDir.startsWith('.')) {
           reportFilename = join(
