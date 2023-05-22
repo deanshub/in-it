@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 
 interface Option {
@@ -16,7 +15,13 @@ export function BundleAnalyzer({ options }: BundleAnalyzerProps) {
   return (
     <div className="flex flex-col gap-2">
       <div>
-        <select className="text-black" value={runtime} onChange={(e) => setRuntime(e.target.value)}>
+        <select
+          className="text-black"
+          value={runtime}
+          onChange={(e) => {
+            setRuntime(e.target.value);
+          }}
+        >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

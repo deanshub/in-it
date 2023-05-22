@@ -41,16 +41,12 @@ function nextInItStats({
 
         config.plugins.push(
           new BundleAnalyzerPlugin({
-            analyzerMode: 'json',
+            // analyzerMode: 'static',
             // openAnalyzer: true,
-            // generateStatsFile: true,
-            // statsFilename: `${options.nextRuntime ?? 'client'}.json`,
+            // reportFilename: `${reportFilename}.html`,
+
+            analyzerMode: 'json',
             reportFilename,
-            // reportFilename: !options.nextRuntime
-            //   ? `./analyze/client.html`
-            //   : `../${options.nextRuntime === 'nodejs' ? '../' : ''}analyze/${
-            //       options.nextRuntime
-            //     }.html`,
             logLevel: 'silent',
           }),
           new InItStatsWebpackPlugin({

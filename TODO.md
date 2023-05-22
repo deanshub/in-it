@@ -42,9 +42,9 @@ TODOs
 - [x] don't upload stats of empty data (empty object\array) edge test-case
 - [ ] temporariliy store file and data in server memory
 - [ ] handle errors in upload in the ui
-- [ ] compare in-it entrypoints with the bundle-analyzer entrypoints
-- [ ] support old bundle-analyzer report only if legacy flag is on
-- [ ] yarn\next dev should indicate local type of build
+- [x] compare in-it entrypoints with the bundle-analyzer entrypoints
+- [x] support old bundle-analyzer report only if legacy flag is on
+- [x] yarn\next dev should indicate local type of build
 - [x] model the data
 - [ ] send bundle sizes
 - [ ] cosmiconfig settings

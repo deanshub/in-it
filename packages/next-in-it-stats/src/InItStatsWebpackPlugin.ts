@@ -35,7 +35,10 @@ export default class InItStatsWebpackPlugin {
         const file = await fs.readFile(this.options.reportFilename);
         const formData = new FormData();
         formData.append('file', file, this.options.reportFilename);
-        formData.append('envirmonet', isCI ? 'ci' : 'local');
+        formData.append(
+          'envirmonet',
+          process.env.NODE_ENV === 'production' && isCI ? 'ci' : 'local',
+        );
         formData.append('buildId', this.options.buildId);
 
         const response = await fetch(serverUrl.toString(), {
