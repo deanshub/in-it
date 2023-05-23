@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
-      <body className={clsx(inter.className, 'min-h-screen flex flex-col')}>
+      <body className={clsx(inter.className, 'min-h-screen flex flex-col', 'dark')}>
         <Providers session={session}>
           <TopBar />
           <div className="flex-1 ">{children}</div>
