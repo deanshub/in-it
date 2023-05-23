@@ -8,6 +8,11 @@ const withInItStats = require('next-in-it-stats')({
 const nextConfig = withInItStats({
   experimental: {
     appDir: true,
+     serverComponentsExternalPackages: ["mongoose"]
+  },
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
+    return config
   },
 });
 
