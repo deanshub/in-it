@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 import { getOrThrow } from '../utils/getOrThrow';
 
-// const connectMongo = async () => mongoose.connect(getOrThrow('MONGO_URI'));
-
 const MONGODB_URI = getOrThrow('MONGODB_URI');
 
 /**
