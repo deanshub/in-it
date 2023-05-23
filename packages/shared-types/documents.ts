@@ -7,13 +7,14 @@ export interface AppsDocument extends BasicPackageData {
 
 // created (and updated) when user logges-in
 export interface UserDocument {
-  _id: string; // generated (PK)
+  // _id: string; // generated (PK)
   userNameInProvider: string; // githubUsername? (UK)
   provider: 'github'; // | 'gitlab' | 'bitbucket'; (UK)
   email: string;
   name?: string;
   avatarUrl?: string;
-  createdAt: Date;
+  role: 'admin' | 'user';
+  // createdAt: Date;
 }
 
 // Created when user goes to a build\app url (asyncly create if not exists)
