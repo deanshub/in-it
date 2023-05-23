@@ -11,8 +11,6 @@ const MONGODB_URI = getOrThrow('MONGODB_URI')
  * in development. This prevents connections growing exponentially
  * during API Route usage.
  */
-
-
 let cached = global.mongoose
 
 if (!cached) {
@@ -25,7 +23,6 @@ async function dbConnect () {
   }
 
   if (!cached.promise) {
-    // cached.promise = Promise.resolve()
     cached.promise = mongoose.connect(MONGODB_URI).then(mongoose => {
       console.log('Connected to MongoDB successfully');
       
