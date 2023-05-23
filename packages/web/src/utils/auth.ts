@@ -13,14 +13,22 @@ export const nextAuthOptions: AuthOptions = {
     GithubProvider({
       clientId: getOrThrow('GITHUB_ID'),
       clientSecret: getOrThrow('GITHUB_SECRET'),
+      profile(profile) {
+        const { login: userNameInProvider, name, email, avatar_url } = profile;
+        return {
+          id: userNameInProvider,
+          name: name ?? userNameInProvider,
+          email: email,
+          image: avatar_url,
+        };
+      },
     }),
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({ account, user, profile }) {
+    async signIn({ account, user }) {
       const provider = account?.provider;
-      const { name: userNameInProvider, email, image } = user;
-      const { name } = profile!;
+      const { id: userNameInProvider, name, email, image } = user;
 
       try {
         await dbConnect();
@@ -35,7 +43,7 @@ export const nextAuthOptions: AuthOptions = {
             },
             $setOnInsert: { provider, userNameInProvider, role: 'user' },
           },
-          { upsert: true },
+          { upsert: true, timestamps: true },
         );
       } catch (error) {
         console.error(error);
