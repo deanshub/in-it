@@ -7,9 +7,8 @@ const withMDX = require('@next/mdx')({
   options: {
     remarkPlugins: [],
     rehypePlugins: [],
-  }
+  },
 });
-
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -19,11 +18,21 @@ const nextConfig = {
     mdxRs: true,
     esmExternals: 'loose',
     appDir: true,
-    serverComponentsExternalPackages: ["mongoose"]
+    serverComponentsExternalPackages: ['mongoose'],
   },
   webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true }
-    return config
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 };
 

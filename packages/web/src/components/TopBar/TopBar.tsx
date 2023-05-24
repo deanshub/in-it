@@ -33,7 +33,13 @@ function Logout() {
       }}
       href="/api/auth/signout"
     >
-      {user?.name}
+      <Image
+        src={user?.image ?? '/unknown.png'}
+        alt={user?.name ?? 'unknown'}
+        width={32}
+        height={32}
+        className="rounded-full"
+      />
     </Link>
   );
 }
