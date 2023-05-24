@@ -117,6 +117,7 @@ export function LineChart() {
     [],
   );
   return (
+    // @ts-expect-error-next-line
     <ResponsiveLine
       data={data}
       colors={{ scheme: 'pastel1' }}
