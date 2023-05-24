@@ -11,6 +11,13 @@
     "genereateKey": "jose newkey -s 512 -t oct -a HS512"
   },
   "dependencies": {
+    "@mdx-js/loader": "^2.3.0",
+    "@mdx-js/react": "^2.3.0",
+    "@next/mdx": "^13.4.3",
+    "@nivo/core": "^0.83.0",
+    "@nivo/line": "^0.83.0",
+    "@radix-ui/react-slot": "^1.0.1",
+    "@types/mdx": "^2.0.5",
     "@types/node": "18.16.3",
     "@types/react": "18.2.5",
     "@types/react-dom": "18.2.3",
