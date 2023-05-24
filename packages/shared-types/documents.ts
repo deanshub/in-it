@@ -6,7 +6,6 @@ export type AppsDocument = WithId<BasicPackageData>;
 
 // created (and updated) when user logges-in
 export type UserDocument = WithId<{
-  _id: string; // generated (PK)
   userNameInProvider: string; // githubUsername? (UK)
   provider: 'github'; // | 'gitlab' | 'bitbucket'; (UK)
   email: string;
@@ -24,7 +23,6 @@ export interface AppUsersDocument {
 
 // created when user pays, queried when a user goes to a build\app url
 export type LicenseDocument = WithId<{
-  _id: string; // generated (PK)
   appId: string; // (FK)
   payingUserId: string; // (FK)
   licenseType: 'free' | 'pro' | 'enterprise';
@@ -35,7 +33,6 @@ export type LicenseDocument = WithId<{
 export type StatsDocument = WithId<
   BasicPackageData &
     CompilationSizes & {
-      _id: string;
       appId: string; // (FK)
       userId?: string; // (FK)
       version: string;
