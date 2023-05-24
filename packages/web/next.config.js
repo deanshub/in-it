@@ -3,17 +3,28 @@ const withInItStats = require('next-in-it-stats')({
   // serverUrl: '',
   // serverUrl: 'http://localhost:3001/api/stats',
 });
+const withMDX = require('@next/mdx')({
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  }
+});
+
 
 /** @type {import('next').NextConfig} */
-const nextConfig = withInItStats({
+const nextConfig = {
+  reactStrictMode: true,
+  transpilePackages: ['@nivo'],
   experimental: {
+    mdxRs: true,
+    esmExternals: 'loose',
     appDir: true,
-     serverComponentsExternalPackages: ["mongoose"]
+    serverComponentsExternalPackages: ["mongoose"]
   },
   webpack(config) {
     config.experiments = { ...config.experiments, topLevelAwait: true }
     return config
   },
-});
+};
 
-module.exports = nextConfig;
+module.exports = withInItStats(withMDX(nextConfig));
