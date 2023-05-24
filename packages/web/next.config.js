@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const withInItStats = require('next-in-it-stats')({
   legacy: true,
   // serverUrl: '',
