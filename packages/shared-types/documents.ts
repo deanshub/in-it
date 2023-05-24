@@ -40,7 +40,7 @@ export type StatsDocument = WithId<
       buildId: string;
       createdAt: Date;
       envirmonet: 'local' | 'ci' | 'web';
-      branch: string;
+      branch?: string;
       compilationStatsUrl: string;
       compilation: string;
       generatingTool: string;

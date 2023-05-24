@@ -39,11 +39,11 @@ export interface User {
 }
 
 export interface BasicPackageData {
+  provider?: SourceCodeProvider; // (UK)
   repository?: string;
   packagePath: string;
   name?: string;
   packageName?: string;
-  provider?: SourceCodeProvider; // (UK)
 }
 
 export interface CompilationSizes {
