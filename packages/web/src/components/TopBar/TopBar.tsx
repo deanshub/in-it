@@ -41,7 +41,7 @@ function Logout() {
 function Login() {
   return (
     <Link
-      href="/api/auth/signin"
+      href="/api/auth/signin/github"
       className="flex items-center gap-2"
       onClick={(e) => {
         e.preventDefault();
