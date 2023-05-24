@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   const envirmonet = (form.get('envirmonet') as null | string) ?? 'local';
   let version = form.get('version') as null | string;
   const name = form.get('name') as null | string;
-  const buildId = (form.get('buildId') as null | string) ?? generateBuildId();
+  const buildId = form.get('buildId') as null | string;
   const userEmail = form.get('userEmail') as null | string;
   const userName = form.get('userName') as null | string;
   const userNameInProvider = form.get('userNameInProvider') as null | string;
