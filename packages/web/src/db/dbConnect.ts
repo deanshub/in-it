@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import { getOrThrow } from '../utils/getOrThrow';
+import '@/db/app';
+import '@/db/appUsers';
+import '@/db/user';
 
 const MONGODB_URI = getOrThrow('MONGODB_URI');
 

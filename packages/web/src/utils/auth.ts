@@ -43,7 +43,7 @@ export const nextAuthOptions: AuthOptions = {
             },
             $setOnInsert: { provider, userNameInProvider, role: 'user' },
           },
-          { upsert: true, timestamps: true },
+          { upsert: true },
         );
       } catch (error) {
         console.error(error);
