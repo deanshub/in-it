@@ -13,6 +13,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
+    '@typescript-eslint/no-empty-function': 'off',
   },
   ignorePatterns: [
     '**/dist/**/*', // Ignore built files.
