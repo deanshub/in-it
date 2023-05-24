@@ -1,12 +1,11 @@
 import { BasicPackageData, CompilationSizes } from './entities';
 
+type WithId<T> = T & { _id: string };
 // created at build and selected from cache every build upsert asyncly every build
-export interface AppsDocument extends BasicPackageData {
-  _id: string; // generated
-}
+export type AppsDocument = WithId<BasicPackageData>;
 
 // created (and updated) when user logges-in
-export interface UserDocument {
+export type UserDocument = WithId<{
   _id: string; // generated (PK)
   userNameInProvider: string; // githubUsername? (UK)
   provider: 'github'; // | 'gitlab' | 'bitbucket'; (UK)
@@ -15,7 +14,7 @@ export interface UserDocument {
   avatarUrl?: string;
   role: 'admin' | 'user';
   createdAt: Date;
-}
+}>;
 
 // Created when user goes to a build\app url (asyncly create if not exists)
 export interface AppUsersDocument {
@@ -24,29 +23,32 @@ export interface AppUsersDocument {
 }
 
 // created when user pays, queried when a user goes to a build\app url
-export interface LicenseDocument {
+export type LicenseDocument = WithId<{
   _id: string; // generated (PK)
   appId: string; // (FK)
   payingUserId: string; // (FK)
   licenseType: 'free' | 'pro' | 'enterprise';
   startDate: Date;
   endDate: Date;
-}
+}>;
 
-export interface StatsDocument extends BasicPackageData, CompilationSizes {
-  _id: string;
-  appId: string; // (FK)
-  userId?: string; // (FK)
-  version: string;
-  buildId: string;
-  createdAt: Date;
-  envirmonet: 'local' | 'ci' | 'web';
-  branch: string;
-  compilationStatsUrl: string;
-  compilation: string;
-  generatingTool: string;
-  generatingToolVersion: string;
-}
+export type StatsDocument = WithId<
+  BasicPackageData &
+    CompilationSizes & {
+      _id: string;
+      appId: string; // (FK)
+      userId?: string; // (FK)
+      version: string;
+      buildId: string;
+      createdAt: Date;
+      envirmonet: 'local' | 'ci' | 'web';
+      branch: string;
+      compilationStatsUrl: string;
+      compilation: string;
+      generatingTool: string;
+      generatingToolVersion: string;
+    }
+>;
 
 export interface FileTrackingDocument {
   statsId: string; // (PK)
