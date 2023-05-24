@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-// import { sql } from '@vercel/postgres';
+// import * as vercelBlob from '@vercel/blob';
 import type {
   PostStatsResponse,
   // Stats,
@@ -32,6 +32,9 @@ export async function POST(request: Request) {
       status: 404,
     });
   }
+
+  // const { url } = await vercelBlob.put('articles/blob.txt', 'Hello World!', { access: 'public' });
+  // store in db
 
   // responed with hash & url
   const res: PostStatsResponse = {
