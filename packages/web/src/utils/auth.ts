@@ -2,7 +2,7 @@ import GithubProvider from 'next-auth/providers/github';
 import { getOrThrow } from '@/utils/getOrThrow';
 import type { AuthOptions } from 'next-auth';
 import dbConnect from '@/db/dbConnect';
-import User from '@/db/user';
+import User from '@/db/models/User';
 
 export const nextAuthOptions: AuthOptions = {
   // Configure one or more authentication providers

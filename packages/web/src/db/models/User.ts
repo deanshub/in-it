@@ -1,7 +1,7 @@
-import { UserDocument, AppsDocument } from 'in-it-shared-types';
+import { UserWithApps } from 'in-it-shared-types';
 import { Schema, model, models, Model } from 'mongoose';
 
-const userSchema = new Schema<UserDocument & { apps: AppsDocument[] }>(
+const userSchema = new Schema<UserWithApps>(
   {
     userNameInProvider: {
       type: String,
@@ -34,7 +34,6 @@ userSchema.virtual('apps', {
 
 userSchema.index({ userNameInProvider: 1, provider: 1 }, { unique: true });
 
-const User: Model<UserDocument & { apps: AppsDocument[] }> =
-  models.User ?? model<UserDocument & { apps: AppsDocument[] }>('User', userSchema);
+const User: Model<UserWithApps> = models.User ?? model<UserWithApps>('User', userSchema);
 
 export default User;
