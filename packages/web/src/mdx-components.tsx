@@ -9,11 +9,12 @@ import type { MDXComponents } from 'mdx/types';
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // Allows customizing built-in components, e.g. to add styling.
-    h1: ({ children }) => <h1 className="text-2xl font-bold mb-2">{children}</h1>,
+    h1: ({ children }) => <h1 className="text-2xl font-bold my-2">{children}</h1>,
+    h2: ({ children }) => <h1 className="text-lg font-bold my-2">{children}</h1>,
     ul: ({ children }) => <ul className="list-disc list-inside">{children}</ul>,
     ol: ({ children }) => <ol className="list-decimal list-inside">{children}</ol>,
     li: ({ children }) => <li className="my-4">{children}</li>,
-    p: ({ children }) => <p className="inline">{children}</p>,
+    p: ({ children }) => <p className="inline mb-2">{children}</p>,
     ...components,
   };
 }
