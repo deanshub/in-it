@@ -14,7 +14,6 @@ export async function GET() {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-
   const id = (session.user as NextAuthUser).id;
 
   // TODO add provider to user.id
