@@ -3,6 +3,7 @@ import { getOrThrow } from '@/utils/getOrThrow';
 import type { AuthOptions } from 'next-auth';
 import dbConnect from '@/db/dbConnect';
 import User from '@/db/models/User';
+import { User as NextAuthDefaultUser } from 'next-auth';
 
 export const nextAuthOptions: AuthOptions = {
   // Configure one or more authentication providers
@@ -29,7 +30,6 @@ export const nextAuthOptions: AuthOptions = {
     async signIn({ account, user }) {
       const provider = account?.provider;
       const { id: userNameInProvider, name, email, image } = user;
-
       try {
         await dbConnect();
 
@@ -57,3 +57,7 @@ export const nextAuthOptions: AuthOptions = {
     },
   },
 };
+
+export interface NextAuthUser extends NextAuthDefaultUser {
+  id: string;
+}

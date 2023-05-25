@@ -2,9 +2,10 @@ import dbConnect from '@/db/dbConnect';
 import User from '@/db/models/User';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { nextAuthOptions } from '@/utils/auth';
+import { NextAuthUser, nextAuthOptions } from '@/utils/auth';
+import AppUsers from '@/db/models/AppUsers';
 
-export async function GET(request: Request) {
+export async function GET() {
   await dbConnect();
 
   const session = await getServerSession(nextAuthOptions);
@@ -13,14 +14,13 @@ export async function GET(request: Request) {
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  // TODO change to user db id
-  const email = session.user!.email;
-  const userDoc = await User.findOne({ email })?.populate({
-    path: 'apps',
-    populate: { path: 'appId' },
-  });
-  const { apps } = userDoc?.toObject({ virtuals: true })!;
+
+  const id = (session.user as NextAuthUser).id;
+
+  // TODO add provider to user.id
+  const userDoc = await User.findOne({ userNameInProvider: id, provider: 'github' });
+  const appUsers = await AppUsers.find({ userId: userDoc?._id }).populate('appId');
 
   // @ts-ignore
-  return NextResponse.json(apps.map(({ appId }) => appId));
+  return NextResponse.json(appUsers.map((appUser) => appUser.appId.toJSON()));
 }
