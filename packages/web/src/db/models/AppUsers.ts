@@ -7,11 +7,13 @@ const appUsersSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'App',
+      index: true,
     },
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User',
+      index: true,
     },
   },
   { timestamps: true },

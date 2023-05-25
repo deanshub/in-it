@@ -20,6 +20,5 @@ export async function GET() {
   const userDoc = await User.findOne({ userNameInProvider: id, provider: 'github' });
   const appUsers = await AppUsers.find({ userId: userDoc?._id }).populate('appId');
 
-  // @ts-ignore
-  return NextResponse.json(appUsers.map((appUser) => appUser.appId.toJSON()));
+  return NextResponse.json(appUsers.map((appUser) => appUser.appId));
 }
