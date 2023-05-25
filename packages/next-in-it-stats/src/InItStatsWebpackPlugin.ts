@@ -21,7 +21,7 @@ const pluginName = 'InItStatsWebpackPlugin';
 export default class InItStatsWebpackPlugin {
   constructor(private options: InItStatsWebpackPluginOptions) {}
   apply(compiler: Compiler) {
-    compiler.hooks.done.tap(pluginName, async (compilation) => {
+    compiler.hooks.done.tapPromise(pluginName, async (compilation) => {
       const exists = await fs.exists(this.options.reportFilename);
       if (exists) {
         const fileStat = await fs.stat(this.options.reportFilename);
