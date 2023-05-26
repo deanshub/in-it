@@ -53,6 +53,7 @@ function nextInItStats({
             serverUrl,
             reportFilename,
             buildId: options.buildId,
+            outDir: join(process.cwd(), options.config.distDir),
           }),
         );
         if (typeof nextConfig.webpack === 'function') {
