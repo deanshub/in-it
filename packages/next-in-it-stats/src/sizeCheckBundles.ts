@@ -24,28 +24,34 @@ export async function sizeCheckBundles({ outDir }: { outDir: string }): Promise<
   });
   // get the size of each file
   const fileSizes: Record<string, number> = {};
-  for (const file of trackedFiles) {
-    const fileFullPath = path.join(outDir, file);
-    const fileSize = (await fs.stat(fileFullPath)).size;
-    fileSizes[file] = fileSize;
-  }
+  await Promise.all(
+    trackedFiles.map(async (file) => {
+      const fileFullPath = path.join(outDir, file);
+      const fileSize = (await fs.stat(fileFullPath)).size;
+      fileSizes[file] = fileSize;
+    }),
+  );
 
   const errors: string[] = [];
+  const matchedFiles = new Set<string>();
 
   // compare to hard coded limits
   inItConfig.limits?.forEach((limit) => {
     Object.entries(limit).forEach(([limitedGlobby, limit]) => {
       const matches = multimatch(trackedFiles, limitedGlobby);
-      matches.forEach((file) => {
-        const fileSize = fileSizes[file];
-        if (limit.maxSize && fileSize >= parse(limit.maxSize)) {
-          errors.push(
-            `File ${pc.bold(file)} size is ${pc.bold(
-              filesize(fileSize) as string,
-            )}, which is more than the limit of ${pc.bold(limit.maxSize)}`,
-          );
-        }
-      });
+      matches
+        .filter((file) => !matchedFiles.has(file))
+        .forEach((file) => {
+          matchedFiles.add(file);
+          const fileSize = fileSizes[file];
+          if (limit.maxSize && fileSize >= parse(limit.maxSize)) {
+            errors.push(
+              `File ${pc.bold(file)} size is ${pc.bold(
+                filesize(fileSize) as string,
+              )}, which is more than the limit of ${pc.bold(limit.maxSize)}`,
+            );
+          }
+        });
     });
   });
 
