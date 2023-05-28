@@ -142,7 +142,7 @@ export async function POST(request: Request) {
 
   const stats = new Stats({
     appId,
-    userId,
+    userId: user?._id,
     version,
     buildId,
     envirmonet,
