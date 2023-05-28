@@ -5,7 +5,9 @@ const appSchema = new Schema<AppsDocument>(
   {
     repository: {
       type: String,
-      required: true,
+    },
+    provider: {
+      type: String,
     },
     packagePath: {
       type: String,
