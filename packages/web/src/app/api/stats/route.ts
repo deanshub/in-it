@@ -8,8 +8,9 @@ import { updateApp } from '@/db/helpers/updateApp';
 import dbConnect from '@/db/dbConnect';
 import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from '@/utils/auth';
-import type { PostStatsResponse } from 'in-it-shared-types';
 import { createUser } from '@/db/helpers/createUser';
+import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
+import type { PostStatsResponse } from 'in-it-shared-types';
 
 export async function POST(request: Request) {
   const session = await getServerSession(nextAuthOptions);
