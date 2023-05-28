@@ -2,13 +2,19 @@ import { NextResponse } from 'next/server';
 import * as vercelBlob from '@vercel/blob';
 import Stats from '@/db/Stats';
 import { getAppId } from '@/utils/getAppId';
-// import { getNextVersion } from '@/utils/getNextVersion';
 import { getUserId } from '@/utils/getUserId';
+import { createApp } from '@/db/helpers/createApp';
+import { updateApp } from '@/db/helpers/updateApp';
+import dbConnect from '@/db/dbConnect';
+import { getServerSession } from 'next-auth';
+import { nextAuthOptions } from '@/utils/auth';
 import type { PostStatsResponse } from 'in-it-shared-types';
-import { createApp } from '@/utils/createApp';
-import { updateApp } from '@/utils/updateApp';
+import { createUser } from '@/db/helpers/createUser';
 
 export async function POST(request: Request) {
+  const session = await getServerSession(nextAuthOptions);
+  // TODO: user user session after Amit's PR
+
   const form = await request.formData();
   console.log(form);
   const files = form.getAll('file') as File[];
@@ -52,6 +58,7 @@ export async function POST(request: Request) {
     });
   }
 
+  await dbConnect();
   let appId = await getAppId({
     provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
     repository,
@@ -94,27 +101,37 @@ export async function POST(request: Request) {
   //   });
   // }
 
-  try {
-    const userId = await getUserId({
+  // try {
+  let user = await getUserId({
+    userNameInProvider,
+    provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+    email: userEmail,
+    name: userName,
+  });
+  if (!user && ((userNameInProvider && provider) || userEmail)) {
+    // create user in DB
+    user = await createUser({
       userNameInProvider,
       provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
       email: userEmail,
       name: userName,
-    });
-    if (!userId) {
-      // set it as anonymous
-    }
-  } catch (error) {
-    return new NextResponse(`User "${userNameInProvider ?? userEmail ?? ''}" not found`, {
-      status: 404,
+      avatarUrl: getNullAsUndefined(session?.user?.image),
+      role: 'user',
     });
   }
+  // } catch (error) {
+  //   return new NextResponse(`User "${userNameInProvider ?? userEmail ?? ''}" not found`, {
+  //     status: 404,
+  //   });
+  // }
 
-  // if connection between user and app does not exist, create one
-  // await createAppUserConnection({
-  //   appId,
-  //   userId,
-  // });
+  // if connection between user and app does not exist, create one (no await intentionally)
+  if (user) {
+    createAppUserConnection({
+      appId,
+      userId: user._id,
+    });
+  }
 
   const statsFilePath = `${envirmonet}/${compilation}/stats.json`;
   const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, files[0], {

@@ -1,4 +1,4 @@
-import App from '../db/models/App';
+import App from '../models/App';
 import type { AppsDocument } from 'in-it-shared-types';
 
 type UpdateAppOptions = Partial<AppsDocument>;
