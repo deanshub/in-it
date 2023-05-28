@@ -42,6 +42,12 @@ export async function POST(request: Request) {
     });
   }
 
+  if (provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
+    return new NextResponse(`Provider "${provider}" is not supported`, {
+      status: 404,
+    });
+  }
+
   const appId = await getAppId({
     provider,
     repository,
