@@ -18,12 +18,7 @@ export async function POST(request: Request) {
   // TODO: user user session after Amit's PR
 
   const form = await request.formData();
-  console.log(form);
   const files = form.getAll('file') as File[];
-  console.log(files);
-  // const file = form.get('file') as File;
-  // const stats: Stats = await request.json();
-  // store in DB
 
   const envirmonet = (form.get('envirmonet') as null | string) ?? 'local';
   const version = getNullAsUndefined(form.get('version') as null | string);
@@ -48,7 +43,7 @@ export async function POST(request: Request) {
   const statGzipSize = 0;
   const parsedSize = 0;
 
-  if (envirmonet !== 'local' && envirmonet !== 'ci') {
+  if (envirmonet !== 'local' && envirmonet !== 'ci' && envirmonet !== 'web') {
     return new NextResponse(`in-it stats "${envirmonet}" is not supported`, {
       status: 404,
     });
@@ -94,15 +89,6 @@ export async function POST(request: Request) {
     // console.log('App updated');
   }
 
-  // if (!version) {
-  //   version = await getNextVersion({
-  //     appId,
-  //     envirmonet,
-  //     branch,
-  //     compilation,
-  //   });
-  // }
-
   // try {
   let user = await getUserId({
     userNameInProvider,
@@ -135,6 +121,7 @@ export async function POST(request: Request) {
     });
   }
 
+  // TODO: check what's the best unique path for the stats
   const statsFilePath = `${envirmonet}/${compilation}/stats.json`;
   const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, files[0], {
     access: 'public',
