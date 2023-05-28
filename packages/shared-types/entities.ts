@@ -43,7 +43,7 @@ export interface BasicPackageData {
   packagePath: string;
   name?: string;
   packageName?: string;
-  provider?: 'github'; // | 'gitlab' | 'bitbucket'; (UK)
+  provider?: SourceCodeProvider; // (UK)
 }
 
 export interface CompilationSizes {
@@ -51,3 +51,5 @@ export interface CompilationSizes {
   gzipSize: number;
   parsedSize: number;
 }
+
+export type SourceCodeProvider = 'github' | 'gitlab' | 'bitbucket';
