@@ -1,3 +1,4 @@
+import fs from 'fs-extra';
 import { NextResponse } from 'next/server';
 import * as vercelBlob from '@vercel/blob';
 import Stats from '@/db/Stats';
@@ -11,7 +12,7 @@ import { nextAuthOptions } from '@/utils/auth';
 import { createUser } from '@/db/helpers/createUser';
 import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
 import { getNullAsUndefined } from '@/utils/getNullAsUndefined';
-import type { PostStatsResponse } from 'in-it-shared-types';
+import type { BundleStatsReport, PostStatsResponse } from 'in-it-shared-types';
 
 export async function POST(request: Request) {
   const session = await getServerSession(nextAuthOptions);
@@ -37,11 +38,6 @@ export async function POST(request: Request) {
   const repository = getNullAsUndefined(form.get('repository') as null | string);
   const packagePath = getNullAsUndefined(form.get('packagePath') as null | string);
   const packageName = getNullAsUndefined(form.get('packageName') as null | string);
-
-  // TODO: read sizes from the file
-  const statSize = 0;
-  const statGzipSize = 0;
-  const parsedSize = 0;
 
   if (envirmonet !== 'local' && envirmonet !== 'ci' && envirmonet !== 'web') {
     return new NextResponse(`in-it stats "${envirmonet}" is not supported`, {
@@ -122,10 +118,21 @@ export async function POST(request: Request) {
   }
 
   // TODO: check what's the best unique path for the stats
+  const statsFile = files[0];
+  const statsFileJson: BundleStatsReport[] = JSON.parse(await statsFile.text());
   const statsFilePath = `${envirmonet}/${compilation}/stats.json`;
-  const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, files[0], {
+  const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, statsFile, {
     access: 'public',
     contentType: 'application/json',
+  });
+
+  let statSize = 0;
+  let gzipSize = 0;
+  let parsedSize = 0;
+  statsFileJson.forEach((bundle) => {
+    statSize += bundle?.statSize ?? 0;
+    gzipSize += bundle?.gzipSize ?? 0;
+    parsedSize += bundle?.parsedSize ?? 0;
   });
 
   const stats = new Stats({
@@ -145,7 +152,7 @@ export async function POST(request: Request) {
     name,
     packageName,
     statSize,
-    statGzipSize,
+    gzipSize,
     parsedSize,
   });
 
