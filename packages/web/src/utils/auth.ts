@@ -3,7 +3,7 @@ import { getOrThrow } from '@/utils/getOrThrow';
 import type { AuthOptions } from 'next-auth';
 import dbConnect from '@/db/dbConnect';
 import User from '@/db/models/User';
-import { User as NextAuthDefaultUser } from 'next-auth';
+import { UserDocument } from 'in-it-shared-types';
 
 export const nextAuthOptions: AuthOptions = {
   // Configure one or more authentication providers
@@ -15,10 +15,10 @@ export const nextAuthOptions: AuthOptions = {
       clientId: getOrThrow('GITHUB_ID'),
       clientSecret: getOrThrow('GITHUB_SECRET'),
       profile(profile) {
-        const { login: userNameInProvider, name, email, avatar_url } = profile;
+        const { login, name, email, avatar_url } = profile;
         return {
-          id: userNameInProvider,
-          name: name ?? userNameInProvider,
+          id: login,
+          name: name ?? login,
           email: email,
           image: avatar_url,
         };
@@ -27,37 +27,47 @@ export const nextAuthOptions: AuthOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({ account, user }) {
+    jwt({ token, account }) {
+      if (account) {
+        token.provider = account.provider;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      const { sub, provider } = token;
+
+      return { ...session, user: { ...session.user, id: sub, provider } };
+    },
+  },
+  events: {
+    async signIn({ user, account }) {
       const provider = account?.provider;
-      const { id: userNameInProvider, name, email, image } = user;
+      const { id, name, email, image } = user;
+
+      const setOnInsert: Partial<UserDocument> = { role: 'user' };
+
+      if (provider === 'github') {
+        setOnInsert['githubUserName'] = id;
+      }
+
       try {
         await dbConnect();
 
         await User.updateOne(
-          { provider, userNameInProvider },
+          { githubUserName: id },
           {
             $set: {
               email,
               name,
               avatarUrl: image,
             },
-            $setOnInsert: { provider, userNameInProvider, role: 'user' },
+            $setOnInsert: setOnInsert,
           },
           { upsert: true },
         );
       } catch (error) {
         console.error(error);
-        return false;
       }
-
-      return true;
-    },
-    async session({ session, token }) {
-      return { ...session, user: { ...session.user, id: token.sub } };
     },
   },
 };
-
-export interface NextAuthUser extends NextAuthDefaultUser {
-  id: string;
-}

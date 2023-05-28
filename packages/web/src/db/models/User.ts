@@ -3,13 +3,9 @@ import { Schema, model, models, Model } from 'mongoose';
 
 const userSchema = new Schema<UserWithApps>(
   {
-    userNameInProvider: {
+    githubUserName: {
       type: String,
-      required: true,
-    },
-    provider: {
-      type: String,
-      required: true,
+      index: { unique: true },
     },
     email: {
       type: String,
@@ -31,8 +27,6 @@ userSchema.virtual('apps', {
   localField: '_id',
   foreignField: 'userId',
 });
-
-userSchema.index({ userNameInProvider: 1, provider: 1 }, { unique: true });
 
 const User: Model<UserWithApps> = models.User ?? model<UserWithApps>('User', userSchema);
 
