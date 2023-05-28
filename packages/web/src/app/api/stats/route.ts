@@ -2,9 +2,11 @@ import { NextResponse } from 'next/server';
 import * as vercelBlob from '@vercel/blob';
 import Stats from '@/db/Stats';
 import { getAppId } from '@/utils/getAppId';
-import { getNextVersion } from '@/utils/getNextVersion';
+// import { getNextVersion } from '@/utils/getNextVersion';
 import { getUserId } from '@/utils/getUserId';
 import type { PostStatsResponse } from 'in-it-shared-types';
+import { createApp } from '@/utils/createApp';
+import { updateApp } from '@/utils/updateApp';
 
 export async function POST(request: Request) {
   const form = await request.formData();
@@ -16,20 +18,22 @@ export async function POST(request: Request) {
   // store in DB
 
   const envirmonet = (form.get('envirmonet') as null | string) ?? 'local';
-  let version = form.get('version') as null | string;
-  const name = form.get('name') as null | string;
-  const buildId = form.get('buildId') as null | string;
-  const userEmail = form.get('userEmail') as null | string;
-  const userName = form.get('userName') as null | string;
-  const userNameInProvider = form.get('userNameInProvider') as null | string;
-  const provider = (form.get('provider') as null | string) ?? 'github';
+  const version = getNullAsUndefined(form.get('version') as null | string);
+  const name = getNullAsUndefined(form.get('name') as null | string);
+  const buildId = getNullAsUndefined(form.get('buildId') as null | string);
+  const userEmail = getNullAsUndefined(form.get('userEmail') as null | string);
+  const userName = getNullAsUndefined(form.get('userName') as null | string);
+  const userNameInProvider = getNullAsUndefined(form.get('userNameInProvider') as null | string);
+  const provider = getNullAsUndefined(form.get('provider') as null | string);
   const compilation = (form.get('compilation') as null | string) ?? 'client';
-  const branch = form.get('branch') as null | string;
-  const generatingTool = form.get('generatingTool') as null | string;
-  const generatingToolVersion = form.get('generatingToolVersion') as null | string;
-  const repository = form.get('repository') as null | string;
-  const packagePath = form.get('packagePath') as null | string;
-  const packageName = form.get('packageName') as null | string;
+  const branch = getNullAsUndefined(form.get('branch') as null | string);
+  const generatingTool = getNullAsUndefined(form.get('generatingTool') as null | string);
+  const generatingToolVersion = getNullAsUndefined(
+    form.get('generatingToolVersion') as null | string,
+  );
+  const repository = getNullAsUndefined(form.get('repository') as null | string);
+  const packagePath = getNullAsUndefined(form.get('packagePath') as null | string);
+  const packageName = getNullAsUndefined(form.get('packageName') as null | string);
 
   // TODO: read sizes from the file
   const statSize = 0;
@@ -42,14 +46,14 @@ export async function POST(request: Request) {
     });
   }
 
-  if (provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
+  if (provider && provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
     return new NextResponse(`Provider "${provider}" is not supported`, {
       status: 404,
     });
   }
 
-  const appId = await getAppId({
-    provider,
+  let appId = await getAppId({
+    provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
     repository,
     packagePath,
     name,
@@ -61,21 +65,39 @@ export async function POST(request: Request) {
   // if yes, update the existing app
   if (!appId) {
     // create new app in db and return appId
+    const app = await createApp({
+      provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+      repository,
+      packagePath,
+      name,
+      packageName,
+    });
+    appId = app._id;
+  } else {
+    // update existing app in db (no await intentionally)
+    updateApp(appId, {
+      provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+      repository,
+      packagePath,
+      name,
+      packageName,
+    });
+    // console.log('App updated');
   }
 
-  if (!version) {
-    version = await getNextVersion({
-      appId,
-      envirmonet,
-      branch,
-      compilation,
-    });
-  }
+  // if (!version) {
+  //   version = await getNextVersion({
+  //     appId,
+  //     envirmonet,
+  //     branch,
+  //     compilation,
+  //   });
+  // }
 
   try {
     const userId = await getUserId({
       userNameInProvider,
-      provider,
+      provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
       email: userEmail,
       name: userName,
     });
@@ -130,4 +152,8 @@ export async function POST(request: Request) {
     url: `/analyze/${stats._id}`,
   };
   return NextResponse.json(res);
+}
+
+function getNullAsUndefined<T>(value: T | null): T | undefined {
+  return value === null ? undefined : value;
 }

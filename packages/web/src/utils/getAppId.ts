@@ -1,13 +1,7 @@
 import { BasicPackageData } from 'in-it-shared-types';
 import App from '../db/models/App';
 
-interface AppIdOptions {
-  provider: BasicPackageData['provider'];
-  repository: string | null;
-  packagePath: string | null;
-  name: string | null;
-  packageName: string | null;
-}
+type AppIdOptions = Partial<BasicPackageData>;
 
 export async function getAppId({
   provider,

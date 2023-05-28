@@ -59,5 +59,4 @@ export interface FileTrackingDocument {
   };
 }
 
-
 export type UserWithApps = UserDocument & { apps: AppsDocument[] };

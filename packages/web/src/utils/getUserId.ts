@@ -4,7 +4,9 @@ export async function getUserId({
   userNameInProvider,
   provider,
   email,
-}: Pick<UserDocument, 'userNameInProvider' | 'provider' | 'email'>): Promise<string | null> {
+}: Partial<Pick<UserDocument, 'userNameInProvider' | 'provider' | 'email' | 'name'>>): Promise<
+  string | null
+> {
   if (userNameInProvider && provider) {
     // query db for userId using userNameInProvider, provider
     // if exists, return userId
