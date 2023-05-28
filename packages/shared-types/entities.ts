@@ -39,10 +39,11 @@ export interface User {
 }
 
 export interface BasicPackageData {
-  repository: string;
+  repository?: string;
   packagePath: string;
   name?: string;
   packageName?: string;
+  provider?: 'github'; // | 'gitlab' | 'bitbucket'; (UK)
 }
 
 export interface CompilationSizes {
