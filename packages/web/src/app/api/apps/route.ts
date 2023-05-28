@@ -16,7 +16,6 @@ export async function GET() {
 
   const id = (session.user as NextAuthUser).id;
 
-  // TODO add provider to user.id
   const userDoc = await User.findOne({ userNameInProvider: id, provider: 'github' });
   const appUsers = await AppUsers.find({ userId: userDoc?._id }).populate('appId');
 
