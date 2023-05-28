@@ -40,7 +40,7 @@ TODOs
 - [x] show bundle analyzer in web app
 - [x] bundle analyze in dev only if explicitly asked
 - [x] don't upload stats of empty data (empty object\array) edge test-case
-- [ ] store data in db
+- [x] store data in db
 - [ ] handle errors in upload in the ui
 - [x] compare in-it entrypoints with the bundle-analyzer entrypoints
 - [x] support old bundle-analyzer report only if legacy flag is on

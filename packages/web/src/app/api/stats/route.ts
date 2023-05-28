@@ -10,6 +10,7 @@ import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from '@/utils/auth';
 import { createUser } from '@/db/helpers/createUser';
 import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
+import { getNullAsUndefined } from '@/utils/getNullAsUndefined';
 import type { PostStatsResponse } from 'in-it-shared-types';
 
 export async function POST(request: Request) {
@@ -170,8 +171,4 @@ export async function POST(request: Request) {
     url: `/analyze/${stats._id}`,
   };
   return NextResponse.json(res);
-}
-
-function getNullAsUndefined<T>(value: T | null): T | undefined {
-  return value === null ? undefined : value;
 }
