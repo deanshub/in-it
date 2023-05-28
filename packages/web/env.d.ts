@@ -1,3 +1,4 @@
+import { SourceCodeProvider } from 'in-it-shared-types';
 import Mongoose from 'mongoose';
 import { User, DefaultSession } from 'next-auth';
 
@@ -8,8 +9,8 @@ declare global {
 declare module 'next-auth' {
   export interface Session extends DefaultSession {
     user?: DefaultSession['user'] & {
-      id: string
-      provider: string
-    }
+      id: string;
+      provider: SourceCodeProvider;
+    };
   }
 }
