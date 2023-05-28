@@ -3,7 +3,8 @@ import { getOrThrow } from '@/utils/getOrThrow';
 import type { AuthOptions } from 'next-auth';
 import dbConnect from '@/db/dbConnect';
 import User from '@/db/models/User';
-import { UserDocument } from 'in-it-shared-types';
+import { getUserFilterByProvider } from '@/db/queries';
+import { SourceCodeProvider } from 'in-it-shared-types';
 
 export const nextAuthOptions: AuthOptions = {
   // Configure one or more authentication providers
@@ -41,14 +42,8 @@ export const nextAuthOptions: AuthOptions = {
   },
   events: {
     async signIn({ user, account }) {
-      const provider = account?.provider;
+      const provider = account?.provider as SourceCodeProvider;
       const { id, name, email, image } = user;
-
-      const setOnInsert: Partial<UserDocument> = { role: 'user' };
-
-      if (provider === 'github') {
-        setOnInsert['githubUserName'] = id;
-      }
 
       try {
         await dbConnect();
@@ -61,7 +56,7 @@ export const nextAuthOptions: AuthOptions = {
               name,
               avatarUrl: image,
             },
-            $setOnInsert: setOnInsert,
+            $setOnInsert: getUserFilterByProvider(provider!, id, { role: 'user' }),
           },
           { upsert: true },
         );

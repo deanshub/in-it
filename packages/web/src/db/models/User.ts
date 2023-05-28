@@ -7,6 +7,14 @@ const userSchema = new Schema<UserWithApps>(
       type: String,
       index: { unique: true },
     },
+    gitlabUserName: {
+      type: String,
+      index: { unique: true },
+    },
+    bitbucketUserName: {
+      type: String,
+      index: { unique: true },
+    },
     email: {
       type: String,
       required: true,

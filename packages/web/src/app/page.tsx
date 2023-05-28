@@ -30,10 +30,7 @@ export default function Home() {
       if (user?.name) {
         formData.append('userName', user?.name);
       }
-      // TODO: extend the type of user to include id
-      // @ts-expect-error-next-line
       if (user?.id) {
-        // @ts-expect-error-next-line
         formData.append('githubUsername', user?.id);
       }
 
