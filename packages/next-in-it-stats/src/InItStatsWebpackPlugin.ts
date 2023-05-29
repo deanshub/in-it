@@ -54,8 +54,8 @@ export default class InItStatsWebpackPlugin {
         const commitHash = await getCommitHash();
         const provider = process.env.VERCEL_GIT_PROVIDER ?? getProviderFromUrl(remoteUrl);
         const repository =
-          process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_ID
-            ? `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_ID}`
+          process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_SLUG
+            ? `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}`
             : getRepositoryFromUrl(remoteUrl);
         const gitRootDir = await getRootDir();
         const packagePath = gitRootDir ? path.relative(gitRootDir, process.cwd()) : process.cwd();
@@ -63,11 +63,7 @@ export default class InItStatsWebpackPlugin {
 
         const formData = new FormData();
         formData.append('file', file, this.options.reportFilename);
-        setFormData(
-          formData,
-          'envirmonet',
-          process.env.NODE_ENV === 'production' && isCI ? 'ci' : 'local',
-        );
+        setFormData(formData, 'envirmonet', isCI ? 'ci' : 'local');
         setFormData(formData, 'buildId', this.options.buildId);
         setFormData(formData, 'version', appPackage?.packageJson.version); // from app package.json
         setFormData(formData, 'name', this.options.name);
