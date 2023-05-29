@@ -5,6 +5,7 @@ import pc from 'picocolors';
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 import isCI from 'is-ci';
+import { sizeCheckBundles } from './sizeCheckBundles';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
@@ -12,6 +13,7 @@ interface InItStatsWebpackPluginOptions {
   reportFilename: string;
   serverUrl: string;
   buildId: string;
+  outDir: string;
 }
 
 const pluginName = 'InItStatsWebpackPlugin';
@@ -64,6 +66,8 @@ export default class InItStatsWebpackPlugin {
       } else {
         console.log(pc.yellow(`in-it stats "${this.options.reportFilename}" does not exist`));
       }
+
+      await sizeCheckBundles({ outDir: this.options.outDir });
     });
   }
 }

@@ -10,6 +10,39 @@
     "lint": "next lint",
     "genereateKey": "jose newkey -s 512 -t oct -a HS512"
   },
+  "in-it": {
+    "track": "**/*",
+    "limits": [
+      {
+        "server/chunks/**/*": {
+          "maxSize": "10mb",
+          "maxDifference": "10%"
+        }
+      },
+      {
+        "static/chunks/app/layout*": {
+          "maxSize": "2kb",
+          "maxDifference": "10%",
+          "ignorePattern": "layout(\\-.+).js$"
+        }
+      },
+      {
+        "static/chunks/app/page*": {
+          "maxSize": "3.5kb",
+          "maxDifference": "10%",
+          "prohibitedModules": [
+            "lodash"
+          ]
+        }
+      },
+      {
+        "static/**/*": {
+          "maxSize": "1mb",
+          "maxDifference": "20%"
+        }
+      }
+    ]
+  },
   "dependencies": {
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",

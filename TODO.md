@@ -46,10 +46,16 @@ TODOs
 - [x] support old bundle-analyzer report only if legacy flag is on
 - [x] yarn\next dev should indicate local type of build
 - [x] model the data
-- [ ] send bundle sizes
-- [ ] cosmiconfig settings
-    - [ ] what to track
-    - [ ] limits (absolute, precent)
+- [x] cosmiconfig settings
+    - [x] what to track
+    - [x] limits (absolute, precent)
+- [ ] bundles size check
+    - [x] absolute
+    - [ ] percent
+    - [ ] send bundle sizes (to store)
+    - [ ] ignore pattern
+    - [ ] warn on lmits that doesn't match any tracked file
+- [ ] fix the node-fetch warning in build
 - [ ] store the data
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR

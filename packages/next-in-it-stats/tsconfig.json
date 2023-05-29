@@ -4,9 +4,10 @@
         "types": ["vitest", "vitest/globals"],
         "module": "commonjs",
         "target": "ES2015",
-        "rootDir": "src",
+        "rootDir": "./src",
         "outDir": "dist/cjs",
         "allowSyntheticDefaultImports": true,
+        "allowJs": true
     },
-    "exclude":["vitest.config.ts"]
+    "exclude":["vitest.config.ts", "dist", "node_modules"]
 }

@@ -53,3 +53,17 @@ export interface CompilationSizes {
 }
 
 export type SourceCodeProvider = 'github' | 'gitlab' | 'bitbucket';
+
+export interface InItConfig {
+  track?: string | string[];
+  limits?: Limit[];
+}
+export interface Limit {
+  [glob: string]: {
+    maxSize?: string;
+    maxDifference?: string;
+    ignorePattern?: string;
+    prohibitedModules?: string[];
+    allowedModules?: string[];
+  };
+}
