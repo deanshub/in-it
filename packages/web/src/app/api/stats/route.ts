@@ -11,6 +11,7 @@ import { createUser } from '@/db/helpers/createUser';
 import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
 import { getNullAsUndefined } from '@/utils/getNullAsUndefined';
 import { Stats } from '@/db/models';
+import kuuid from 'kuuid';
 import type { BundleStatsReport, PostStatsResponse, SourceCodeProvider } from 'in-it-shared-types';
 
 export async function POST(request: Request) {
@@ -122,8 +123,8 @@ export async function POST(request: Request) {
 
   const statsFile = files[0];
   const statsFileJson: BundleStatsReport[] = JSON.parse(await statsFile.text());
-  // TODO: check what's the best unique path for the stats
-  const statsFilePath = `${envirmonet}/${compilation}/stats.json`;
+  const guid = kuuid.id();
+  const statsFilePath = `${envirmonet}/${appId}/${version}/${branch}/${compilation}/${guid}.json`;
   const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, statsFile, {
     access: 'public',
     contentType: 'application/json',
