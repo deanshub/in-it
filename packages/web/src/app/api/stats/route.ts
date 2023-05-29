@@ -11,7 +11,7 @@ import { createUser } from '@/db/helpers/createUser';
 import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
 import { getNullAsUndefined } from '@/utils/getNullAsUndefined';
 import { Stats } from '@/db/models';
-import type { BundleStatsReport, PostStatsResponse } from 'in-it-shared-types';
+import type { BundleStatsReport, PostStatsResponse, SourceCodeProvider } from 'in-it-shared-types';
 
 export async function POST(request: Request) {
   const session = await getServerSession(nextAuthOptions);
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 
   await dbConnect();
   let appId = await getAppId({
-    provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+    provider: provider as undefined | SourceCodeProvider,
     repository,
     packagePath,
     name,
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
   if (!appId) {
     // create new app in db and return appId
     const app = await createApp({
-      provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+      provider: provider as undefined | SourceCodeProvider,
       repository,
       packagePath,
       name,
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
   } else {
     // update existing app in db (no await intentionally)
     updateApp(appId, {
-      provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+      provider: provider as undefined | SourceCodeProvider,
       repository,
       packagePath,
       name,
