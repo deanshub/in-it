@@ -41,6 +41,7 @@ export type StatsDocument = WithId<
       createdAt: Date;
       envirmonet: 'local' | 'ci' | 'web';
       branch?: string;
+      commitHash?: string;
       compilationStatsUrl: string;
       compilation: string;
       generatingTool: string;

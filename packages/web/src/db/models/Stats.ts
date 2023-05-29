@@ -58,6 +58,7 @@ const statsSchema = new Schema<StatsDocument>({
   },
   name: String,
   packageName: String,
+  commitHash: String,
 
   statSize: {
     type: Number,

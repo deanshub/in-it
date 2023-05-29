@@ -42,6 +42,8 @@
     "multimatch": "^5.0.0",
     "node-fetch": "^2.0.0",
     "picocolors": "^1.0.0",
+    "read-pkg-up": "^7.0.0",
+    "simple-git": "^3.19.0",
     "terminal-link": "^2.0.0",
     "webpack-bundle-analyzer": "^4.8.0"
   },
