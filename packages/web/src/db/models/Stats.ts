@@ -74,7 +74,7 @@ const statsSchema = new Schema<StatsDocument>({
   },
 });
 
-statsSchema.index({ repository: 1, packagePath: 1 }, { unique: true });
+statsSchema.index({ repository: 1, packagePath: 1 });
 
 const Stats: Model<StatsDocument> = models.Stats ?? model<StatsDocument>('Stats', statsSchema);
 
