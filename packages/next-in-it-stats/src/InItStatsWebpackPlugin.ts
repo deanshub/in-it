@@ -7,7 +7,14 @@ import FormData from 'form-data';
 import isCI from 'is-ci';
 import { sizeCheckBundles } from './sizeCheckBundles';
 import readPackageUp from 'read-pkg-up';
-import { simpleGit } from 'simple-git';
+import {
+  getCommitHash,
+  getCurrentBranch,
+  getRemoteUrl,
+  getRootDir,
+  getUserEmail,
+  getUserName,
+} from './git';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
@@ -40,15 +47,18 @@ export default class InItStatsWebpackPlugin {
         const file = await fs.readFile(this.options.reportFilename);
         const appPackage = await readPackageUp();
         const generatorPackage = await readPackageUp({ cwd: __dirname });
-        const userEmail = (await simpleGit().raw(['config', 'user.email'])).trim();
-        const userName = (await simpleGit().raw(['config', 'user.name'])).trim();
-        const branches = await simpleGit().branch();
-        const providerUrl = (await simpleGit().raw(['remote', 'get-url', 'origin'])).trim();
-        const commitHash = (await simpleGit().raw(['rev-parse', 'HEAD'])).trim();
-        const provider = getProviderFromUrl(providerUrl);
-        const repository = getRepositoryFromUrl(providerUrl);
-        const gitRootDir = (await simpleGit().raw(['rev-parse', '--show-toplevel'])).trim();
-        const packagePath = path.relative(gitRootDir, process.cwd());
+        const userEmail = await getUserEmail();
+        const userName = await getUserName();
+        const branch = await getCurrentBranch();
+        const remoteUrl = await getRemoteUrl();
+        const commitHash = await getCommitHash();
+        const provider = process.env.VERCEL_GIT_PROVIDER ?? getProviderFromUrl(remoteUrl);
+        const repository =
+          process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_ID
+            ? `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_ID}`
+            : getRepositoryFromUrl(remoteUrl);
+        const gitRootDir = await getRootDir();
+        const packagePath = gitRootDir ? path.relative(gitRootDir, process.cwd()) : process.cwd();
         const compilation = path.basename(this.options.reportFilename, '.json');
 
         const formData = new FormData();
@@ -65,7 +75,7 @@ export default class InItStatsWebpackPlugin {
         setFormData(formData, 'userName', userName); // from git config
         setFormData(formData, 'provider', provider); // from git config remote url
         setFormData(formData, 'compilation', compilation); // from webpack stats
-        setFormData(formData, 'branch', branches.current); // from git branch
+        setFormData(formData, 'branch', branch); // from git branch
         setFormData(formData, 'generatingTool', generatorPackage?.packageJson?.name); // TOOD: maybe different endpoint
         setFormData(formData, 'generatingToolVersion', generatorPackage?.packageJson?.version); // TOOD: get from package.json
         setFormData(formData, 'repository', repository); // from git config remote url
@@ -83,7 +93,7 @@ export default class InItStatsWebpackPlugin {
             userName,
             provider,
             compilation,
-            branch: branches.current,
+            branch,
             generatingTool: generatorPackage?.packageJson?.name,
             generatingToolVersion: generatorPackage?.packageJson?.version,
             repository,
@@ -123,7 +133,10 @@ export default class InItStatsWebpackPlugin {
   }
 }
 
-function getProviderFromUrl(url: string): undefined | string {
+function getProviderFromUrl(url: undefined | string): undefined | string {
+  if (!url) {
+    return;
+  }
   const match = url.match(/^(https?:\/\/|git@)([^\\/:]+)[\\/:]/);
   if (match) {
     if (match[2] === 'github.com') {
@@ -139,7 +152,10 @@ function getProviderFromUrl(url: string): undefined | string {
   }
 }
 
-function getRepositoryFromUrl(providerUrl: string) {
+function getRepositoryFromUrl(providerUrl: undefined | string) {
+  if (!providerUrl) {
+    return;
+  }
   const match = providerUrl.match(/^(https?:\/\/|git@)([^\\/:]+)[\\/:](.+?)(?:\.git)?$/);
   if (match) {
     return match[3];
