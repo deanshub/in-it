@@ -109,7 +109,7 @@ export default class InItStatsWebpackPlugin {
           body: formData,
         });
         if (!response.ok) {
-          console.log(response);
+          // console.log(response);
           console.log(pc.red(response.statusText));
           console.log(pc.red(`Can't send in-it stats to the server`));
         } else {
