@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import * as vercelBlob from '@vercel/blob';
-import Stats from '@/db/Stats';
 import { getAppId } from '@/utils/getAppId';
 import { getUserId } from '@/utils/getUserId';
 import { createApp } from '@/db/helpers/createApp';
@@ -11,6 +10,7 @@ import { nextAuthOptions } from '@/utils/auth';
 import { createUser } from '@/db/helpers/createUser';
 import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
 import { getNullAsUndefined } from '@/utils/getNullAsUndefined';
+import { Stats } from '@/db/models';
 import type { BundleStatsReport, PostStatsResponse } from 'in-it-shared-types';
 
 export async function POST(request: Request) {
@@ -46,11 +46,11 @@ export async function POST(request: Request) {
     });
   }
 
-  // if (provider && provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
-  //   return new NextResponse(`Provider "${provider}" is not supported`, {
-  //     status: 404,
-  //   });
-  // }
+  if (provider && provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
+    return new NextResponse(`Provider "${provider}" is not supported`, {
+      status: 404,
+    });
+  }
 
   await dbConnect();
   let appId = await getAppId({
@@ -120,9 +120,9 @@ export async function POST(request: Request) {
     });
   }
 
-  // TODO: check what's the best unique path for the stats
   const statsFile = files[0];
   const statsFileJson: BundleStatsReport[] = JSON.parse(await statsFile.text());
+  // TODO: check what's the best unique path for the stats
   const statsFilePath = `${envirmonet}/${compilation}/stats.json`;
   const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, statsFile, {
     access: 'public',

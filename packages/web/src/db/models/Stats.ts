@@ -6,6 +6,7 @@ const statsSchema = new Schema<StatsDocument>({
     type: String,
     required: true,
     ref: 'App',
+    index: true,
   },
   userId: {
     type: String,
@@ -24,6 +25,7 @@ const statsSchema = new Schema<StatsDocument>({
     type: String,
     required: true,
     enum: ['local', 'ci', 'web'],
+    index: true,
   },
   branch: {
     type: String,
@@ -49,10 +51,12 @@ const statsSchema = new Schema<StatsDocument>({
   repository: {
     type: String,
     // required: true,
+    index: true,
   },
   packagePath: {
     type: String,
     // required: true,
+    index: true,
   },
   name: String,
   packageName: String,
@@ -70,8 +74,6 @@ const statsSchema = new Schema<StatsDocument>({
     required: true,
   },
 });
-
-statsSchema.index({ userNameInProvider: 1, provider: 1 }, { unique: true });
 
 const Stats: Model<StatsDocument> = models.Stats ?? model<StatsDocument>('Stats', statsSchema);
 
