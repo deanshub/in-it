@@ -2,17 +2,25 @@ import User from '../db/models/User';
 import type { UserDocument } from 'in-it-shared-types';
 
 export async function getUserId({
-  userNameInProvider,
-  provider,
+  githubUsername,
+  gitlabUsername,
+  bitbucketUsername,
   email,
-}: Partial<
-  Pick<UserDocument, 'userNameInProvider' | 'provider' | 'email' | 'name'>
->): Promise<UserDocument | null> {
-  if (userNameInProvider && provider) {
+}: Partial<UserDocument>): Promise<UserDocument | null> {
+  if (githubUsername || gitlabUsername || bitbucketUsername) {
     // query db for userId using userNameInProvider, provider
     const users = await User.find({
-      userNameInProvider,
-      provider,
+      $or: [
+        {
+          githubUsername,
+        },
+        {
+          gitlabUsername,
+        },
+        {
+          bitbucketUsername,
+        },
+      ],
     });
     // if exists, return userId
     if (users.length === 1) {
@@ -20,7 +28,9 @@ export async function getUserId({
     }
     if (users.length > 1) {
       throw new Error(
-        `Multiple users found with userNameInProvider "${userNameInProvider}" and provider "${provider}"`,
+        `Multiple users found with userNameInProvider "${
+          githubUsername ?? gitlabUsername ?? bitbucketUsername ?? ''
+        }"`,
       );
     }
   }

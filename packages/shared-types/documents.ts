@@ -6,9 +6,9 @@ export type AppsDocument = WithId<BasicPackageData>;
 
 // created (and updated) when user logges-in
 export type UserDocument = WithId<{
-  githubUserName?: string; // (UK)
-  gitlabUserName?: string; // (UK)
-  bitbucketUserName?: string; // (UK)
+  githubUsername?: string; // (UK)
+  gitlabUsername?: string; // (UK)
+  bitbucketUsername?: string; // (UK)
   email: string;
   name?: string;
   avatarUrl?: string;

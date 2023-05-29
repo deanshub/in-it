@@ -49,7 +49,7 @@ export const nextAuthOptions: AuthOptions = {
         await dbConnect();
 
         await User.updateOne(
-          { githubUserName: id },
+          { githubUsername: id },
           {
             $set: {
               email,

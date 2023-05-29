@@ -1,4 +1,3 @@
-import fs from 'fs-extra';
 import { NextResponse } from 'next/server';
 import * as vercelBlob from '@vercel/blob';
 import Stats from '@/db/Stats';
@@ -27,8 +26,10 @@ export async function POST(request: Request) {
   const buildId = getNullAsUndefined(form.get('buildId') as null | string);
   const userEmail = getNullAsUndefined(form.get('userEmail') as null | string);
   const userName = getNullAsUndefined(form.get('userName') as null | string);
-  const userNameInProvider = getNullAsUndefined(form.get('userNameInProvider') as null | string);
   const provider = getNullAsUndefined(form.get('provider') as null | string);
+  const githubUsername = getNullAsUndefined(form.get('githubUsername') as null | string);
+  const gitlabUsername = getNullAsUndefined(form.get('gitlabUsername') as null | string);
+  const bitbucketUsername = getNullAsUndefined(form.get('bitbucketUsername') as null | string);
   const compilation = (form.get('compilation') as null | string) ?? 'client';
   const branch = getNullAsUndefined(form.get('branch') as null | string);
   const generatingTool = getNullAsUndefined(form.get('generatingTool') as null | string);
@@ -45,11 +46,11 @@ export async function POST(request: Request) {
     });
   }
 
-  if (provider && provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
-    return new NextResponse(`Provider "${provider}" is not supported`, {
-      status: 404,
-    });
-  }
+  // if (provider && provider !== 'github' && provider !== 'gitlab' && provider !== 'bitbucket') {
+  //   return new NextResponse(`Provider "${provider}" is not supported`, {
+  //     status: 404,
+  //   });
+  // }
 
   await dbConnect();
   let appId = await getAppId({
@@ -87,16 +88,18 @@ export async function POST(request: Request) {
 
   // try {
   let user = await getUserId({
-    userNameInProvider,
-    provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+    githubUsername,
+    gitlabUsername,
+    bitbucketUsername,
     email: userEmail,
     name: userName,
   });
-  if (!user && ((userNameInProvider && provider) || userEmail)) {
+  if (!user && (githubUsername || gitlabUsername || bitbucketUsername || userEmail)) {
     // create user in DB
     user = await createUser({
-      userNameInProvider,
-      provider: provider as undefined | 'github' | 'gitlab' | 'bitbucket',
+      githubUsername,
+      gitlabUsername,
+      bitbucketUsername,
       email: userEmail,
       name: userName,
       avatarUrl: getNullAsUndefined(session?.user?.image),
