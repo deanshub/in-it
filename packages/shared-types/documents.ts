@@ -6,9 +6,9 @@ export type AppsDocument = WithId<BasicPackageData>;
 
 // created (and updated) when user logges-in
 export type UserDocument = WithId<{
-  githubUserName?: string; // (UK)
-  gitlabUserName?: string; // (UK)
-  bitbucketUserName?: string; // (UK)
+  githubUsername?: string; // (UK)
+  gitlabUsername?: string; // (UK)
+  bitbucketUsername?: string; // (UK)
   email: string;
   name?: string;
   avatarUrl?: string;
@@ -40,7 +40,7 @@ export type StatsDocument = WithId<
       buildId: string;
       createdAt: Date;
       envirmonet: 'local' | 'ci' | 'web';
-      branch: string;
+      branch?: string;
       compilationStatsUrl: string;
       compilation: string;
       generatingTool: string;
@@ -58,6 +58,5 @@ export interface FileTrackingDocument {
     };
   };
 }
-
 
 export type UserWithApps = UserDocument & { apps: AppsDocument[] };

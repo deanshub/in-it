@@ -1,6 +1,5 @@
-export interface PostStatsResponse {
-  type: 'local' | 'ci';
-  appId: string;
-  version: string;
+import { StatsDocument } from './documents';
+
+export interface PostStatsResponse extends StatsDocument {
   url: string;
 }

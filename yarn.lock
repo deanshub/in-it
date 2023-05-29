@@ -4589,6 +4589,7 @@ __metadata:
     eslint: 8.39.0
     eslint-config-next: 13.4.0
     in-it-shared-types: 1.0.20
+    kuuid: ^1.0.1
     lucide-react: ^0.220.0
     mongoose: ^7.2.0
     next: 13.4.0
@@ -5195,6 +5196,13 @@ __metadata:
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
   checksum: 1dc476e32741acf0b1b5b0627ffd0d722e342c1b0da14de3e8ae97821327ca08f9fb944542fb3c126d90ac5f27f9d804edbe7c585bf7d12ef495d115e0f22c12
+  languageName: node
+  linkType: hard
+
+"kuuid@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "kuuid@npm:1.0.1"
+  checksum: 07aff41b01076bb7189b4cee02c65448f0254a3b4970850f14a24083b31ab5f05693aef81c9ca4bbf7f1ba497bc3d1eee0cfc5abc4d7bffb4e3161e79633d584
   languageName: node
   linkType: hard
 

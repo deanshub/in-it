@@ -3,15 +3,15 @@ import { Schema, model, models, Model } from 'mongoose';
 
 const userSchema = new Schema<UserWithApps>(
   {
-    githubUserName: {
+    githubUsername: {
       type: String,
       index: { unique: true },
     },
-    gitlabUserName: {
+    gitlabUsername: {
       type: String,
       index: { unique: true },
     },
-    bitbucketUserName: {
+    bitbucketUsername: {
       type: String,
       index: { unique: true },
     },

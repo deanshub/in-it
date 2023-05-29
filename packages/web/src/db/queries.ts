@@ -12,11 +12,11 @@ export function getUserFilterByProvider(
   additionalFilter: FilterQuery<UserDocument> = {},
 ): FilterQuery<UserDocument> {
   if (provider === 'github') {
-    return { ...additionalFilter, githubUserName: userName };
+    return { ...additionalFilter, githubUsername: userName };
   } else if (provider === 'gitlab') {
-    return { ...additionalFilter, gitlabUserName: userName };
+    return { ...additionalFilter, gitlabUsername: userName };
   } else if (provider === 'bitbucket') {
-    return { ...additionalFilter, bitbucketUserName: userName };
+    return { ...additionalFilter, bitbucketUsername: userName };
   } else {
     throw new Error('Unknown provider');
   }

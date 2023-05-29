@@ -40,7 +40,7 @@ TODOs
 - [x] show bundle analyzer in web app
 - [x] bundle analyze in dev only if explicitly asked
 - [x] don't upload stats of empty data (empty object\array) edge test-case
-- [ ] temporariliy store file and data in server memory
+- [x] store data in db
 - [ ] handle errors in upload in the ui
 - [x] compare in-it entrypoints with the bundle-analyzer entrypoints
 - [x] support old bundle-analyzer report only if legacy flag is on
@@ -57,6 +57,10 @@ TODOs
     - [ ] warn on lmits that doesn't match any tracked file
 - [ ] fix the node-fetch warning in build
 - [ ] store the data
+- [ ] send bundle sizes
+- [ ] cosmiconfig settings
+    - [ ] what to track
+    - [ ] limits (absolute, precent)
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR
 - [ ] readme for the plugins
