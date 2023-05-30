@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build && npm run postbuild",
-    "postbuild": "cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/app/bundle-analyzer/public",
+    "postbuild": "npm run copy:local && copy:ci",
+    "copy:ci": "cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/public",
+    "copy:local": "cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/app/bundle-analyzer/public",
     "start": "next start",
     "lint": "next lint",
     "genereateKey": "jose newkey -s 512 -t oct -a HS512"
