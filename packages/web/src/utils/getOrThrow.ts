@@ -1,7 +1,7 @@
-export function getOrThrow(envVarName: string): string {
+export function getOrThrow(envVarName: string, defaultValue?: string): string {
   const value = process.env[envVarName];
-  if (value === undefined) {
+  if (value === undefined && defaultValue === undefined) {
     throw new Error(`Missing env var ${envVarName}`);
   }
-  return value;
+  return (value ?? defaultValue) as string;
 }

@@ -13,8 +13,8 @@ export const nextAuthOptions: AuthOptions = {
   },
   providers: [
     GithubProvider({
-      clientId: getOrThrow('GITHUB_ID'),
-      clientSecret: getOrThrow('GITHUB_SECRET'),
+      clientId: getOrThrow('GITHUB_ID', 'GITHUB_ID'),
+      clientSecret: getOrThrow('GITHUB_SECRET', 'GITHUB_SECRET'),
       profile(profile) {
         const { login, name, email, avatar_url } = profile;
         return {
