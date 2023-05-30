@@ -6,7 +6,7 @@ test('stats exists (after build)', async () => {
   expect(await fs.exists(statsFilePath)).toBe(true);
   const stats = await fs.readJson(statsFilePath);
   expect(stats).toEqual({
-    appId: 'test-app',
+    name: 'test-app',
     assets: {},
     chunks: {
       index: {
@@ -22,6 +22,6 @@ test('stats exists (after build)', async () => {
       },
     },
     entry: 'main.js',
-    environment: 'local',
+    environment: expect.stringMatching(/^(ci|local)$/),
   });
 });
