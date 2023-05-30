@@ -12,6 +12,7 @@ declare module 'next-auth' {
     user?: DefaultSession['user'] & {
       id: string;
       provider: SourceCodeProvider;
+      dbUserId?: string;
     };
   }
 }

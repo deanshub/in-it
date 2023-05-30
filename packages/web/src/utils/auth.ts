@@ -2,9 +2,9 @@ import GithubProvider from 'next-auth/providers/github';
 import { getOrThrow } from '@/utils/getOrThrow';
 import type { AuthOptions } from 'next-auth';
 import dbConnect from '@/db/dbConnect';
-import User from '@/db/models/User';
-import { getUserFilterByProvider } from '@/db/queries';
+import { upsertUserByProvider } from '@/db/queries';
 import { SourceCodeProvider } from 'in-it-shared-types';
+import { getNullAsUndefined } from './getNullAsUndefined';
 
 export const nextAuthOptions: AuthOptions = {
   // Configure one or more authentication providers
@@ -28,41 +28,35 @@ export const nextAuthOptions: AuthOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    jwt({ token, account }) {
-      if (account) {
+    async jwt({ token, account, user }) {
+      if (account && user) {
+        const { id: username, name, email, image } = user;
+        await dbConnect();
+
+        let dbUserId;
+        try {
+          dbUserId = await upsertUserByProvider(
+            email!,
+            account.provider as SourceCodeProvider,
+            username,
+            {
+              name: getNullAsUndefined(name),
+              avatarUrl: getNullAsUndefined(image),
+            },
+          );
+        } catch (e) {
+          console.error('Error upserting user', e);
+        }
+
+        token.dbUserId = dbUserId;
         token.provider = account.provider;
       }
       return token;
     },
     async session({ session, token }) {
-      const { sub, provider } = token;
+      const { sub, provider, dbUserId } = token;
 
-      return { ...session, user: { ...session.user, id: sub, provider } };
-    },
-  },
-  events: {
-    async signIn({ user, account }) {
-      const provider = account?.provider as SourceCodeProvider;
-      const { id, name, email, image } = user;
-
-      try {
-        await dbConnect();
-
-        await User.updateOne(
-          { githubUsername: id },
-          {
-            $set: {
-              email,
-              name,
-              avatarUrl: image,
-            },
-            $setOnInsert: getUserFilterByProvider(provider!, id, { role: 'user' }),
-          },
-          { upsert: true },
-        );
-      } catch (error) {
-        console.error(error);
-      }
+      return { ...session, user: { ...session.user, id: sub, provider, dbUserId } };
     },
   },
 };

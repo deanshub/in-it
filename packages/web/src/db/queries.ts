@@ -21,3 +21,24 @@ export function getUserFilterByProvider(
     throw new Error('Unknown provider');
   }
 }
+
+export async function upsertUserByProvider(
+  email: string,
+  provider: SourceCodeProvider,
+  username: string,
+  user: Partial<UserDocument>,
+): Promise<string | undefined> {
+  const dbUser = await User.findOneAndUpdate(
+    { email },
+    {
+      $set: {
+        ...getUserFilterByProvider(provider, username),
+        ...user,
+      },
+      $setOnInsert: { email, role: 'user' },
+    },
+    { upsert: true },
+  );
+
+  return dbUser?._id?.toString();
+}

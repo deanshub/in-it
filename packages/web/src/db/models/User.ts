@@ -5,19 +5,20 @@ const userSchema = new Schema<UserWithApps>(
   {
     githubUsername: {
       type: String,
-      index: { unique: true },
+      index: true,
     },
     gitlabUsername: {
       type: String,
-      index: { unique: true },
+      index: true,
     },
     bitbucketUsername: {
       type: String,
-      index: { unique: true },
+      index: true,
     },
     email: {
       type: String,
       required: true,
+      index: true,
     },
     role: {
       type: String,
