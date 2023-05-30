@@ -1,6 +1,6 @@
 {
   "name": "in-it-web",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
@@ -77,8 +77,8 @@
   },
   "devDependencies": {
     "@types/webpack-bundle-analyzer": "^4.6.0",
-    "in-it-shared-types": "1.0.28",
-    "next-in-it-stats": "1.0.28",
+    "in-it-shared-types": "1.0.29",
+    "next-in-it-stats": "1.0.29",
     "node-jose-tools": "^2.0.2"
   }
 }

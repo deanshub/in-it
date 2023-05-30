@@ -1,6 +1,6 @@
 {
   "name": "next-in-it-stats",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "next plugin to generate in-it stats",
   "main": "dist/cjs/index.js",
   "exports": {
@@ -15,7 +15,7 @@
     "build:cjs": "tsc -p tsconfig.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "watch": "npm run clean && tsc -p tsconfig.json -w",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "npm:publish": "npm publish --access public"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "@types/node-fetch": "^2.6.4",
     "@types/terminal-link": "^1.2.0",
     "@types/webpack-bundle-analyzer": "^4.6.0",
-    "in-it-shared-types": "1.0.28",
+    "in-it-shared-types": "1.0.29",
     "next": "^13.4.2",
     "typescript": "^5.0.4",
     "vitest": "^0.30.1"
