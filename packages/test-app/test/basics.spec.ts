@@ -22,5 +22,6 @@ test('stats exists (after build)', async () => {
       },
     },
     entry: 'main.js',
+    environment: 'local',
   });
 });

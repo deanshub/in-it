@@ -31,7 +31,7 @@ export default function RollupStatsPlugin(
     generateBundle: async (options: NormalizedOutputOptions, outputBundle: OutputBundle) => {
       const stats: Stats = {
         appId: rollupStatsGivvenPluginOptions.appId, // TODO: use package.json name, path in repo, ...
-        type: isCI ? 'ci' : 'local',
+        environment: isCI ? 'ci' : 'local',
         // version: ,
         // commit: ,
         entry: statsPluginOptions.entry,

@@ -16,7 +16,7 @@ export interface Stats {
   appId?: string;
   // version: string;
   // commit: string;
-  type: 'local' | 'ci';
+  environment: 'local' | 'ci';
   entry: string;
   chunks: Record<string, ChunkInfo>;
   assets: Record<string, { size: number }>;
