@@ -49,6 +49,9 @@ TODOs
 - [x] cosmiconfig settings
     - [x] what to track
     - [x] limits (absolute, precent)
+- [ ] connect apps ui to the db
+- [ ] send the correct data from web
+- [ ] fix & update rollup plugin
 - [ ] bundles size check
     - [x] absolute
     - [ ] percent
