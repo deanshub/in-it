@@ -2,9 +2,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { SiGithub } from 'react-icons/si';
+import { BiLogOut } from 'react-icons/bi';
 import { useSession } from 'next-auth/react';
 import { signIn, signOut } from 'next-auth/react';
 import { Button } from '../basic/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../basic/dropdown-menu';
+import { ThemeDropdownMenuGroup } from './ThemeDropdownMenuGroup';
 
 export function TopBar() {
   const { data: session } = useSession();
@@ -27,38 +36,43 @@ function Logout() {
   const user = session?.user;
 
   return (
-    <Link
-      href="/api/auth/signout"
-      onClick={(e) => {
-        e.preventDefault();
-        signOut();
-      }}
-    >
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          signOut();
-        }}
-        variant="ghost"
-        className="flex items-center gap-2"
-      >
-        <span>Logout</span>
-        <Image
-          src={user?.image ?? '/unknown.png'}
-          alt={user?.name ?? 'unknown'}
-          width={32}
-          height={32}
-          className="rounded-full"
-        />
-      </Button>
-    </Link>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="flex items-center gap-2">
+          <span>{user?.name}</span>
+          <Image
+            src={user?.image ?? '/unknown.png'}
+            alt={user?.name ?? 'unknown'}
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <ThemeDropdownMenuGroup />
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <a
+            href="/api/auth/signout"
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+            className="flex items-center gap-2"
+          >
+            <BiLogOut />
+            <span>Logout</span>
+          </a>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
 function Login() {
   return (
-    <Link
+    <a
       href="/api/auth/signin/github"
       className="flex items-center gap-2"
       onClick={(e) => {
@@ -78,6 +92,6 @@ function Login() {
         <span>Login</span>
         <SiGithub />
       </Button>
-    </Link>
+    </a>
   );
 }

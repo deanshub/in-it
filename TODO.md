@@ -53,6 +53,7 @@ TODOs
     - [x] connect analyze page
     - [ ] connect apps page
 - [x] connect user to app without await in bundle-analyzer/view
+- [ ] google analytics (funnuel)
 - [ ] add error page
 - [ ] add loading page
 - [ ] send the correct data from web
