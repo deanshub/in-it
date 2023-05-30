@@ -1,14 +1,13 @@
 diff --git a/lib/template.js b/lib/template.js
-index 7a0ea23d93ab35d213558d541c291f87312f39bf..5fd14274c7b837d3da803f70559661812a677b3c 100644
+index 7a0ea23d93ab35d213558d541c291f87312f39bf..490ec1f9a4ce0b5c979d67ebe82d05b21895dbc6 100644
 --- a/lib/template.js
 +++ b/lib/template.js
-@@ -7,7 +7,8 @@ const fs = require('fs');
+@@ -37,7 +37,7 @@ function getScript(filename, mode) {
+     return `<!-- ${_.escape(filename)} -->
+ <script>${getAssetContent(filename)}</script>`;
+   } else {
+-    return `<script src="${_.escape(filename)}"></script>`;
++    return `<script src="/${_.escape(filename)}"></script>`;
+   }
+ }
  
- const _ = require('lodash');
- 
--const projectRoot = path.resolve(__dirname, '..');
-+// const projectRoot = path.resolve(__dirname, '..');
-+const projectRoot = process.cwd();
- const assetsRoot = path.join(projectRoot, 'public');
- exports.renderViewer = renderViewer;
- /**

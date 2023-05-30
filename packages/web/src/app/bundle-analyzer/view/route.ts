@@ -30,7 +30,7 @@ export async function GET(request: Request) {
 
   const entrypoints = getEntrypoints(chartData);
   const html = renderViewer({
-    mode: 'static',
+    // mode: 'static',
     title: `in-it stats ${statsUrl}`,
     chartData,
     entrypoints,

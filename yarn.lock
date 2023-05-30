@@ -9115,7 +9115,7 @@ __metadata:
 
 "webpack-bundle-analyzer@patch:webpack-bundle-analyzer@npm%3A4.8.0#./.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch::locator=in-it%40workspace%3A.":
   version: 4.8.0
-  resolution: "webpack-bundle-analyzer@patch:webpack-bundle-analyzer@npm%3A4.8.0#./.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch::version=4.8.0&hash=da3241&locator=in-it%40workspace%3A."
+  resolution: "webpack-bundle-analyzer@patch:webpack-bundle-analyzer@npm%3A4.8.0#./.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch::version=4.8.0&hash=87a882&locator=in-it%40workspace%3A."
   dependencies:
     "@discoveryjs/json-ext": 0.5.7
     acorn: ^8.0.4
@@ -9129,7 +9129,7 @@ __metadata:
     ws: ^7.3.1
   bin:
     webpack-bundle-analyzer: lib/bin/analyzer.js
-  checksum: 183e8246c267319fc481d4522c8c2706358da1a9bcd4498acf32c56bfa89ec96ec82f4143dbee432763b4bdea90a8d5b280d6482485c0da2fcf85acfcc4be78e
+  checksum: 80684cf48786f2c389417fb223bd59d2f7d1152d2ae26449200faa737cf6873e77068cbc8f53c96852c5136c32b97c78d21704452841224df8b5060d8184f203
   languageName: node
   linkType: hard
 
