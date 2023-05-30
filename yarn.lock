@@ -4644,7 +4644,7 @@ __metadata:
     tailwindcss: 3.3.2
     tailwindcss-animate: ^1.0.5
     typescript: 5.0.4
-    webpack-bundle-analyzer: ^4.8.0
+    webpack-bundle-analyzer: "patch:webpack-bundle-analyzer@npm%3A4.8.0#../../.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch"
   languageName: unknown
   linkType: soft
 
@@ -9110,6 +9110,26 @@ __metadata:
   bin:
     webpack-bundle-analyzer: lib/bin/analyzer.js
   checksum: acd86f68abb2bcb1a240043c6e2d8e53079499363afed94b96c0ec1abcc4fca2b7a7cbeeb5e13027d02a993c6ea8153194c69e7697faf47528bdaff1e2ce297e
+  languageName: node
+  linkType: hard
+
+"webpack-bundle-analyzer@patch:webpack-bundle-analyzer@npm%3A4.8.0#../../.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch::locator=in-it-web%40workspace%3Apackages%2Fweb":
+  version: 4.8.0
+  resolution: "webpack-bundle-analyzer@patch:webpack-bundle-analyzer@npm%3A4.8.0#../../.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch::version=4.8.0&hash=87a882&locator=in-it-web%40workspace%3Apackages%2Fweb"
+  dependencies:
+    "@discoveryjs/json-ext": 0.5.7
+    acorn: ^8.0.4
+    acorn-walk: ^8.0.0
+    chalk: ^4.1.0
+    commander: ^7.2.0
+    gzip-size: ^6.0.0
+    lodash: ^4.17.20
+    opener: ^1.5.2
+    sirv: ^1.0.7
+    ws: ^7.3.1
+  bin:
+    webpack-bundle-analyzer: lib/bin/analyzer.js
+  checksum: 80684cf48786f2c389417fb223bd59d2f7d1152d2ae26449200faa737cf6873e77068cbc8f53c96852c5136c32b97c78d21704452841224df8b5060d8184f203
   languageName: node
   linkType: hard
 
