@@ -2,12 +2,16 @@ import { NextResponse } from 'next/server';
 // @ts-expect-error-next-line
 import { renderViewer } from 'webpack-bundle-analyzer/lib/template';
 import fetch from 'node-fetch';
+import { getServerSession } from 'next-auth';
+import { nextAuthOptions } from '@/utils/auth';
+import { AppUsers } from '@/db/models';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   // const statsId = searchParams.get('statsId');
+  const appId = searchParams.get('appId');
   const statsUrl = searchParams.get('statsUrl');
-  if (!statsUrl) {
+  if (!statsUrl || !appId) {
     return new NextResponse('statsUrl is required', {
       status: 400,
     });
@@ -33,6 +37,14 @@ export async function GET(request: Request) {
     defaultSizes: 'parsed',
     enableWebSocket: false,
   });
+
+  // get user from session
+  const session = await getServerSession(nextAuthOptions);
+  // connect app and user in db (no await)
+  if (session?.user?.dbUserId) {
+    addAppUser(session.user.dbUserId, appId);
+  }
+
   return new NextResponse(html, { headers: { 'content-type': 'text/html' } });
 }
 
@@ -45,4 +57,17 @@ function getEntrypoints(chartData: { label: string }[]) {
       return part.label;
     });
   return entrypoints;
+}
+
+async function addAppUser(userId: string, appId: string) {
+  await AppUsers.findOneAndUpdate(
+    { userId, appId },
+    {
+      $setOnInsert: {
+        userId,
+        appId,
+      },
+    },
+    { upsert: true },
+  );
 }

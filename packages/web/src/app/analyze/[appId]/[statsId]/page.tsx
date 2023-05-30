@@ -18,7 +18,7 @@ export default async function AppAnalyze({ params: { appId, statsId } }: AppAnal
 
   return (
     <div className="flex flex-col gap-2">
-      <BundleAnalyzer statsUrl={stats?.compilationStatsUrl} />
+      <BundleAnalyzer statsUrl={stats?.compilationStatsUrl} appId={appId} />
     </div>
   );
 }
