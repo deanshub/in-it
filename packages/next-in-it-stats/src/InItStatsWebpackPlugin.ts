@@ -115,7 +115,7 @@ export default class InItStatsWebpackPlugin {
             pc.green(
               terminalLink(
                 `Analyze ${pc.bold(name)} Bundle`,
-                `${serverUrl.protocol}${serverUrl.host}${data.url}`,
+                `${serverUrl.protocol}//${serverUrl.host}${data.url}`,
               ),
             ),
           );
