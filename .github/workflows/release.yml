@@ -4,7 +4,9 @@ on:
   push:
     tags:
       - "v*"
-
+env:
+  MONGODB_URI: ${{ vars.MONGODB_URI }}
+  
 jobs:
   tagged-release:
     name: Tagged Release
