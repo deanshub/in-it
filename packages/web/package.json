@@ -3,7 +3,7 @@
   "version": "1.0.33",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "npm run prebuild && next dev -p 3001",
     "build": "npm run prebuild && next build",
     "prebuild": "cp -r ../../node_modules/webpack-bundle-analyzer/public/* public/",
     "start": "next start",
