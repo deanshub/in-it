@@ -26,10 +26,10 @@ export async function upsertUserByProvider(
   provider: SourceCodeProvider,
   username: string,
   user: Partial<UserDocument>,
-): Promise<string | undefined> {
-  const providerUser = await getUserFilterByProvider(provider, username);
+): Promise<UserDocument | undefined> {
+  const providerUser = getUserFilterByProvider(provider, username);
   const dbUser = await User.findOneAndUpdate(
-    { $or: [{ email }, providerUser ] },
+    { $or: [{ email }, providerUser] },
     {
       $set: {
         ...user,
@@ -40,5 +40,5 @@ export async function upsertUserByProvider(
     { upsert: true },
   );
 
-  return dbUser?._id?.toString();
+  return dbUser?.toJSON();
 }

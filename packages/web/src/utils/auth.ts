@@ -31,25 +31,22 @@ export const nextAuthOptions: AuthOptions = {
     async jwt({ token, account, user }) {
       if (account && user) {
         const { id: username, name, email, image } = user;
+        const { provider } = account;
+
         await dbConnect();
 
-        let dbUserId;
+        let dbUser;
         try {
-          dbUserId = await upsertUserByProvider(
-            email!,
-            account.provider as SourceCodeProvider,
-            username,
-            {
-              name: getNullAsUndefined(name),
-              avatarUrl: getNullAsUndefined(image),
-            },
-          );
+          dbUser = await upsertUserByProvider(email!, provider as SourceCodeProvider, username, {
+            name: getNullAsUndefined(name),
+            avatarUrl: getNullAsUndefined(image),
+          });
         } catch (e) {
-          console.error('Error upserting user', e);
+          console.error(`Error upserting user. email: ${email}, provider: ${provider}`, e);
         }
 
-        token.dbUserId = dbUserId;
-        token.provider = account.provider;
+        token.dbUserId = dbUser?._id;
+        token.provider = provider;
       }
       return token;
     },
