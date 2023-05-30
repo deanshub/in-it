@@ -82,4 +82,21 @@ function getRealeaseContent(packages: YarnWorkspace[], type: VersionType) {
 ${content}`;
 }
 
-bump('patch');
+let versionType: VersionType = 'patch';
+if (process.argv[2] && ['patch', 'minor', 'major'].includes(process.argv[2])) {
+  versionType = process.argv[2] as VersionType;
+} else if (process.argv[2] && ['--help', '-h'].includes(process.argv[2])) {
+  console.log(`Usage: ${pc.green('yarn version:bump [patch|minor|major]')}`);
+  process.exit(0);
+} else if (process.argv[2]) {
+  console.log(
+    `${pc.red('Error:')} ${pc.green(
+      `"${process.argv[2]}"`,
+    )} is not a valid version type. Valid types are: ${pc.green('patch')}, ${pc.green(
+      'minor',
+    )}, ${pc.green('major')}`,
+  );
+  process.exit(1);
+}
+
+bump(versionType);
