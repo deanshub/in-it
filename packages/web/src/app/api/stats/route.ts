@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   const form = await request.formData();
   const files = form.getAll('file') as File[];
 
-  const envirmonet = (form.get('envirmonet') as null | string) ?? 'local';
+  const environment = (form.get('environment') as null | string) ?? 'local';
   const version = getNullAsUndefined(form.get('version') as null | string);
   const name = getNullAsUndefined(form.get('name') as null | string);
   const buildId = getNullAsUndefined(form.get('buildId') as null | string);
@@ -41,8 +41,8 @@ export async function POST(request: Request) {
   const packagePath = getNullAsUndefined(form.get('packagePath') as null | string);
   const packageName = getNullAsUndefined(form.get('packageName') as null | string);
 
-  if (envirmonet !== 'local' && envirmonet !== 'ci' && envirmonet !== 'web') {
-    return new NextResponse(`in-it stats "${envirmonet}" is not supported`, {
+  if (environment !== 'local' && environment !== 'ci' && environment !== 'web') {
+    return new NextResponse(`in-it stats "${environment}" is not supported`, {
       status: 404,
     });
   }
@@ -124,7 +124,7 @@ export async function POST(request: Request) {
   const statsFile = files[0];
   const statsFileJson: BundleStatsReport[] = JSON.parse(await statsFile.text());
   const guid = kuuid.id();
-  const statsFilePath = `${envirmonet}/${appId}/${version}/${branch}/${compilation}/${guid}.json`;
+  const statsFilePath = `${environment}/${appId}/${version}/${branch}/${compilation}/${guid}.json`;
   const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, statsFile, {
     access: 'public',
     contentType: 'application/json',
@@ -144,7 +144,7 @@ export async function POST(request: Request) {
     userId: user?._id,
     version,
     buildId,
-    envirmonet,
+    environment,
     branch,
     compilationStatsUrl,
     compilation,

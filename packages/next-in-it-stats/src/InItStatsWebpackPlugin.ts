@@ -63,7 +63,7 @@ export default class InItStatsWebpackPlugin {
 
         const formData = new FormData();
         formData.append('file', file, this.options.reportFilename);
-        setFormData(formData, 'envirmonet', isCI ? 'ci' : 'local');
+        setFormData(formData, 'environment', isCI ? 'ci' : 'local');
         setFormData(formData, 'buildId', this.options.buildId);
         setFormData(formData, 'version', appPackage?.packageJson.version); // from app package.json
         setFormData(formData, 'name', this.options.name);
@@ -81,7 +81,7 @@ export default class InItStatsWebpackPlugin {
 
         if (process.env.DEBUG) {
           console.log({
-            envirmonet: process.env.NODE_ENV === 'production' && isCI ? 'ci' : 'local',
+            environment: process.env.NODE_ENV === 'production' && isCI ? 'ci' : 'local',
             buildId: this.options.buildId,
             version: appPackage?.packageJson.version,
             name: this.options.name,

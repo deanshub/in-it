@@ -39,7 +39,7 @@ export type StatsDocument = WithId<
       version: string;
       buildId: string;
       createdAt: Date;
-      envirmonet: 'local' | 'ci' | 'web';
+      environment: 'local' | 'ci' | 'web';
       branch?: string;
       commitHash?: string;
       compilationStatsUrl: string;

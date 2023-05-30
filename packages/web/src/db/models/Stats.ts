@@ -21,7 +21,7 @@ const statsSchema = new Schema<StatsDocument>({
     type: String,
     required: true,
   },
-  envirmonet: {
+  environment: {
     type: String,
     required: true,
     enum: ['local', 'ci', 'web'],

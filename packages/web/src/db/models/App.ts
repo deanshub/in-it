@@ -11,7 +11,6 @@ const appSchema = new Schema<AppsDocument>(
     },
     packagePath: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
