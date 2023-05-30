@@ -166,7 +166,7 @@ export async function POST(request: Request) {
   // responed with hash & url
   const res: PostStatsResponse = {
     ...stats.toJSON(),
-    url: `/analyze/${stats._id}`,
+    url: `/analyze/${appId}/${stats._id}`,
   };
   return NextResponse.json(res);
 }

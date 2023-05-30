@@ -58,6 +58,7 @@ TODOs
 - [ ] fix the node-fetch warning in build
 - [ ] store the data
 - [ ] send bundle sizes
+- [ ] support redirect url after login
 - [ ] cosmiconfig settings
     - [ ] what to track
     - [ ] limits (absolute, precent)
