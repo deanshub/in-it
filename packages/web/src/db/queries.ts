@@ -29,7 +29,7 @@ export async function upsertUserByProvider(
 ): Promise<string | undefined> {
   const providerUser = await getUserFilterByProvider(provider, username);
   const dbUser = await User.findOneAndUpdate(
-    { $or: [{ email }, providerUser as UserDocument] },
+    { $or: [{ email }, providerUser ] },
     {
       $set: {
         ...user,
