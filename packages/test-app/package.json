@@ -4,6 +4,7 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist/ build/",
     "build": "tsc -b && rollup -c",
     "test": "vitest run"
   },

@@ -13,7 +13,8 @@ export interface ChunkInfo {
 }
 
 export interface Stats {
-  appId?: string;
+  name?: string;
+  // appId?: string;
   // version: string;
   // commit: string;
   environment: 'local' | 'ci';
@@ -23,7 +24,7 @@ export interface Stats {
 }
 
 export interface InItStatsPluginOptions {
-  appId?: string;
+  name?: string;
   entry: string;
   output: string;
   serverUrl: string;
