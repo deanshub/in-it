@@ -1,6 +1,5 @@
 import { User } from './models';
 import type { SourceCodeProvider, UserDocument } from 'in-it-shared-types';
-import type { FilterQuery } from 'mongoose';
 
 export function getUserByProvider(provider: SourceCodeProvider, userName: string) {
   return User.findOne(getUserFilterByProvider(provider, userName));
@@ -9,8 +8,8 @@ export function getUserByProvider(provider: SourceCodeProvider, userName: string
 export function getUserFilterByProvider(
   provider: SourceCodeProvider,
   userName: string,
-  additionalFilter: FilterQuery<UserDocument> = {},
-): FilterQuery<UserDocument> {
+  additionalFilter: Partial<UserDocument> = {},
+): Partial<UserDocument> {
   if (provider === 'github') {
     return { ...additionalFilter, githubUsername: userName };
   } else if (provider === 'gitlab') {
@@ -28,12 +27,13 @@ export async function upsertUserByProvider(
   username: string,
   user: Partial<UserDocument>,
 ): Promise<string | undefined> {
+  const providerUser = await getUserFilterByProvider(provider, username);
   const dbUser = await User.findOneAndUpdate(
-    { email },
+    { $or: [{ email }, providerUser as UserDocument] },
     {
       $set: {
-        ...getUserFilterByProvider(provider, username),
         ...user,
+        ...providerUser,
       },
       $setOnInsert: { email, role: 'user' },
     },
