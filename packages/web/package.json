@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build && npm run postbuild",
-    "postbuild": "npm run copy:local && copy:ci",
+    "postbuild": "npm run copy:local && npm run copy:ci",
     "copy:ci": "cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/public",
     "copy:local": "cp -r ../../node_modules/webpack-bundle-analyzer/public .next/server/app/bundle-analyzer/public",
     "start": "next start",
