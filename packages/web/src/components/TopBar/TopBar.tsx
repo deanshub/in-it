@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { SiGithub } from 'react-icons/si';
 import { useSession } from 'next-auth/react';
 import { signIn, signOut } from 'next-auth/react';
+import { Button } from '../basic/button';
 
 export function TopBar() {
   const { data: session } = useSession();
@@ -27,19 +28,30 @@ function Logout() {
 
   return (
     <Link
+      href="/api/auth/signout"
       onClick={(e) => {
         e.preventDefault();
         signOut();
       }}
-      href="/api/auth/signout"
     >
-      <Image
-        src={user?.image ?? '/unknown.png'}
-        alt={user?.name ?? 'unknown'}
-        width={32}
-        height={32}
-        className="rounded-full"
-      />
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          signOut();
+        }}
+        variant="ghost"
+        className="flex items-center gap-2"
+      >
+        <span>Logout</span>
+        <Image
+          src={user?.image ?? '/unknown.png'}
+          alt={user?.name ?? 'unknown'}
+          width={32}
+          height={32}
+          className="rounded-full"
+        />
+      </Button>
     </Link>
   );
 }
@@ -54,8 +66,18 @@ function Login() {
         signIn('github');
       }}
     >
-      <SiGithub />
-      Login
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          signIn('github');
+        }}
+        variant="ghost"
+        className="flex items-center gap-2"
+      >
+        <span>Login</span>
+        <SiGithub />
+      </Button>
     </Link>
   );
 }
