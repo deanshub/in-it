@@ -40,6 +40,7 @@ export async function POST(request: Request) {
   const repository = getNullAsUndefined(form.get('repository') as null | string);
   const packagePath = getNullAsUndefined(form.get('packagePath') as null | string);
   const packageName = getNullAsUndefined(form.get('packageName') as null | string);
+  const commitHash = getNullAsUndefined(form.get('commitHash') as null | string);
 
   if (environment !== 'local' && environment !== 'ci' && environment !== 'web') {
     return new NextResponse(`in-it stats "${environment}" is not supported`, {
@@ -158,6 +159,7 @@ export async function POST(request: Request) {
     statSize,
     gzipSize,
     parsedSize,
+    commitHash,
   });
 
   // store in db

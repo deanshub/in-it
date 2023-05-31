@@ -53,6 +53,9 @@ TODOs
     - [x] connect analyze page
     - [x] connect apps page
 - [x] connect user to app without await in bundle-analyzer/view
+- [ ] bundle analyze button
+- [x] commit button
+- [ ] graph should show better x,y axis labels
 - [ ] google analytics (funnuel)
 - [ ] add error page
 - [ ] add loading page

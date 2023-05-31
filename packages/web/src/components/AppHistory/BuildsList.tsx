@@ -6,13 +6,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { SiGithub } from 'react-icons/si';
 import { BiFileFind } from 'react-icons/bi';
 import { PagingFooter } from './PagingFooter';
+import Link from 'next/link';
 import type { BuildItemType } from '@/db/queries';
 
 interface BuildsListProps {
   builds: BuildItemType[];
   count: number;
+  repository?: string;
 }
-export function BuildsList({ builds, count }: BuildsListProps) {
+export function BuildsList({ builds, count, repository }: BuildsListProps) {
   return (
     <>
       <Table>
@@ -26,7 +28,9 @@ export function BuildsList({ builds, count }: BuildsListProps) {
         </TableHeader>
         <TableBody>
           {builds.length > 0 ? (
-            builds.map((build) => <BuildItem key={build.version} {...build} />)
+            builds.map((build) => (
+              <BuildItem key={build.version} repository={repository} {...build} />
+            ))
           ) : (
             <TableRow>
               <TableCell colSpan={4} className="py-4">
@@ -41,17 +45,23 @@ export function BuildsList({ builds, count }: BuildsListProps) {
   );
 }
 
-type BuildItemProps = BuildItemType;
-function BuildItem({ version, createdAt, parsedSize }: BuildItemProps) {
+interface BuildItemProps extends BuildItemType {
+  repository?: string;
+}
+function BuildItem({ version, createdAt, parsedSize, commitHash, repository }: BuildItemProps) {
   return (
     <TableRow>
       <TableCell className="py-1 font-bold">{version}</TableCell>
       <TableCell className="py-1">{formatDistanceToNow(createdAt)}</TableCell>
       <TableCell className="py-1">{filesize(parsedSize)}</TableCell>
       <TableCell className="py-1 text-right">
-        <Button variant="ghost" size="sm">
-          <SiGithub />
-        </Button>
+        {repository && commitHash ? (
+          <Button variant="ghost" size="sm">
+            <Link href={`${repository}/commits/${commitHash}`} prefetch={false}>
+              <SiGithub />
+            </Link>
+          </Button>
+        ) : null}
         <Button variant="ghost" size="sm">
           <AiOutlineDeploymentUnit />
         </Button>

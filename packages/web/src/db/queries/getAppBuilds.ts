@@ -1,7 +1,7 @@
 import dbConnect from '@/db/dbConnect';
 // import { getServerSession } from 'next-auth';
 // import { nextAuthOptions } from './auth';
-import { Stats } from '@/db/models';
+import { App, Stats } from '@/db/models';
 
 export interface BuildItemType {
   _id: string;
@@ -12,11 +12,13 @@ export interface BuildItemType {
   parsedSize: number;
   compilationStatsUrl: string;
   compilation: string;
+  commitHash?: string;
 }
 
 export interface AppBuilds {
   builds: BuildItemType[];
   count: number;
+  repository?: string;
 }
 
 export async function getAppBuilds(
@@ -28,7 +30,8 @@ export async function getAppBuilds(
   //   upsert the user?
   //   const session = await getServerSession(nextAuthOptions);
 
-  const [appBuilds, count] = await Promise.all([
+  const [app, appBuilds, count] = await Promise.all([
+    App.findById(appId),
     Stats.find({ appId, environment: 'ci', branch: 'master' }, null, {
       limit,
       offset,
@@ -46,6 +49,7 @@ export async function getAppBuilds(
     parsedSize: build.parsedSize,
     compilationStatsUrl: build.compilationStatsUrl,
     compilation: build.compilation,
+    commitHash: build.commitHash,
   }));
-  return { builds, count };
+  return { builds, count, repository: app?.repository };
 }
