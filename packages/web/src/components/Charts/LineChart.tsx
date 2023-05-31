@@ -31,8 +31,27 @@ export function LineChart({ data }: LineChartProps) {
             fill: '#f2f2f2',
           },
         },
+        tooltip: {
+          container: {
+            background: '#333',
+          },
+        },
       }}
       margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
+      tooltip={({ point }) => {
+        return (
+          <div className="bg-gray-800 p-2 rounded-md flex flex-col justify-center items-center">
+            <div className="text-gray-300 flex gap-2 items-center">
+              <span
+                style={{ backgroundColor: point.serieColor }}
+                className="rounded-full w-4 h-4"
+              />
+              <span>{filesize(point.data.y as number)}</span>
+            </div>
+            <div className="text-gray-300">{format(point.data.x as Date, 'yyyy-MM-dd HH:mm')}</div>
+          </div>
+        );
+      }}
       xScale={{ type: 'time', format: '%Y-%m-%d' }}
       xFormat="time:%Y-%m-%d"
       yScale={{
