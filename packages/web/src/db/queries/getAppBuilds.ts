@@ -34,7 +34,7 @@ export async function getAppBuilds(
     App.findById(appId),
     Stats.find({ appId, environment: 'ci', branch: 'master' }, null, {
       limit,
-      offset,
+      skip: offset,
       sort: { createdAt: -1 },
     }),
     Stats.countDocuments({ appId, environment: 'ci', branch: 'master' }),

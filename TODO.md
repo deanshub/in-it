@@ -55,7 +55,7 @@ TODOs
 - [x] connect user to app without await in bundle-analyzer/view
 - [x] bundle analyze button
 - [x] commit button
-- [ ] make pagination work
+- [x] make pagination work
 - [ ] graph should show better x,y axis labels
 - [ ] graph should have better tooltip
 - [ ] google analytics (funnuel)
