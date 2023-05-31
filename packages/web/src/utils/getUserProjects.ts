@@ -15,7 +15,7 @@ export async function getUserProjects(): Promise<ProjectItem[]> {
   const session = await getServerSession(nextAuthOptions);
 
   if (!session?.user?.dbUserId) {
-    throw new Error('Unauthorized');
+    return [];
   }
 
   const appUsers = await AppUsers.find({ userId: session.user.dbUserId }).populate('appId');
