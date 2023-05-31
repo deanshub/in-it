@@ -12,10 +12,11 @@ import type { BuildItemType } from '@/db/queries';
 interface BuildsListProps {
   builds: BuildItemType[];
   count: number;
+  page: number;
   appId: string;
   repository?: string;
 }
-export function BuildsList({ builds, count, appId, repository }: BuildsListProps) {
+export function BuildsList({ builds, count, page, appId, repository }: BuildsListProps) {
   return (
     <>
       <Table>
@@ -41,7 +42,7 @@ export function BuildsList({ builds, count, appId, repository }: BuildsListProps
           )}
         </TableBody>
       </Table>
-      <PagingFooter total={count} page={1} perPage={6} />
+      <PagingFooter appId={appId} total={count} page={page} perPage={6} />
     </>
   );
 }
@@ -59,6 +60,9 @@ function BuildItem({
   appId,
   repository,
 }: BuildItemProps) {
+  // TODO: get provider from app
+  // const providerHost = getProviderHost(provider)
+  const providerHost = 'https://github.com';
   return (
     <TableRow>
       <TableCell className="py-1 font-bold">{version}</TableCell>
@@ -68,7 +72,7 @@ function BuildItem({
         {repository && commitHash ? (
           <Link
             target="_blank"
-            href={`https://github.com/${repository}/commit/${commitHash}`}
+            href={`${providerHost}/${repository}/commit/${commitHash}`}
             prefetch={false}
           >
             <Button variant="ghost" size="sm">

@@ -14,7 +14,7 @@ export async function AppHistory({ appId, page }: AppHistoryProps) {
   return (
     <div className="flex flex-1 flex-col">
       <Chart builds={builds} />
-      <BuildsList appId={appId} builds={builds} count={count} repository={repository} />
+      <BuildsList appId={appId} builds={builds} page={page} count={count} repository={repository} />
     </div>
   );
 }
