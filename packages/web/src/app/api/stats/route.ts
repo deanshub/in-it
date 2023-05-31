@@ -74,7 +74,7 @@ export async function POST(request: Request) {
       name,
       packageName,
     });
-    appId = app._id;
+    appId = app._id.toString();
   } else {
     // update existing app in db (no await intentionally)
     updateApp(appId, {
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
   if (user) {
     createAppUserConnection({
       appId,
-      userId: user._id,
+      userId: user._id.toString(),
     });
   }
 
