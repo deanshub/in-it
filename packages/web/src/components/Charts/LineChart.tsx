@@ -1,5 +1,7 @@
 'use client';
 import { ResponsiveLine, type Serie } from '@nivo/line';
+import { format, isToday } from 'date-fns';
+import filesize from 'filesize';
 
 interface LineChartProps {
   data: Serie[];
@@ -31,24 +33,31 @@ export function LineChart({ data }: LineChartProps) {
         },
       }}
       margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
-      xScale={{ type: 'point' }}
+      xScale={{ type: 'time', format: '%Y-%m-%d' }}
+      xFormat="time:%Y-%m-%d"
       yScale={{
-        type: 'linear',
+        type: 'point',
         min: 'auto',
         max: 'auto',
         stacked: true,
         reverse: false,
       }}
-      yFormat=" >-.2f"
       axisTop={null}
       axisRight={null}
       axisBottom={{
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Builds',
+        legend: 'Date',
         legendOffset: 36,
         legendPosition: 'middle',
+        format: (value: Date) => {
+          if (isToday(value)) {
+            return format(value, 'HH:mm');
+          }
+
+          return format(value, 'yyyy-MM-dd HH:mm');
+        },
       }}
       axisLeft={{
         tickSize: 5,
@@ -57,6 +66,9 @@ export function LineChart({ data }: LineChartProps) {
         legend: 'Count',
         legendOffset: -40,
         legendPosition: 'middle',
+        format: (value: number) => {
+          return filesize(value);
+        },
       }}
       pointSize={10}
       pointColor={{ theme: 'background' }}

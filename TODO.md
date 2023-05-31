@@ -56,8 +56,9 @@ TODOs
 - [x] bundle analyze button
 - [x] commit button
 - [x] make pagination work
-- [ ] graph should show better x,y axis labels
+- [x] graph should show better x,y axis labels
 - [ ] graph should have better tooltip
+- [ ] group compilations in builds to make room for more builds
 - [ ] google analytics (funnuel)
 - [ ] add error page
 - [ ] add loading page
