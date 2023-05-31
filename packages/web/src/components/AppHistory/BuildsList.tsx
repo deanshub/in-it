@@ -66,11 +66,15 @@ function BuildItem({
       <TableCell className="py-1">{filesize(parsedSize)}</TableCell>
       <TableCell className="py-1 text-right">
         {repository && commitHash ? (
-          <Button variant="ghost" size="sm">
-            <Link href={`${repository}/commits/${commitHash}`} prefetch={false}>
+          <Link
+            target="_blank"
+            href={`https://github.com/${repository}/commit/${commitHash}`}
+            prefetch={false}
+          >
+            <Button variant="ghost" size="sm">
               <SiGithub />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         ) : null}
         <Button variant="ghost" size="sm">
           <AiOutlineDeploymentUnit />
@@ -78,11 +82,11 @@ function BuildItem({
         <Button variant="ghost" size="sm">
           <AiOutlineDiff />
         </Button>
-        <Button variant="ghost" size="sm">
-          <Link href={`/analyze/${appId}/${_id}`} prefetch={false}>
+        <Link href={`/analyze/${appId}/${_id}`} prefetch={false}>
+          <Button variant="ghost" size="sm">
             <BiFileFind />
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </TableCell>
     </TableRow>
   );
