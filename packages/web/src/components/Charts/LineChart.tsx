@@ -1,121 +1,11 @@
 'use client';
-import { ResponsiveLine } from '@nivo/line';
-import { useMemo } from 'react';
+import { ResponsiveLine, type Serie } from '@nivo/line';
 
-export function LineChart() {
-  const data = useMemo(
-    () => [
-      {
-        id: 'app1.js',
-        color: 'hsl(51, 70%, 50%)',
-        data: [
-          {
-            x: '1.0.0',
-            y: 184,
-          },
-          {
-            x: '1.0.1',
-            y: 31,
-          },
-          {
-            x: '1.0.2',
-            y: 179,
-          },
-          {
-            x: '1.0.3',
-            y: 170,
-          },
-          {
-            x: '2.0.0',
-            y: 9,
-          },
-          {
-            x: '2.0.1',
-            y: 185,
-          },
-          {
-            x: '2.0.2',
-            y: 198,
-          },
-          {
-            x: '2.0.3',
-            y: 145,
-          },
-          {
-            x: '2.0.4',
-            y: 110,
-          },
-          {
-            x: '2.0.5',
-            y: 271,
-          },
-          {
-            x: '2.0.6',
-            y: 42,
-          },
-          {
-            x: '2.0.7',
-            y: 114,
-          },
-        ],
-      },
-      {
-        id: 'app2.js',
-        color: 'hsl(165, 70%, 50%)',
-        data: [
-          {
-            x: '1.0.0',
-            y: 45,
-          },
-          {
-            x: '1.0.1',
-            y: 257,
-          },
-          {
-            x: '1.0.2',
-            y: 185,
-          },
-          {
-            x: '1.0.3',
-            y: 29,
-          },
-          {
-            x: '2.0.0',
-            y: 285,
-          },
-          {
-            x: '2.0.1',
-            y: 3,
-          },
-          {
-            x: '2.0.2',
-            y: 208,
-          },
-          {
-            x: '2.0.3',
-            y: 181,
-          },
-          {
-            x: '2.0.4',
-            y: 226,
-          },
-          {
-            x: '2.0.5',
-            y: 282,
-          },
-          {
-            x: '2.0.6',
-            y: 84,
-          },
-          {
-            x: '2.0.7',
-            y: 205,
-          },
-        ],
-      },
-    ],
-    [],
-  );
+interface LineChartProps {
+  data: Serie[];
+}
+
+export function LineChart({ data }: LineChartProps) {
   return (
     // @ts-expect-error-next-line
     <ResponsiveLine
@@ -140,7 +30,7 @@ export function LineChart() {
           },
         },
       }}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: 'point' }}
       yScale={{
         type: 'linear',
@@ -156,7 +46,7 @@ export function LineChart() {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'transportation',
+        legend: 'Builds',
         legendOffset: 36,
         legendPosition: 'middle',
       }}
