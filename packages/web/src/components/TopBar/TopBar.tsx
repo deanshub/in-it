@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from '../basic/dropdown-menu';
 import { ThemeDropdownMenuGroup } from './ThemeDropdownMenuGroup';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 export function TopBar() {
   const { data: session } = useSession();
@@ -38,8 +39,7 @@ function Logout() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2">
-          <span>{user?.name}</span>
+        <Button variant="ghost" className="flex items-center gap-2 hover:bg-inherit">
           <Image
             src={user?.image ?? '/unknown.png'}
             alt={user?.name ?? 'unknown'}
@@ -47,9 +47,15 @@ function Logout() {
             height={32}
             className="rounded-full"
           />
+          <span>{user?.name}</span>
+          <RiArrowDropDownLine />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
+        <DropdownMenuItem>
+          <Link href="/apps">My projects</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <ThemeDropdownMenuGroup />
         <DropdownMenuSeparator />
         <DropdownMenuItem>
