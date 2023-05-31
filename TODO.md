@@ -57,6 +57,7 @@ TODOs
 - [x] commit button
 - [ ] make pagination work
 - [ ] graph should show better x,y axis labels
+- [ ] graph should have better tooltip
 - [ ] google analytics (funnuel)
 - [ ] add error page
 - [ ] add loading page
