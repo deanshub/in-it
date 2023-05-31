@@ -1,24 +1,11 @@
 import { AppHistory } from '@/components/AppHistory/AppHistory';
-import dbConnect from '@/db/dbConnect';
-import { createAppUserConnection } from '@/db/helpers/createAppUserConnection';
-import { getServerSession } from 'next-auth';
-import { nextAuthOptions } from '@/utils/auth';
-import { NextResponse } from 'next/server';
+import { connectUserToApp } from '@/utils/connectUserToApp';
 
 interface AppsPageProps {
   params: {
     appId?: string[];
   };
   searchParams: { [key: string]: string | string[] | undefined };
-}
-
-async function connectUserToApp(appId: string) {
-  const session = await getServerSession(nextAuthOptions);
-
-  if (session?.user?.dbUserId) {
-    await dbConnect();
-    await createAppUserConnection({ appId, userId: session.user.dbUserId });
-  }
 }
 
 export default async function Apps({ params: { appId }, searchParams: { page } }: AppsPageProps) {
