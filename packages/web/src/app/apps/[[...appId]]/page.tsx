@@ -1,4 +1,5 @@
 import { AppHistory } from '@/components/AppHistory/AppHistory';
+import { connectUserToApp } from '@/utils/connectUserToApp';
 
 interface AppsPageProps {
   params: {
@@ -9,6 +10,7 @@ interface AppsPageProps {
 
 export default async function Apps({ params: { appId }, searchParams: { page } }: AppsPageProps) {
   if (appId?.[0]) {
+    connectUserToApp(appId[0]);
     const pageNumber = parseInt(page as string);
     /* @ts-expect-error Async Server Component */
     return <AppHistory appId={appId[0]} page={isNaN(pageNumber) ? 1 : pageNumber} />;

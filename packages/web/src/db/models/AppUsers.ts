@@ -19,6 +19,8 @@ const appUsersSchema = new Schema(
   { timestamps: true },
 );
 
+appUsersSchema.index({ userId: 1, appId: 1 }, { unique: true });
+
 const AppUsers: Model<AppUsersDocument> =
   models.AppUsers ?? model<AppUsersDocument>('AppUsers', appUsersSchema);
 
