@@ -25,7 +25,7 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
             <TableHead className="w-[100px]">Compilation</TableHead>
             <TableHead>Date</TableHead>
             <TableHead className="w-[100px]">Size</TableHead>
-            <TableHead className="text-right w-[200px]">Actions</TableHead>
+            <TableHead className="text-right w-[170px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -68,9 +68,9 @@ function BuildItem({
     <TableRow>
       <TableCell className="py-1 font-bold">{version}</TableCell>
       <TableCell className="py-1">{compilation}</TableCell>
-      <TableCell className="py-1">{formatDistanceToNow(createdAt)}</TableCell>
+      <TableCell className="py-1">{formatDistanceToNow(createdAt, { addSuffix: true })}</TableCell>
       <TableCell className="py-1">{filesize(parsedSize)}</TableCell>
-      <TableCell className="py-1 text-right">
+      <TableCell className="px-1 py-1 text-right flex justify-end items-center">
         {repository && commitHash ? (
           <TableAction
             tooltip="View on GitHub"
