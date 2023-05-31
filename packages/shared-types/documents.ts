@@ -1,6 +1,7 @@
-import { BasicPackageData, CompilationSizes } from './entities';
+import type { BasicPackageData, CompilationSizes } from './entities';
+import type { ObjectId } from 'mongodb';
 
-type WithId<T> = T & { _id: string };
+type WithId<T> = T & { _id: ObjectId };
 // created at build and selected from cache every build upsert asyncly every build
 export type AppsDocument = WithId<BasicPackageData>;
 

@@ -5,5 +5,8 @@
   "main": "index.ts",
   "keywords": [],
   "author": "Dean Shub <deanshub@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "mongodb": "^5.5.0"
+  }
 }

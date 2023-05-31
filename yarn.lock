@@ -5129,6 +5129,8 @@ __metadata:
 "in-it-shared-types@1.0.33, in-it-shared-types@workspace:packages/shared-types":
   version: 0.0.0-use.local
   resolution: "in-it-shared-types@workspace:packages/shared-types"
+  dependencies:
+    mongodb: ^5.5.0
   languageName: unknown
   linkType: soft
 
@@ -6719,7 +6721,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:5.5.0":
+"mongodb@npm:5.5.0, mongodb@npm:^5.5.0":
   version: 5.5.0
   resolution: "mongodb@npm:5.5.0"
   dependencies:

@@ -1,17 +1,21 @@
 import clsx from 'clsx';
 import { CardContent, CardDescription } from '../basic/card';
 import { Input } from '../basic/input';
-import { useMemo } from 'react';
+import { ProjectItem, getUserProjects } from '@/utils/getUserProjects';
+import Link from 'next/link';
 
 interface ProjectsSideBarProps {
-  onChange: (projectId: string) => void;
+  onChange?: (projectId: string) => void;
+  selectedApp?: string;
 }
-export function ProjectsSideBar({ onChange }: ProjectsSideBarProps) {
-  // const [filter, setFilter] = useState('');
+export async function ProjectsSideBar({ onChange, selectedApp }: ProjectsSideBarProps) {
+  const projects = await getUserProjects();
+  // TODO: handle error, loading, empty state
+
   return (
     <div className="flex flex-col px-4 max-w-md">
       <SearchBox />
-      <AppList filter={''} />
+      <ProjectsList selectedApp={selectedApp} data={projects} filter={''} />
     </div>
   );
 }
@@ -31,27 +35,26 @@ function SearchBox() {
   );
 }
 
-interface AppListProps {
+interface ProjectsListProps {
   // onChange: (projectId: string) => void;
   filter: string;
+  data: ProjectItem[];
+  selectedApp?: string;
 }
-function AppList({ filter }: AppListProps) {
-  const onChange = console.log;
-  const items = useMemo(
-    () => [
-      { id: '1', label: 'my-project' },
-      { id: '2', label: 'my-library' },
-      { id: '3', label: 'my-internal-library' },
-      { id: '4', label: 'my-app' },
-    ],
-    [],
-  );
+function ProjectsList({ filter, data, selectedApp }: ProjectsListProps) {
+  // const onChange = console.log;
+
   return (
     <div className="flex flex-col pt-2">
       <CardDescription className="pb-1">Projects</CardDescription>
       <CardContent className="px-2">
-        {items.map((item) => (
-          <AppItem key={item.id} text={item.label} active={item.label === 'my-project'} />
+        {data.map((item) => (
+          <ProjectItem
+            key={item.id}
+            text={item.label}
+            id={item.id}
+            active={item.id === selectedApp}
+          />
         ))}
       </CardContent>
     </div>
@@ -59,13 +62,16 @@ function AppList({ filter }: AppListProps) {
 }
 
 interface AppItemProps {
+  id: string;
   text: string;
   active?: boolean;
   // onClick: () => void;
 }
-function AppItem({ text, active }: AppItemProps) {
+function ProjectItem({ text, active, id }: AppItemProps) {
   return (
-    <div
+    <Link
+      replace
+      href={`/apps/${id}`}
       className={clsx(
         'flex text-sm space-x-4 rounded-md p-2 cursor-pointer hover:text-accent-foreground hover:bg-accent',
         {
@@ -75,6 +81,6 @@ function AppItem({ text, active }: AppItemProps) {
     >
       {/* favorite toggle button */}
       <span>{text}</span>
-    </div>
+    </Link>
   );
 }
