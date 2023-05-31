@@ -1,4 +1,4 @@
-import { getAppBuilds } from '@/utils/getAppBuilds';
+import { getAppBuilds } from '@/db/queries';
 import { Chart } from './Chart';
 import { BuildsList } from './BuildsList';
 

@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { SiGithub } from 'react-icons/si';
 import { BiFileFind } from 'react-icons/bi';
 import { PagingFooter } from './PagingFooter';
-import type { BuildItemType } from '@/utils/getAppBuilds';
+import type { BuildItemType } from '@/db/queries';
 
 interface BuildsListProps {
   builds: BuildItemType[];
