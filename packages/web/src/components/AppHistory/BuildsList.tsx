@@ -12,9 +12,10 @@ import type { BuildItemType } from '@/db/queries';
 interface BuildsListProps {
   builds: BuildItemType[];
   count: number;
+  appId: string;
   repository?: string;
 }
-export function BuildsList({ builds, count, repository }: BuildsListProps) {
+export function BuildsList({ builds, count, appId, repository }: BuildsListProps) {
   return (
     <>
       <Table>
@@ -29,7 +30,7 @@ export function BuildsList({ builds, count, repository }: BuildsListProps) {
         <TableBody>
           {builds.length > 0 ? (
             builds.map((build) => (
-              <BuildItem key={build.version} repository={repository} {...build} />
+              <BuildItem key={build.version} appId={appId} repository={repository} {...build} />
             ))
           ) : (
             <TableRow>
@@ -46,9 +47,18 @@ export function BuildsList({ builds, count, repository }: BuildsListProps) {
 }
 
 interface BuildItemProps extends BuildItemType {
+  appId: string;
   repository?: string;
 }
-function BuildItem({ version, createdAt, parsedSize, commitHash, repository }: BuildItemProps) {
+function BuildItem({
+  _id,
+  version,
+  createdAt,
+  parsedSize,
+  commitHash,
+  appId,
+  repository,
+}: BuildItemProps) {
   return (
     <TableRow>
       <TableCell className="py-1 font-bold">{version}</TableCell>
@@ -69,7 +79,9 @@ function BuildItem({ version, createdAt, parsedSize, commitHash, repository }: B
           <AiOutlineDiff />
         </Button>
         <Button variant="ghost" size="sm">
-          <BiFileFind />
+          <Link href={`/analyze/${appId}/${_id}`} prefetch={false}>
+            <BiFileFind />
+          </Link>
         </Button>
       </TableCell>
     </TableRow>
