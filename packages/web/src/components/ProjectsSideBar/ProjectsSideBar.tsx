@@ -9,7 +9,7 @@ interface ProjectsSideBarProps {
   selectedApp?: string;
 }
 export async function ProjectsSideBar({ onChange, selectedApp }: ProjectsSideBarProps) {
-  const projects = await getUserProjects();
+  const projects = await getUserProjects(selectedApp);
   // TODO: handle error, loading, empty state
 
   return (
