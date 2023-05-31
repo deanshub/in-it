@@ -1,8 +1,11 @@
 import clsx from 'clsx';
-import { CardContent, CardDescription } from '../basic/card';
+import { CardContent, CardDescription, CardFooter } from '../basic/card';
 import { Input } from '../basic/input';
 import { ProjectItem, getUserProjects } from '@/utils/getUserProjects';
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { nextAuthOptions } from '@/utils/auth';
+import { Login } from '../TopBar/TopBar';
 
 interface ProjectsSideBarProps {
   onChange?: (projectId: string) => void;
@@ -15,6 +18,7 @@ export async function ProjectsSideBar({ onChange, selectedApp }: ProjectsSideBar
   return (
     <div className="flex flex-col px-4 max-w-md">
       <SearchBox />
+      {/* @ts-expect-error Async Server Component */}
       <ProjectsList selectedApp={selectedApp} data={projects} filter={''} />
     </div>
   );
@@ -41,8 +45,9 @@ interface ProjectsListProps {
   data: ProjectItem[];
   selectedApp?: string;
 }
-function ProjectsList({ filter, data, selectedApp }: ProjectsListProps) {
+async function ProjectsList({ filter, data, selectedApp }: ProjectsListProps) {
   // const onChange = console.log;
+  const session = await getServerSession(nextAuthOptions);
 
   return (
     <div className="flex flex-col pt-2">
@@ -57,6 +62,13 @@ function ProjectsList({ filter, data, selectedApp }: ProjectsListProps) {
           />
         ))}
       </CardContent>
+      {session?.user ? null : (
+        <CardFooter className="pt-2">
+          <div className="text-sm font-light flex flex-col items-center justify-center">
+            <Login variant="link" /> to see your projects.
+          </div>
+        </CardFooter>
+      )}
     </div>
   );
 }

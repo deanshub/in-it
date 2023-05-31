@@ -53,7 +53,8 @@ function Logout() {
         <ThemeDropdownMenuGroup />
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <a
+          <Link
+            prefetch={false}
             href="/api/auth/signout"
             onClick={(e) => {
               e.preventDefault();
@@ -63,16 +64,20 @@ function Logout() {
           >
             <BiLogOut />
             <span>Logout</span>
-          </a>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function Login() {
+interface LoginProps {
+  variant?: 'link' | 'outline' | 'default' | 'destructive' | 'secondary' | 'ghost';
+}
+export function Login({ variant = 'ghost' }: LoginProps) {
   return (
-    <a
+    <Link
+      prefetch={false}
       href="/api/auth/signin/github"
       className="flex items-center gap-2"
       onClick={(e) => {
@@ -86,12 +91,12 @@ function Login() {
           e.stopPropagation();
           signIn('github');
         }}
-        variant="ghost"
+        variant={variant}
         className="flex items-center gap-2"
       >
         <span>Login</span>
         <SiGithub />
       </Button>
-    </a>
+    </Link>
   );
 }
