@@ -51,7 +51,7 @@ TODOs
     - [x] limits (absolute, precent)
 - [ ] connect apps ui to the db
     - [x] connect analyze page
-    - [ ] connect apps page
+    - [x] connect apps page
 - [x] connect user to app without await in bundle-analyzer/view
 - [ ] google analytics (funnuel)
 - [ ] add error page
