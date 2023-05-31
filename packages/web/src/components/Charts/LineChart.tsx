@@ -54,7 +54,7 @@ export function LineChart({ data }: LineChartProps) {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'count',
+        legend: 'Count',
         legendOffset: -40,
         legendPosition: 'middle',
       }}

@@ -1,6 +1,6 @@
 import { LineChart } from '../Charts/LineChart';
 import { useMemo } from 'react';
-import type { BuildItemType } from '@/db/queries/getAppBuilds';
+import type { BuildItemType } from '@/db/queries';
 
 interface ChartProps {
   builds: BuildItemType[];
