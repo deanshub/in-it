@@ -60,6 +60,7 @@ TODOs
 - [x] graph should have better tooltip
 - [ ] group compilations in builds to make room for more builds
 - [ ] google analytics (funnuel)
+- [ ] marketing (get 5 users)
 - [ ] add error page
 - [ ] add loading page
 - [ ] send the correct data from web
