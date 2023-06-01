@@ -59,7 +59,7 @@ TODOs
 - [x] graph should show better x,y axis labels
 - [x] graph should have better tooltip
 - [ ] group compilations in builds to make room for more builds
-- [ ] google analytics (funnuel)
+- [x] vercel analytics
 - [ ] marketing (get 5 users)
 - [ ] add error page
 - [ ] add loading page
