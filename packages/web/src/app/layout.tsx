@@ -6,6 +6,7 @@ import { BottomBar } from '@/components/BottomBar/BottomBar';
 import { Providers } from '@/components/Providers';
 import { getServerSession } from 'next-auth/next';
 import { nextAuthOptions } from '@/utils/auth';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers session={session}>
           <TopBar />
           <div className="flex-1 ">{children}</div>
+          <Analytics />
           <BottomBar />
         </Providers>
       </body>
