@@ -28,13 +28,13 @@ module.exports = withInItStats(nextConfig);
 
 ## Usage
 Now when you run `npm build` you'll see a link to analyze your bundles.
-![analyze link](../../images/analyze%20link.png)
+![analyze link](https://i.ibb.co/Zc9qpTy/analyze-link.png)
 
 You can click it to see the bundle analyzer report.
-![bundle analyzer report](../../images/bundle%20analyzer%20report.png)
+![bundle analyzer report](https://i.ibb.co/hcZx1CP/bundle-analyzer-report.png)
 
 Or you can see your apps page (after logging in) and click on the app you want to analyze.
-![apps page](../../images/apps%20page.png)
+![apps page](https://i.ibb.co/3WkM0JT/apps-page.png)
 
 
 ## Limit bundles (work in progress)
