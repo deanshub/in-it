@@ -6,6 +6,7 @@ import { SiGithub } from 'react-icons/si';
 import { BiFileFind } from 'react-icons/bi';
 import { PagingFooter } from './PagingFooter';
 import { TableAction } from './TableAction';
+import { PAGE_SIZE } from '@/utils/paging';
 import type { BuildItemType } from '@/db/queries';
 
 interface BuildsListProps {
@@ -28,7 +29,7 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
             <TableHead className="text-right w-[170px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody id="buildsTableBody">
           {builds.length > 0 ? (
             builds.map((build) => (
               <BuildItem key={build.version} appId={appId} repository={repository} {...build} />
@@ -42,7 +43,7 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
           )}
         </TableBody>
       </Table>
-      <PagingFooter appId={appId} total={count} page={page} perPage={6} />
+      <PagingFooter appId={appId} total={count} page={page} perPage={PAGE_SIZE} />
     </>
   );
 }
@@ -65,7 +66,7 @@ function BuildItem({
   // const providerHost = getProviderHost(provider)
   const providerHost = 'https://github.com';
   return (
-    <TableRow>
+    <TableRow id={_id}>
       <TableCell className="py-1 font-bold">{version}</TableCell>
       <TableCell className="py-1">{compilation}</TableCell>
       <TableCell className="py-1">{formatDistanceToNow(createdAt, { addSuffix: true })}</TableCell>

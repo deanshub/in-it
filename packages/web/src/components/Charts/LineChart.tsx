@@ -37,6 +37,34 @@ export function LineChart({ data }: LineChartProps) {
           },
         },
       }}
+      onMouseEnter={(point) => {
+        const buildId = (point.data as any as { id: string }).id;
+        document.querySelectorAll('#buildsTableBody>tr').forEach((row) => {
+          row.classList.remove('bg-gray-800');
+        });
+        document.getElementById(buildId)?.classList.add('bg-gray-800');
+      }}
+      onMouseMove={(point) => {
+        const buildId = (point.data as any as { id: string }).id;
+        document.querySelectorAll('#buildsTableBody>tr').forEach((row) => {
+          row.classList.remove('bg-gray-800');
+        });
+        document.getElementById(buildId)?.classList.add('bg-gray-800');
+      }}
+      onMouseLeave={() => {
+        document.querySelectorAll('#buildsTableBody>tr').forEach((row) => {
+          row.classList.remove('bg-gray-800');
+        });
+      }}
+      onClick={(point) => {
+        const buildId = (point.data as any as { id: string }).id;
+        const buildRow = document.getElementById(buildId);
+        buildRow?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+        buildRow?.classList.add('animate-[pulse_1s_ease-in-out_2]');
+      }}
       margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
       tooltip={({ point }) => {
         return (

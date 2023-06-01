@@ -21,6 +21,7 @@ export function Chart({ builds }: ChartProps) {
       series[compilations[build.compilation]].data.push({
         x: build.createdAt,
         y: build.parsedSize,
+        id: build._id,
       });
     }
     return series;
