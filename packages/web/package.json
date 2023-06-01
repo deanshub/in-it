@@ -1,6 +1,6 @@
 {
   "name": "in-it-web",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "private": true,
   "scripts": {
     "dev": "npm run prebuild && next dev -p 3001",
@@ -81,8 +81,8 @@
   },
   "devDependencies": {
     "@types/webpack-bundle-analyzer": "^4.6.0",
-    "in-it-shared-types": "1.0.33",
-    "next-in-it-stats": "1.0.33",
+    "in-it-shared-types": "1.0.34",
+    "next-in-it-stats": "1.0.34",
     "node-jose-tools": "^2.0.2"
   }
 }
