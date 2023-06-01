@@ -103,7 +103,7 @@ export function LineChart({ data }: LineChartProps) {
             return format(value, 'HH:mm');
           }
 
-          return format(value, 'yyyy-MM-dd HH:mm');
+          return format(value, 'MM-dd HH:mm');
         },
       }}
       axisLeft={{
