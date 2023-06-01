@@ -23,9 +23,8 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Version</TableHead>
+            <TableHead className="w-[100px]">Date</TableHead>
             <TableHead className="w-[100px]">Compilation</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead className="w-[100px]">Size</TableHead>
             <TableHead className="text-right w-[170px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -56,11 +55,10 @@ function BuildItem({
   _id,
   version,
   createdAt,
-  parsedSize,
   commitHash,
   appId,
   repository,
-  compilation,
+  compilations,
 }: BuildItemProps) {
   // TODO: get provider from app
   // const providerHost = getProviderHost(provider)
@@ -68,9 +66,15 @@ function BuildItem({
   return (
     <TableRow id={_id}>
       <TableCell className="py-1 font-bold">{version}</TableCell>
-      <TableCell className="py-1">{compilation}</TableCell>
       <TableCell className="py-1">{formatDistanceToNow(createdAt, { addSuffix: true })}</TableCell>
-      <TableCell className="py-1">{filesize(parsedSize)}</TableCell>
+      <TableCell className="py-1">
+        {compilations.map((compilation) => (
+          <TableRow key={compilation.id}>
+            <TableCell className="py-1">{compilation.name}</TableCell>
+            <TableCell className="py-1">{filesize(compilation.parsedSize)}</TableCell>
+          </TableRow>
+        ))}
+      </TableCell>
       <TableCell className="px-1 py-1 text-right flex justify-end items-center">
         {repository && commitHash ? (
           <TableAction
