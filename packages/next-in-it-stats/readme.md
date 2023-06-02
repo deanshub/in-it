@@ -40,7 +40,7 @@ Or you can see your apps page (after logging in) and click on the app you want t
 ## Limit bundles (work in progress)
 
 ```js
-// .in-itrc.js
+// .in-itrc.js or "in-it" in package.json or any other supported config file
 module.exports = {
     "track": "**/*", // globby to which files in the build dir you want to track (default)
     "limits": [
