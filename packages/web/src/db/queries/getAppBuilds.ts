@@ -10,13 +10,13 @@ export interface BuildItemType {
   createdAt: Date;
   compilations: {
     id: string;
-    name: string
-    createdAt: Date;
+    name: string;
+    createdAt: string;
     statSize: number;
     gzipSize: number;
     parsedSize: number;
     compilationStatsUrl: string;
-  }[]
+  }[];
 }
 
 export interface AppBuilds {
@@ -61,8 +61,8 @@ export async function getAppBuilds(
           createdAt: {
             $max: '$createdAt',
           },
-          version: { $first: '$version'},
-          commitHash: { $first: '$commitHash'},
+          version: { $first: '$version' },
+          commitHash: { $first: '$commitHash' },
         },
       },
       {
@@ -91,7 +91,7 @@ export async function getAppBuilds(
   ]);
 
   const count = buildAggregation[0]?.metadata[0]?.total ?? 0;
-  const builds = buildAggregation[0]?.data ?? [] as BuildItemType[];
+  const builds = buildAggregation[0]?.data ?? [];
 
   return { builds, count, repository: app?.repository };
 }
