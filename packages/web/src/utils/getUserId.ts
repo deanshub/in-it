@@ -8,24 +8,36 @@ export async function getUserId({
   email,
 }: Partial<UserDocument>): Promise<UserDocument | null> {
   if (githubUsername || gitlabUsername || bitbucketUsername) {
+    const filter = [];
+    if (githubUsername) {
+      filter.push({
+        githubUsername,
+      });
+    }
+    if (gitlabUsername) {
+      filter.push({
+        gitlabUsername,
+      });
+    }
+    if (bitbucketUsername) {
+      filter.push({
+        bitbucketUsername,
+      });
+    }
+
+    if (filter.length === 0) {
+      throw new Error('No username provided');
+    }
+
     // query db for userId using userNameInProvider, provider
     const users = await User.find({
-      $or: [
-        {
-          githubUsername,
-        },
-        {
-          gitlabUsername,
-        },
-        {
-          bitbucketUsername,
-        },
-      ],
+      $or: filter,
     });
     // if exists, return userId
     if (users.length === 1) {
       return users[0];
     }
+
     if (users.length > 1) {
       throw new Error(
         `Multiple users found with userNameInProvider "${
