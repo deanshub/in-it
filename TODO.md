@@ -60,10 +60,11 @@ TODOs
 - [x] graph should have better tooltip
 - [ ] group compilations in builds to make room for more builds
 - [x] vercel analytics
+- [ ] handle bundle diff
 - [ ] marketing (get 5 users)
 - [ ] add error page
 - [ ] add loading page
-- [ ] send the correct data from web
+- [x] send the correct data from web
 - [ ] fix & update rollup plugin
 - [ ] bundles size check
     - [x] absolute
