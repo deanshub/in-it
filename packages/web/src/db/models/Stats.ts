@@ -16,11 +16,9 @@ const statsSchema = new Schema<StatsDocument>(
     },
     version: {
       type: String,
-      required: true,
     },
     buildId: {
       type: String,
-      required: true,
     },
     environment: {
       type: String,
