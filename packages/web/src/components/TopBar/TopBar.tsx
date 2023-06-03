@@ -22,9 +22,15 @@ export function TopBar() {
 
   return (
     <header className="flex items-start justify-between p-4">
-      <div className="flex flex-center gap-4">
-        <Link href="/">
+      <div className="flex items-center gap-4">
+        <Link href="/" className="pr-2">
           <Image src="/in-it.svg" alt="In-It Logo" width={50} height={24} priority />
+        </Link>
+        <Link href="/docs">
+          <Button variant="link">Docs</Button>
+        </Link>
+        <Link href="/apps">
+          <Button variant="link">My projects</Button>
         </Link>
       </div>
       <div className="flex items-center gap-4">{user ? <Logout /> : <Login />}</div>

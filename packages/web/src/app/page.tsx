@@ -133,7 +133,7 @@ export default function Home() {
               className="hidden"
               onChange={fileChanged}
             />
-            <p className="mt-4 text-xl text-center">in-it stats file</p>
+            <p className="mt-4 text-xl text-center">stats file</p>
             {/* {blob ? (
               <div>
                 Blob url: <a href={blob.url}>{blob.url}</a>
