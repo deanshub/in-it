@@ -6,13 +6,17 @@ import { App, Stats } from '@/db/models';
 export interface BuildItemType {
   _id: string;
   version: string;
-  createdAt: Date;
-  statSize: number;
-  gzipSize: number;
-  parsedSize: number;
-  compilationStatsUrl: string;
-  compilation: string;
   commitHash?: string;
+  createdAt: Date;
+  compilations: {
+    id: string;
+    name: string;
+    createdAt: string;
+    statSize: number;
+    gzipSize: number;
+    parsedSize: number;
+    compilationStatsUrl: string;
+  }[];
 }
 
 export interface AppBuilds {
@@ -30,26 +34,64 @@ export async function getAppBuilds(
   //   upsert the user?
   //   const session = await getServerSession(nextAuthOptions);
 
-  const [app, appBuilds, count] = await Promise.all([
+  const [app, buildAggregation] = await Promise.all([
     App.findById(appId),
-    Stats.find({ appId, environment: 'ci', branch: 'master' }, null, {
-      limit,
-      skip: offset,
-      sort: { createdAt: -1 },
-    }),
-    Stats.countDocuments({ appId, environment: 'ci', branch: 'master' }),
+    Stats.aggregate([
+      {
+        $match: {
+          appId,
+          environment: 'ci',
+          branch: 'master',
+        },
+      },
+      {
+        $group: {
+          _id: '$buildId',
+          compilations: {
+            $push: {
+              id: '$_id',
+              name: '$compilation',
+              createdAt: '$createdAt',
+              statSize: '$statSize',
+              gzipSize: '$gzipSize',
+              parsedSize: '$parsedSize',
+              compilationStatsUrl: '$compilationStatsUrl',
+            },
+          },
+          createdAt: {
+            $max: '$createdAt',
+          },
+          version: { $first: '$version' },
+          commitHash: { $first: '$commitHash' },
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $facet: {
+          metadata: [
+            {
+              $count: 'total',
+            },
+          ],
+          data: [
+            {
+              $skip: offset,
+            },
+            {
+              $limit: limit,
+            },
+          ],
+        },
+      },
+    ]),
   ]);
 
-  const builds = appBuilds.map((build) => ({
-    _id: build._id.toString(),
-    version: build.generatingToolVersion,
-    createdAt: build.createdAt,
-    statSize: build.statSize,
-    gzipSize: build.gzipSize,
-    parsedSize: build.parsedSize,
-    compilationStatsUrl: build.compilationStatsUrl,
-    compilation: build.compilation,
-    commitHash: build.commitHash,
-  }));
+  const count = buildAggregation[0]?.metadata[0]?.total ?? 0;
+  const builds = buildAggregation[0]?.data ?? [];
+
   return { builds, count, repository: app?.repository };
 }

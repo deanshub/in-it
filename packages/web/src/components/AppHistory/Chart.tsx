@@ -10,19 +10,22 @@ export function Chart({ builds }: ChartProps) {
   const data = useMemo(() => {
     const compilations: Record<string, number> = {};
     const series: Serie[] = [];
-    for (const build of builds) {
-      if (compilations[build.compilation] === undefined) {
-        compilations[build.compilation] = series.length;
-        series[compilations[build.compilation]] = {
-          id: build.compilation,
-          data: [],
-        };
+    for (const build of builds.slice().reverse()) {
+      for (const compilation of build.compilations) {
+        if (compilations[compilation.name] === undefined) {
+          compilations[compilation.name] = series.length;
+          series[compilations[compilation.name]] = {
+            id: compilation.name,
+            data: [],
+          };
+        }
+        series[compilations[compilation.name]].data.push({
+          x: build.createdAt,
+          y: compilation.parsedSize,
+          id: build._id,
+          version: build.version,
+        });
       }
-      series[compilations[build.compilation]].data.push({
-        x: build.createdAt,
-        y: build.parsedSize,
-        id: build._id,
-      });
     }
     return series;
   }, [builds]);

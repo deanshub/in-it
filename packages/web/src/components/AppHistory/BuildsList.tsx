@@ -8,6 +8,7 @@ import { PagingFooter } from './PagingFooter';
 import { TableAction } from './TableAction';
 import { PAGE_SIZE } from '@/utils/paging';
 import type { BuildItemType } from '@/db/queries';
+import clsx from 'clsx';
 
 interface BuildsListProps {
   builds: BuildItemType[];
@@ -18,22 +19,33 @@ interface BuildsListProps {
 }
 export function BuildsList({ builds, count, page, appId, repository }: BuildsListProps) {
   return (
-    <>
-      <Table>
+    <div className="pr-4">
+      <Table className="border-collapse">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Version</TableHead>
-            <TableHead className="w-[100px]">Compilation</TableHead>
             <TableHead>Date</TableHead>
+            <TableHead className="w-[100px]">Compilation</TableHead>
             <TableHead className="w-[100px]">Size</TableHead>
             <TableHead className="text-right w-[170px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody id="buildsTableBody">
           {builds.length > 0 ? (
-            builds.map((build) => (
-              <BuildItem key={build.version} appId={appId} repository={repository} {...build} />
-            ))
+            builds.flatMap((build, compilationIndex) =>
+              build.compilations.map((compilation, buildInCompilationIndex) => (
+                <BuildItem
+                  key={`${compilation.name}@${build._id}`}
+                  appId={appId}
+                  repository={repository}
+                  {...build}
+                  compilation={compilation}
+                  compilationsCount={build.compilations.length}
+                  buildInCompilationIndex={buildInCompilationIndex}
+                  isEven={compilationIndex % 2 === 0}
+                />
+              )),
+            )
           ) : (
             <TableRow>
               <TableCell colSpan={5} className="py-4">
@@ -44,34 +56,51 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
         </TableBody>
       </Table>
       <PagingFooter appId={appId} total={count} page={page} perPage={PAGE_SIZE} />
-    </>
+    </div>
   );
 }
 
-interface BuildItemProps extends BuildItemType {
+interface BuildItemProps extends Omit<BuildItemType, 'compilations'> {
   appId: string;
   repository?: string;
+  compilation: BuildItemType['compilations'][0];
+  isEven?: boolean;
+  compilationsCount: number;
+  buildInCompilationIndex: number;
 }
 function BuildItem({
   _id,
   version,
   createdAt,
-  parsedSize,
   commitHash,
   appId,
   repository,
+  compilationsCount,
   compilation,
+  isEven,
+  buildInCompilationIndex,
 }: BuildItemProps) {
   // TODO: get provider from app
   // const providerHost = getProviderHost(provider)
   const providerHost = 'https://github.com';
   return (
-    <TableRow id={_id}>
-      <TableCell className="py-1 font-bold">{version}</TableCell>
-      <TableCell className="py-1">{compilation}</TableCell>
-      <TableCell className="py-1">{formatDistanceToNow(createdAt, { addSuffix: true })}</TableCell>
-      <TableCell className="py-1">{filesize(parsedSize)}</TableCell>
-      <TableCell className="px-1 py-1 text-right flex justify-end items-center">
+    <TableRow
+      id={`${compilation.name}-${_id}`}
+      className={clsx(isEven ? 'bg-gray-700' : 'bg-gray-900', 'hover:bg-inherit/100')}
+    >
+      {buildInCompilationIndex === 0 ? (
+        <TableCell rowSpan={compilationsCount} className="font-bold py-0">
+          {version}
+        </TableCell>
+      ) : null}
+      {buildInCompilationIndex === 0 ? (
+        <TableCell rowSpan={compilationsCount} className="py-0">
+          {formatDistanceToNow(createdAt, { addSuffix: true })}
+        </TableCell>
+      ) : null}
+      <TableCell className="hoverable py-0.5">{compilation.name}</TableCell>
+      <TableCell className="hoverable py-0.5">{filesize(compilation.parsedSize)}</TableCell>
+      <TableCell className="hoverable px-1 py-0.5 text-right flex justify-end items-center">
         {repository && commitHash ? (
           <TableAction
             tooltip="View on GitHub"

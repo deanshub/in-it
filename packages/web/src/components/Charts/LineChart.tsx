@@ -7,6 +7,8 @@ interface LineChartProps {
   data: Serie[];
 }
 
+const highlightedBuildClass = ['text-blue-500', 'font-extrabold'];
+
 export function LineChart({ data }: LineChartProps) {
   return (
     // @ts-expect-error-next-line
@@ -39,49 +41,67 @@ export function LineChart({ data }: LineChartProps) {
       }}
       onMouseEnter={(point) => {
         const buildId = (point.data as any as { id: string }).id;
-        document.querySelectorAll('#buildsTableBody>tr').forEach((row) => {
-          row.classList.remove('bg-gray-800');
+        document.querySelectorAll(`.hoverable`).forEach((row) => {
+          row.classList.remove(...highlightedBuildClass);
         });
-        document.getElementById(buildId)?.classList.add('bg-gray-800');
+        document.querySelectorAll(`#${point.serieId}-${buildId}>.hoverable`).forEach((col) => {
+          col?.classList.add(...highlightedBuildClass);
+        });
       }}
       onMouseMove={(point) => {
         const buildId = (point.data as any as { id: string }).id;
-        document.querySelectorAll('#buildsTableBody>tr').forEach((row) => {
-          row.classList.remove('bg-gray-800');
+        document.querySelectorAll(`.hoverable`).forEach((row) => {
+          row.classList.remove(...highlightedBuildClass);
         });
-        document.getElementById(buildId)?.classList.add('bg-gray-800');
+        document.querySelectorAll(`#${point.serieId}-${buildId}>.hoverable`).forEach((col) => {
+          col?.classList.add(...highlightedBuildClass);
+        });
       }}
       onMouseLeave={() => {
-        document.querySelectorAll('#buildsTableBody>tr').forEach((row) => {
-          row.classList.remove('bg-gray-800');
+        document.querySelectorAll(`.hoverable`).forEach((row) => {
+          row.classList.remove(...highlightedBuildClass);
         });
       }}
       onClick={(point) => {
         const buildId = (point.data as any as { id: string }).id;
-        const buildRow = document.getElementById(buildId);
-        buildRow?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
+        document.querySelectorAll(`#${point.serieId}-${buildId}>.hoverable`).forEach((col) => {
+          col?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          });
+          col?.classList.add('animate-[pulse_1s_ease-in-out_3]');
         });
-        buildRow?.classList.add('animate-[pulse_1s_ease-in-out_2]');
       }}
       margin={{ top: 10, right: 110, bottom: 50, left: 60 }}
       tooltip={({ point }) => {
         return (
-          <div className="bg-gray-800 p-2 rounded-md flex flex-col justify-center items-center">
+          <div className="bg-gray-800 p-2 rounded-md flex flex-col justify-center items-center shadow">
+            <div className="text-gray-300 font-bold">
+              {format(point.data.x as Date, 'yyyy-MM-dd HH:mm')}
+            </div>
             <div className="text-gray-300 flex gap-2 items-center">
+              <span>Compilation:</span>
+              <span>{point.serieId}</span>
               <span
                 style={{ backgroundColor: point.serieColor }}
                 className="rounded-full w-4 h-4"
               />
+            </div>
+            <div className="self-start flex gap-1">
+              <span>Version:</span>
+              <span>{(point.data as any).version}</span>
+            </div>
+            <div className="self-start flex gap-1">
+              <span>Size:</span>
               <span>{filesize(point.data.y as number)}</span>
             </div>
-            <div className="text-gray-300">{format(point.data.x as Date, 'yyyy-MM-dd HH:mm')}</div>
           </div>
         );
       }}
-      xScale={{ type: 'time', format: '%Y-%m-%d' }}
-      xFormat="time:%Y-%m-%d"
+      xScale={{
+        type: 'point',
+        format: 'native',
+      }}
       yScale={{
         type: 'point',
         min: 'auto',
@@ -95,7 +115,7 @@ export function LineChart({ data }: LineChartProps) {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Date',
+        legend: 'Build Date',
         legendOffset: 36,
         legendPosition: 'middle',
         format: (value: Date) => {
@@ -110,7 +130,7 @@ export function LineChart({ data }: LineChartProps) {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'Count',
+        legend: 'Size',
         legendOffset: -40,
         legendPosition: 'middle',
         format: (value: number) => {
