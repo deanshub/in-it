@@ -16,7 +16,7 @@ export interface BuildItemType {
     gzipSize: number;
     parsedSize: number;
     compilationStatsUrl: string;
-    previousCompilation?: string;
+    previousCompilationId?: string;
   }[];
 }
 
@@ -52,7 +52,7 @@ export async function getAppBuilds(
             createdAt: -1,
           },
           output: {
-            previousCompilation: {
+            previousCompilationId: {
               $shift: {
                 output: '$_id',
                 by: 1,
@@ -74,7 +74,7 @@ export async function getAppBuilds(
               gzipSize: '$gzipSize',
               parsedSize: '$parsedSize',
               compilationStatsUrl: '$compilationStatsUrl',
-              previousCompilation: '$previousCompilation',
+              previousCompilationId: '$previousCompilationId',
             },
           },
           createdAt: {
