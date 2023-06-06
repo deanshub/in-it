@@ -8,7 +8,6 @@ export interface BuildItemType {
   version: string;
   commitHash?: string;
   createdAt: Date;
-  previousBuild?: string;
   compilations: {
     id: string;
     name: string;
@@ -17,6 +16,7 @@ export interface BuildItemType {
     gzipSize: number;
     parsedSize: number;
     compilationStatsUrl: string;
+    previousCompilation?: string;
   }[];
 }
 
@@ -46,6 +46,23 @@ export async function getAppBuilds(
         },
       },
       {
+        $setWindowFields: {
+          partitionBy: '$compilation',
+          sortBy: {
+            createdAt: -1,
+          },
+          output: {
+            previousCompilation: {
+              $shift: {
+                output: '$_id',
+                by: 1,
+                default: undefined,
+              },
+            },
+          },
+        },
+      },
+      {
         $group: {
           _id: '$buildId',
           compilations: {
@@ -57,6 +74,7 @@ export async function getAppBuilds(
               gzipSize: '$gzipSize',
               parsedSize: '$parsedSize',
               compilationStatsUrl: '$compilationStatsUrl',
+              previousCompilation: '$previousCompilation'
             },
           },
           createdAt: {
@@ -67,20 +85,8 @@ export async function getAppBuilds(
         },
       },
       {
-        $setWindowFields: {
-          partitionBy: null,
-          sortBy: {
-            createdAt: -1,
-          },
-          output: {
-            previousBuild: {
-              $shift: {
-                output: '$_id',
-                by: -1,
-                default: undefined,
-              },
-            },
-          },
+        $sort: {
+          createdAt: -1,
         },
       },
       {
