@@ -74,7 +74,7 @@ export async function getAppBuilds(
               gzipSize: '$gzipSize',
               parsedSize: '$parsedSize',
               compilationStatsUrl: '$compilationStatsUrl',
-              previousCompilation: '$previousCompilation'
+              previousCompilation: '$previousCompilation',
             },
           },
           createdAt: {
