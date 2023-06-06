@@ -8,6 +8,7 @@ export interface BuildItemType {
   version: string;
   commitHash?: string;
   createdAt: Date;
+  previousBuild?: string;
   compilations: {
     id: string;
     name: string;
@@ -66,8 +67,20 @@ export async function getAppBuilds(
         },
       },
       {
-        $sort: {
-          createdAt: -1,
+        $setWindowFields: {
+          partitionBy: null,
+          sortBy: {
+            createdAt: -1,
+          },
+          output: {
+            previousBuild: {
+              $shift: {
+                output: '$_id',
+                by: -1,
+                default: undefined,
+              },
+            },
+          },
         },
       },
       {
