@@ -9,7 +9,7 @@ import type { NextConfig } from 'next';
 function nextInItStats({
   legacy = false,
   outDir = './in-it-stats',
-  serverUrl = 'https://nissix.com/api/stats',
+  serverUrl = 'https://in-it.nissix.com/api/stats',
 }: Partial<NextStatsPluginOptions> = {}) {
   return (nextConfig: NextConfig = {}) => {
     // if in dev mode and not requested explicitly

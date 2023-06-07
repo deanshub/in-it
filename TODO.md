@@ -62,7 +62,7 @@ TODOs
 - [x] vercel analytics
 - [x] handle bundle diff
 - [x] dropdown of branches in app
-- [ ] change domain to in-it.nissix.com and redirect nissix.com to it
+- [x] change domain to in-it.nissix.com and redirect nissix.com to it
 - [ ] create blog post "why bundle diffing is a must"
 - [ ] replace react icons with something lighter\ tree-shakable (then reset the limit to 1mb)
 - [ ] marketing (get 5 users)
