@@ -27,11 +27,12 @@ export function AvailableBranches({ branches, currentBranch, appId }: AvailableB
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="start">
           {branches.map((branch) => (
-            <DropdownMenuItem key={branch}>
-              <Link href={`/apps/${appId}${branch !== 'master' ? `?branch=${branch}` : ''}`}>
-                {branch}
-              </Link>
-            </DropdownMenuItem>
+            <Link
+              key={branch}
+              href={`/apps/${appId}${branch !== 'master' ? `?branch=${branch}` : ''}`}
+            >
+              <DropdownMenuItem>{branch}</DropdownMenuItem>
+            </Link>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
