@@ -49,9 +49,9 @@ export async function getAppBuilds(
       environment: 'ci',
     }),
     Stats.aggregate(getStatsQuery(appId, branch, { limit, offset })),
-    !defaultBranches.includes(branch)
-      ? Stats.aggregate(getStatsQuery(appId, { $in: defaultBranches }, { limit: 1, offset: 0 }))
-      : undefined,
+    defaultBranches.includes(branch)
+      ? undefined
+      : Stats.aggregate(getStatsQuery(appId, { $in: defaultBranches }, { limit: 1, offset: 0 })),
   ]);
 
   const count = buildAggregation[0]?.metadata[0]?.total ?? 0;
