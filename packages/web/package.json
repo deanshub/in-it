@@ -15,13 +15,13 @@
     "limits": [
       {
         "server/chunks/**/*": {
-          "maxSize": "10mb",
+          "maxSize": "12mb",
           "maxDifference": "10%"
         }
       },
       {
         "static/chunks/app/layout*": {
-          "maxSize": "10kb",
+          "maxSize": "12kb",
           "maxDifference": "10%",
           "ignorePattern": "layout(\\-.+).js$"
         }

@@ -16,8 +16,16 @@ interface BuildsListProps {
   page: number;
   appId: string;
   repository?: string;
+  defaultBranchLatestBuild?: BuildItemType;
 }
-export function BuildsList({ builds, count, page, appId, repository }: BuildsListProps) {
+export function BuildsList({
+  builds,
+  count,
+  page,
+  appId,
+  repository,
+  defaultBranchLatestBuild,
+}: BuildsListProps) {
   return (
     <div className="pr-4">
       <Table className="border-collapse">
@@ -44,6 +52,11 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
                   buildInCompilationIndex={buildInCompilationIndex}
                   isEven={compilationIndex % 2 === 0}
                   previousCompilationId={compilation.previousCompilationId}
+                  defaultBranchName={defaultBranchLatestBuild?.branch}
+                  latestCompilationIdInDefaultBranch={
+                    defaultBranchLatestBuild?.compilations.find((c) => c.name === compilation.name)
+                      ?.id
+                  }
                 />
               )),
             )
@@ -69,6 +82,8 @@ interface BuildItemProps extends Omit<BuildItemType, 'compilations'> {
   compilationsCount: number;
   buildInCompilationIndex: number;
   previousCompilationId?: string;
+  defaultBranchName?: string;
+  latestCompilationIdInDefaultBranch?: string;
 }
 function BuildItem({
   _id,
@@ -82,6 +97,8 @@ function BuildItem({
   isEven,
   buildInCompilationIndex,
   previousCompilationId,
+  defaultBranchName,
+  latestCompilationIdInDefaultBranch,
 }: BuildItemProps) {
   // TODO: get provider from app
   // const providerHost = getProviderHost(provider)
@@ -114,8 +131,12 @@ function BuildItem({
         <TableAction disabled tooltip="Dependency Graph" icon={AiOutlineDeploymentUnit} />
         <TableAction
           disabled={!previousCompilationId}
-          tooltip="Bundle Diff"
-          href={`/analyze/${appId}/${compilation.id}-${previousCompilationId}`}
+          tooltip={
+            defaultBranchName ? `Diff with latest ${defaultBranchName}` : 'Diff with Previous'
+          }
+          href={`/analyze/${appId}/${compilation.id}-${
+            defaultBranchName ? latestCompilationIdInDefaultBranch : previousCompilationId
+          }`}
           icon={AiOutlineDiff}
         />
         <TableAction
