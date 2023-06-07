@@ -62,6 +62,7 @@ TODOs
 - [x] vercel analytics
 - [x] handle bundle diff
 - [x] dropdown of branches in app
+- [ ] replace react icons with something lighter\ tree-shakable (then reset the limit to 1mb)
 - [ ] marketing (get 5 users)
 - [ ] handle empty state of diff
 - [ ] add dropdown for diff selection
