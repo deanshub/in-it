@@ -19,6 +19,9 @@ export async function getUserName() {
 }
 
 export async function getCurrentBranch() {
+  if (process.env.VERCEL_GIT_COMMIT_REF) {
+    return process.env.VERCEL_GIT_COMMIT_REF;
+  }
   try {
     const branches = await simpleGit().branch();
     return branches.current;
