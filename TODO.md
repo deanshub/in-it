@@ -58,10 +58,12 @@ TODOs
 - [x] make pagination work
 - [x] graph should show better x,y axis labels
 - [x] graph should have better tooltip
-- [ ] group compilations in builds to make room for more builds
+- [x] group compilations in builds to make room for more builds
 - [x] vercel analytics
-- [ ] handle bundle diff
+- [x] handle bundle diff
 - [ ] marketing (get 5 users)
+- [ ] handle empty state of diff
+- [ ] add dropdown for diff selection
 - [ ] add error page
 - [ ] add loading page
 - [x] send the correct data from web
