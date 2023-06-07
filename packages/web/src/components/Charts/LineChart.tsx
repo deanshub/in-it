@@ -102,14 +102,11 @@ export function LineChart({ data }: LineChartProps) {
       }}
       xScale={{
         type: 'point',
-        format: 'native',
       }}
       yScale={{
-        type: 'point',
+        type: 'linear',
         min: 'auto',
         max: 'auto',
-        stacked: true,
-        reverse: false,
       }}
       axisTop={null}
       axisRight={null}
@@ -135,6 +132,8 @@ export function LineChart({ data }: LineChartProps) {
         legend: 'Size',
         legendOffset: -40,
         legendPosition: 'middle',
+        // tickValues: data.flatMap((serie) => serie.data.map((point) => point.y)),
+        tickValues: 5,
         format: (value: number) => {
           return filesize(value);
         },
