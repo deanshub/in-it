@@ -93,7 +93,9 @@ export function LineChart({ data }: LineChartProps) {
             </div>
             <div className="self-start flex gap-1">
               <span>Size:</span>
-              <span>{filesize(point.data.y as number)}</span>
+              <span>
+                {filesize(point.data.y as number)} ({point.data.y as number})
+              </span>
             </div>
           </div>
         );

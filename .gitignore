@@ -2,6 +2,7 @@ node_modules/
 build/
 dist/
 yarn-error.log
+.DS_Store
 
 # yarn
 .pnp.*

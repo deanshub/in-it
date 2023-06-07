@@ -43,6 +43,7 @@ export function BuildsList({ builds, count, page, appId, repository }: BuildsLis
                   compilationsCount={build.compilations.length}
                   buildInCompilationIndex={buildInCompilationIndex}
                   isEven={compilationIndex % 2 === 0}
+                  previousCompilationId={compilation.previousCompilationId}
                 />
               )),
             )
@@ -67,6 +68,7 @@ interface BuildItemProps extends Omit<BuildItemType, 'compilations'> {
   isEven?: boolean;
   compilationsCount: number;
   buildInCompilationIndex: number;
+  previousCompilationId?: string;
 }
 function BuildItem({
   _id,
@@ -79,6 +81,7 @@ function BuildItem({
   compilation,
   isEven,
   buildInCompilationIndex,
+  previousCompilationId,
 }: BuildItemProps) {
   // TODO: get provider from app
   // const providerHost = getProviderHost(provider)
@@ -109,8 +112,17 @@ function BuildItem({
           />
         ) : null}
         <TableAction disabled tooltip="Dependency Graph" icon={AiOutlineDeploymentUnit} />
-        <TableAction disabled tooltip="Bundle Diff" icon={AiOutlineDiff} />
-        <TableAction tooltip="Analyze Bundle" href={`/analyze/${appId}/${_id}`} icon={BiFileFind} />
+        <TableAction
+          disabled={!previousCompilationId}
+          tooltip="Bundle Diff"
+          href={`/analyze/${appId}/${compilation.id}-${previousCompilationId}`}
+          icon={AiOutlineDiff}
+        />
+        <TableAction
+          tooltip="Analyze Bundle"
+          href={`/analyze/${appId}/${compilation.id}`}
+          icon={BiFileFind}
+        />
       </TableCell>
     </TableRow>
   );

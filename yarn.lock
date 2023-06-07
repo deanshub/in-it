@@ -5207,6 +5207,7 @@ __metadata:
   resolution: "in-it-shared-types@workspace:packages/shared-types"
   dependencies:
     mongodb: ^5.5.0
+    webpack-bundle-analyzer: ^4.8.0
   languageName: unknown
   linkType: soft
 

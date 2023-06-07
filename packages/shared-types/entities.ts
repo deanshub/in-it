@@ -1,3 +1,5 @@
+import type { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
 export interface ModuleInfo {
   id: string;
   size: number;
@@ -68,9 +70,5 @@ export interface Limit {
     allowedModules?: string[];
   };
 }
-export interface BundleStatsReport {
-  label: string;
-  statSize: number;
-  parsedSize: number;
-  gzipSize: number;
-}
+
+export type BundleStatsReport = BundleAnalyzerPlugin.JsonReport;

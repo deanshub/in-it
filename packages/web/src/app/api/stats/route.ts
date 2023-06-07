@@ -123,7 +123,7 @@ export async function POST(request: Request) {
   }
 
   const statsFile = files[0];
-  const statsFileJson: BundleStatsReport[] = JSON.parse(await statsFile.text());
+  const statsFileJson: BundleStatsReport = JSON.parse(await statsFile.text());
   const guid = kuuid.id();
   const statsFilePath = `${environment}/${appId}/${version}/${branch}/${compilation}/${guid}.json`;
   const { url: compilationStatsUrl } = await vercelBlob.put(statsFilePath, statsFile, {

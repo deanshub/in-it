@@ -16,11 +16,19 @@ interface AppAnalyzeProps {
   };
 }
 export default async function AppAnalyze({ params: { appId, statsId } }: AppAnalyzeProps) {
-  const stats = await getStats(appId, statsId);
+  const [targetStatsId, baseStatsId] = statsId.split('-');
+  const [targetStats, baseStats] = await Promise.all([
+    getStats(appId, targetStatsId),
+    getStats(appId, baseStatsId),
+  ]);
 
   return (
     <div className="flex flex-col gap-2">
-      <BundleAnalyzer statsUrl={stats?.compilationStatsUrl} appId={appId} />
+      <BundleAnalyzer
+        statsUrl={targetStats?.compilationStatsUrl}
+        baseStatsUrl={baseStats?.compilationStatsUrl}
+        appId={appId}
+      />
     </div>
   );
 }
