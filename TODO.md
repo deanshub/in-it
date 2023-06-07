@@ -64,6 +64,7 @@ TODOs
 - [ ] marketing (get 5 users)
 - [ ] handle empty state of diff
 - [ ] add dropdown for diff selection
+- [ ] handle finding chunks better since sometimes the chunk name changes
 - [ ] add error page
 - [ ] add loading page
 - [x] send the correct data from web
