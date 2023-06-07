@@ -8,12 +8,21 @@ interface AppsPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function Apps({ params: { appId }, searchParams: { page } }: AppsPageProps) {
+export default async function Apps({
+  params: { appId },
+  searchParams: { page, branch },
+}: AppsPageProps) {
   if (appId?.[0]) {
     connectUserToApp(appId[0]);
     const pageNumber = parseInt(page as string);
-    /* @ts-expect-error Async Server Component */
-    return <AppHistory appId={appId[0]} page={isNaN(pageNumber) ? 1 : pageNumber} />;
+    return (
+      /* @ts-expect-error Async Server Component */
+      <AppHistory
+        branch={(branch as string) ?? 'master'}
+        appId={appId[0]}
+        page={isNaN(pageNumber) ? 1 : pageNumber}
+      />
+    );
   }
   return <EmptyState />;
 }

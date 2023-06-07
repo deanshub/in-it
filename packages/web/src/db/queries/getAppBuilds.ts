@@ -24,10 +24,12 @@ export interface AppBuilds {
   builds: BuildItemType[];
   count: number;
   repository?: string;
+  branches: string[];
 }
 
 export async function getAppBuilds(
   appId: string,
+  branch: string,
   { limit, offset }: { limit: number; offset: number },
 ): Promise<AppBuilds> {
   await dbConnect();
@@ -35,14 +37,19 @@ export async function getAppBuilds(
   //   upsert the user?
   //   const session = await getServerSession(nextAuthOptions);
 
-  const [app, buildAggregation] = await Promise.all([
+  const [app, branches, buildAggregation] = await Promise.all([
     App.findById(appId),
+    // get distinct branches in stats
+    Stats.distinct('branch', {
+      appId,
+      environment: 'ci',
+    }),
     Stats.aggregate([
       {
         $match: {
           appId,
           environment: 'ci',
-          branch: 'master',
+          branch,
         },
       },
       {
@@ -112,5 +119,5 @@ export async function getAppBuilds(
   const count = buildAggregation[0]?.metadata[0]?.total ?? 0;
   const builds = buildAggregation[0]?.data ?? [];
 
-  return { builds, count, repository: app?.repository };
+  return { builds, branches, count, repository: app?.repository };
 }
