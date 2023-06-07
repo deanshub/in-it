@@ -2,12 +2,15 @@ import dbConnect from '@/db/dbConnect';
 // import { getServerSession } from 'next-auth';
 // import { nextAuthOptions } from './auth';
 import { App, Stats } from '@/db/models';
+import { getStatsQuery } from './getStatsQuery';
+import { defaultBranches } from '@/utils/defaultBranches';
 
 export interface BuildItemType {
   _id: string;
   version: string;
   commitHash?: string;
   createdAt: Date;
+  branch?: string;
   compilations: {
     id: string;
     name: string;
@@ -25,6 +28,7 @@ export interface AppBuilds {
   count: number;
   repository?: string;
   branches: string[];
+  defaultBranchLatestBuild?: BuildItemType;
 }
 
 export async function getAppBuilds(
@@ -37,87 +41,27 @@ export async function getAppBuilds(
   //   upsert the user?
   //   const session = await getServerSession(nextAuthOptions);
 
-  const [app, branches, buildAggregation] = await Promise.all([
+  const [app, branches, buildAggregation, defaultBranchBuildAggregation] = await Promise.all([
     App.findById(appId),
     // get distinct branches in stats
     Stats.distinct('branch', {
       appId,
       environment: 'ci',
     }),
-    Stats.aggregate([
-      {
-        $match: {
-          appId,
-          environment: 'ci',
-          branch,
-        },
-      },
-      {
-        $setWindowFields: {
-          partitionBy: '$compilation',
-          sortBy: {
-            createdAt: -1,
-          },
-          output: {
-            previousCompilationId: {
-              $shift: {
-                output: '$_id',
-                by: 1,
-                default: undefined,
-              },
-            },
-          },
-        },
-      },
-      {
-        $group: {
-          _id: '$buildId',
-          compilations: {
-            $push: {
-              id: '$_id',
-              name: '$compilation',
-              createdAt: '$createdAt',
-              statSize: '$statSize',
-              gzipSize: '$gzipSize',
-              parsedSize: '$parsedSize',
-              compilationStatsUrl: '$compilationStatsUrl',
-              previousCompilationId: '$previousCompilationId',
-            },
-          },
-          createdAt: {
-            $max: '$createdAt',
-          },
-          version: { $first: '$version' },
-          commitHash: { $first: '$commitHash' },
-        },
-      },
-      {
-        $sort: {
-          createdAt: -1,
-        },
-      },
-      {
-        $facet: {
-          metadata: [
-            {
-              $count: 'total',
-            },
-          ],
-          data: [
-            {
-              $skip: offset,
-            },
-            {
-              $limit: limit,
-            },
-          ],
-        },
-      },
-    ]),
+    Stats.aggregate(getStatsQuery(appId, branch, { limit, offset })),
+    !defaultBranches.includes(branch)
+      ? Stats.aggregate(getStatsQuery(appId, { $in: defaultBranches }, { limit: 1, offset: 0 }))
+      : undefined,
   ]);
 
   const count = buildAggregation[0]?.metadata[0]?.total ?? 0;
   const builds = buildAggregation[0]?.data ?? [];
 
-  return { builds, branches, count, repository: app?.repository };
+  return {
+    builds,
+    branches,
+    count,
+    repository: app?.repository,
+    defaultBranchLatestBuild: defaultBranchBuildAggregation?.[0]?.data[0],
+  };
 }

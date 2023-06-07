@@ -10,15 +10,27 @@ interface AppHistoryProps {
   branch: string;
 }
 export async function AppHistory({ appId, page, branch }: AppHistoryProps) {
-  const { builds, count, repository, branches } = await getAppBuilds(appId, branch, {
-    limit: PAGE_SIZE,
-    offset: (page - 1) * PAGE_SIZE,
-  });
+  const { builds, count, repository, branches, defaultBranchLatestBuild } = await getAppBuilds(
+    appId,
+    branch,
+    {
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE,
+    },
+  );
+
   return (
     <div className="flex flex-1 flex-col">
       <Chart builds={builds} />
       <AvailableBranches branches={branches} currentBranch={branch} appId={appId} />
-      <BuildsList appId={appId} builds={builds} page={page} count={count} repository={repository} />
+      <BuildsList
+        appId={appId}
+        builds={builds}
+        page={page}
+        count={count}
+        repository={repository}
+        defaultBranchLatestBuild={defaultBranchLatestBuild}
+      />
     </div>
   );
 }
