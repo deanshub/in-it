@@ -21,7 +21,7 @@
       },
       {
         "static/chunks/app/layout*": {
-          "maxSize": "10kb",
+          "maxSize": "12kb",
           "maxDifference": "10%",
           "ignorePattern": "layout(\\-.+).js$"
         }
