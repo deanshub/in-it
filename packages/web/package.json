@@ -77,7 +77,7 @@
     "tailwindcss": "3.3.2",
     "tailwindcss-animate": "^1.0.5",
     "typescript": "5.0.4",
-    "webpack-bundle-analyzer": "patch:webpack-bundle-analyzer@npm%3A4.8.0#../../.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch"
+    "webpack-bundle-analyzer": "patch:webpack-bundle-analyzer@npm%3A4.9.0#../../.yarn/patches/webpack-bundle-analyzer-npm-4.9.0-76c6aafc1f.patch"
   },
   "devDependencies": {
     "@types/webpack-bundle-analyzer": "^4.6.0",

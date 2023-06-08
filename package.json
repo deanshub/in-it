@@ -43,6 +43,6 @@
   },
   "packageManager": "yarn@3.5.0",
   "resolutions": {
-    "webpack-bundle-analyzer@^4.8.0": "patch:webpack-bundle-analyzer@npm%3A4.8.0#./.yarn/patches/webpack-bundle-analyzer-npm-4.8.0-fcf0c72c7d.patch"
+    "webpack-bundle-analyzer@^4.8.0": "patch:webpack-bundle-analyzer@npm%3A4.9.0#./.yarn/patches/webpack-bundle-analyzer-npm-4.9.0-76c6aafc1f.patch"
   }
 }
