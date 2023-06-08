@@ -64,6 +64,7 @@ TODOs
 - [x] dropdown of branches in app
 - [x] change domain to in-it.nissix.com and redirect nissix.com to it
 - [ ] create blog post "why bundle diffing is a must"
+- [ ] fix esm issue
 - [ ] replace react icons with something lighter\ tree-shakable (then reset the limit to 1mb)
 - [ ] marketing (get 5 users)
 - [ ] handle empty state of diff
@@ -79,13 +80,11 @@ TODOs
     - [ ] send bundle sizes (to store)
     - [ ] ignore pattern
     - [ ] warn on lmits that doesn't match any tracked file
+    - [ ] dry run to get the current bundle sizes
 - [ ] fix the node-fetch warning in build
 - [ ] store the data
 - [ ] send bundle sizes
 - [ ] support redirect url after login
-- [ ] cosmiconfig settings
-    - [ ] what to track
-    - [ ] limits (absolute, precent)
 - [ ] gh action test PRs
 - [ ] gh action to create version bump in PR
 - [ ] readme for the plugins

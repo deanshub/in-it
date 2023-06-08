@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-in-it-stats",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "rollup plugin to generate in-it stats",
   "main": "dist/src/index.js",
   "author": "Dean Shub <deanshub@gmail.com>",
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
     "@types/is-ci": "^3.0.0",
-    "in-it-shared-types": "1.0.35",
+    "in-it-shared-types": "1.0.36",
     "rollup": "^3.20.2",
     "typescript": "^5.0.4",
     "vitest": "^0.30.1"

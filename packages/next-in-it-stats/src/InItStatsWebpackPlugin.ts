@@ -112,11 +112,9 @@ export default class InItStatsWebpackPlugin {
           const data = (await response.json()) as PostStatsResponse;
           const name = path.basename(this.options.reportFilename, '.json');
           console.log(
-            pc.green(
-              terminalLink(
-                `Analyze ${pc.bold(name)} Bundle`,
-                `${serverUrl.protocol}//${serverUrl.host}${data.url}`,
-              ),
+            terminalLink(
+              pc.green(`Analyze ${pc.bold(name)} Bundle`),
+              `${serverUrl.protocol}//${serverUrl.host}${data.url}`,
             ),
           );
         }
