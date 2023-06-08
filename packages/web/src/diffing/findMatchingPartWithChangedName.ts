@@ -14,7 +14,6 @@ export function findMatchingPartWithChangedName(
     ) {
       // compare the labels of the first and second group
       const firstGroupScore = getSimilarityScore(targetPart.groups, basePart.groups);
-      console.log({ firstGroupScore });
       if (firstGroupScore < MINIMUM_SIMILARITY_SCORE) {
         return 0;
       }
