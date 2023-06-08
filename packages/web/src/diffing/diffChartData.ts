@@ -1,4 +1,5 @@
 import { hasBigEnoughSize } from './hasBigEnoughSize';
+import { findMatchingPartWithChangedName } from './findMatchingPartWithChangedName';
 import type { BundleStatsReport } from 'in-it-shared-types';
 
 const hashRegex = new RegExp('\\-[a-z0-9]{16}\\.');
@@ -14,10 +15,21 @@ export function diffChartData(
   // iterate over targetChartData, find matching parts in baseChartData, and diff them in sizes
   targetChartData.forEach((targetPart) => {
     // TODO: use a map for faster lookup
-    const basePart = baseChartData.find((part) => {
-      return part.label.replace(hashRegex, '') === targetPart.label.replace(hashRegex, '');
+    let basePart = baseChartData.find((part) => {
+      return (
+        // @ts-expect-error-next-line
+        !part.checked &&
+        part.label.replace(hashRegex, '') === targetPart.label.replace(hashRegex, '')
+      );
     });
     const part = { ...targetPart };
+    let renamed = false;
+    if (!basePart) {
+      basePart = findMatchingPartWithChangedName(targetPart, baseChartData);
+      if (basePart) {
+        renamed = true;
+      }
+    }
     if (basePart) {
       // @ts-expect-error-next-line
       basePart.checked = true;
@@ -25,7 +37,9 @@ export function diffChartData(
       part.parsedSize -= basePart.parsedSize;
       part.gzipSize -= basePart.gzipSize;
 
-      part.label = `${part.statSize > 0 ? '➕' : '➖'} ${targetPart.label}`;
+      part.label = `${part.statSize > 0 ? '➕' : '➖'} ${
+        renamed ? `${basePart.label}→${targetPart.label}` : targetPart.label
+      }`;
       if (targetPart.groups) {
         part.groups = diffChartData(basePart.groups, targetPart.groups);
       }

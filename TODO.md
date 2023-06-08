@@ -69,7 +69,7 @@ TODOs
 - [ ] marketing (get 5 users)
 - [ ] handle empty state of diff
 - [ ] add dropdown for diff selection
-- [ ] handle finding chunks better since sometimes the chunk name changes
+- [ ] handle concatenated group "index.ts + 5 modules (concatenated)" (see http://localhost:3001/analyze/6474f1c00c6581c4e6b95786/6480cee0d92ae7375a02a382-64802276a2701bb3dc931d9c)
 - [ ] add error page
 - [ ] add loading page
 - [x] send the correct data from web
