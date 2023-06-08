@@ -67,7 +67,12 @@ export async function GET(request: Request) {
     addAppUser(session.user.dbUserId, appId);
   }
 
-  return new NextResponse(html, { headers: { 'content-type': 'text/html', 'cache-control': 'public, s-maxage=1200, stale-while-revalidate=600', } });
+  return new NextResponse(html, {
+    headers: {
+      'content-type': 'text/html',
+      'cache-control': 'public, s-maxage=1200, stale-while-revalidate=600',
+    },
+  });
 }
 
 function getEntrypoints(chartData: { label: string }[]) {
