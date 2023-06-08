@@ -15,22 +15,35 @@ import {
 } from '../basic/dropdown-menu';
 import { ThemeDropdownMenuGroup } from './ThemeDropdownMenuGroup';
 import { RiArrowDropDownLine } from 'react-icons/ri';
+import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 
 export function TopBar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
   const user = session?.user;
 
   return (
     <header className="flex items-start justify-between p-4">
-      <div className="flex items-center gap-4">
-        <Link href="/" className="pr-2">
+      <div className="flex items-center space-x-4 text-sm font-medium">
+        <Link href="/" className="pr-4">
           <Image src="/in-it.svg" alt="In-It Logo" width={50} height={24} priority />
         </Link>
-        <Link href="/docs">
-          <Button variant="link">Docs</Button>
+        <Link
+          href="/docs"
+          className={clsx('transition-colors hover:text-primary', {
+            underline: pathname.startsWith('/docs'),
+          })}
+        >
+          Docs
         </Link>
-        <Link href="/apps">
-          <Button variant="link">My projects</Button>
+        <Link
+          href="/apps"
+          className={clsx('transition-colors hover:text-primary', {
+            underline: pathname.startsWith('/apps'),
+          })}
+        >
+          My projects
         </Link>
       </div>
       <div className="flex items-center gap-4">{user ? <Logout /> : <Login />}</div>

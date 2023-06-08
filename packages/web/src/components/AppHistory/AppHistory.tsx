@@ -21,8 +21,8 @@ export async function AppHistory({ appId, page, branch }: AppHistoryProps) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <Chart builds={builds} />
       <AvailableBranches branches={branches} currentBranch={branch} appId={appId} />
+      <Chart builds={builds} />
       <BuildsList
         appId={appId}
         builds={builds}
