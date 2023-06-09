@@ -3,6 +3,7 @@ import { findMatchingPartWithChangedName } from './findMatchingPartWithChangedNa
 import type { BundleStatsReport } from 'in-it-shared-types';
 
 const hashRegex = new RegExp('\\-[a-z0-9]{16}\\.');
+const concatenedModulesRegex = new RegExp(' \\+ \\d+ modules \\(concatenated\\)$');
 
 export function diffChartData(
   baseChartData: undefined | BundleStatsReport,
@@ -19,7 +20,8 @@ export function diffChartData(
       return (
         // @ts-expect-error-next-line
         !part.checked &&
-        part.label.replace(hashRegex, '') === targetPart.label.replace(hashRegex, '')
+        part.label.replace(hashRegex, '').replace(concatenedModulesRegex, '') ===
+          targetPart.label.replace(hashRegex, '').replace(concatenedModulesRegex, '')
       );
     });
     const part = { ...targetPart };
