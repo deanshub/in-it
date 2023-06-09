@@ -10,6 +10,7 @@ function nextInItStats({
   legacy = false,
   outDir = './in-it-stats',
   serverUrl = 'https://in-it.nissix.com/api/stats',
+  name,
 }: Partial<NextStatsPluginOptions> = {}) {
   return (nextConfig: NextConfig = {}) => {
     // if in dev mode and not requested explicitly
@@ -54,6 +55,7 @@ function nextInItStats({
             reportFilename,
             buildId: options.buildId,
             outDir: join(process.cwd(), options.config.distDir),
+            name,
           }),
         );
         if (typeof nextConfig.webpack === 'function') {

@@ -31,6 +31,7 @@ function SearchBox() {
   return (
     <div className="flex flex-col">
       <Input
+        disabled
         type="search"
         placeholder="Search project..."
         // onChange={(e) => onChange(e.target.value)}
