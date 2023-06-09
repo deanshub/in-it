@@ -10,9 +10,13 @@ interface AppsPageProps {
 
 export default async function Apps({
   params: { appId },
-  searchParams: { page, branch },
+  searchParams: { page, branch, environment },
 }: AppsPageProps) {
   if (appId?.[0]) {
+    let env: undefined | 'ci' | 'local' | 'web';
+    if ((environment && environment === 'web') || environment === 'local') {
+      env = environment;
+    }
     connectUserToApp(appId[0]);
     const pageNumber = parseInt(page as string);
     return (
@@ -21,6 +25,7 @@ export default async function Apps({
         branch={(branch as string) ?? 'master'}
         appId={appId[0]}
         page={isNaN(pageNumber) ? 1 : pageNumber}
+        environment={env ?? 'ci'}
       />
     );
   }

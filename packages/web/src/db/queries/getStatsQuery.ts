@@ -3,13 +3,14 @@ import type { PipelineStage } from 'mongoose';
 export function getStatsQuery(
   appId: string,
   branch: string | { $in: string[] },
+  environment: string,
   { limit, offset }: { limit: number; offset: number },
 ): PipelineStage[] {
   return [
     {
       $match: {
         appId,
-        environment: 'ci',
+        environment,
         branch,
       },
     },

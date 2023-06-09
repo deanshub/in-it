@@ -34,6 +34,7 @@ export interface AppBuilds {
 export async function getAppBuilds(
   appId: string,
   branch: string,
+  environment: string,
   { limit, offset }: { limit: number; offset: number },
 ): Promise<AppBuilds> {
   await dbConnect();
@@ -46,12 +47,14 @@ export async function getAppBuilds(
     // get distinct branches in stats
     Stats.distinct('branch', {
       appId,
-      environment: 'ci',
+      environment,
     }),
-    Stats.aggregate(getStatsQuery(appId, branch, { limit, offset })),
+    Stats.aggregate(getStatsQuery(appId, branch, environment, { limit, offset })),
     defaultBranches.includes(branch)
       ? undefined
-      : Stats.aggregate(getStatsQuery(appId, { $in: defaultBranches }, { limit: 1, offset: 0 })),
+      : Stats.aggregate(
+          getStatsQuery(appId, { $in: defaultBranches }, 'ci', { limit: 1, offset: 0 }),
+        ),
   ]);
 
   const count = buildAggregation[0]?.metadata[0]?.total ?? 0;
