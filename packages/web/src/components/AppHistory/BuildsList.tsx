@@ -1,9 +1,12 @@
 import filesize from 'filesize';
 import { formatDistanceToNow } from 'date-fns';
-import { AiOutlineDeploymentUnit, AiOutlineDiff } from 'react-icons/ai';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../basic/table';
-import { SiGithub } from 'react-icons/si';
-import { BiFileFind } from 'react-icons/bi';
+import {
+  DiffOutlined,
+  DeploymentUnitOutlined,
+  GithubOutlined,
+  FileSearchOutlined,
+} from '@ant-design/icons';
 import { PagingFooter } from './PagingFooter';
 import { TableAction } from './TableAction';
 import { PAGE_SIZE } from '@/utils/paging';
@@ -125,10 +128,10 @@ function BuildItem({
           <TableAction
             tooltip="View on GitHub"
             href={`${providerHost}/${repository}/commit/${commitHash}`}
-            icon={SiGithub}
+            icon={GithubOutlined}
           />
         ) : null}
-        <TableAction disabled tooltip="Dependency Graph" icon={AiOutlineDeploymentUnit} />
+        <TableAction disabled tooltip="Dependency Graph" icon={DeploymentUnitOutlined} />
         <TableAction
           disabled={!previousCompilationId}
           tooltip={
@@ -137,12 +140,12 @@ function BuildItem({
           href={`/analyze/${appId}/${compilation.id}-${
             defaultBranchName ? latestCompilationIdInDefaultBranch : previousCompilationId
           }`}
-          icon={AiOutlineDiff}
+          icon={DiffOutlined}
         />
         <TableAction
           tooltip="Analyze Bundle"
           href={`/analyze/${appId}/${compilation.id}`}
-          icon={BiFileFind}
+          icon={FileSearchOutlined}
         />
       </TableCell>
     </TableRow>

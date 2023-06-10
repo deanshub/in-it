@@ -1,8 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SiGithub } from 'react-icons/si';
-import { BiLogOut } from 'react-icons/bi';
+import { GithubOutlined, LogoutOutlined, DownOutlined } from '@ant-design/icons';
 import { useSession } from 'next-auth/react';
 import { signIn, signOut } from 'next-auth/react';
 import { Button } from '../basic/button';
@@ -14,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '../basic/dropdown-menu';
 import { ThemeDropdownMenuGroup } from './ThemeDropdownMenuGroup';
-import { RiArrowDropDownLine } from 'react-icons/ri';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 
@@ -67,7 +65,7 @@ function Logout() {
             className="rounded-full"
           />
           <span>{user?.name}</span>
-          <RiArrowDropDownLine />
+          <DownOutlined />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -87,7 +85,7 @@ function Logout() {
             }}
             className="flex items-center gap-2"
           >
-            <BiLogOut />
+            <LogoutOutlined />
             <span>Logout</span>
           </Link>
         </DropdownMenuItem>
@@ -120,7 +118,7 @@ export function Login({ variant = 'ghost' }: LoginProps) {
         className="flex items-center gap-2"
       >
         <span>Login</span>
-        <SiGithub />
+        <GithubOutlined />
       </Button>
     </Link>
   );

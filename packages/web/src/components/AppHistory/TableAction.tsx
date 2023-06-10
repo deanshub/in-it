@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { Button } from '../basic/button';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '../basic/tooltip';
-import type { IconType } from 'react-icons';
+import type { ItalicOutlined } from '@ant-design/icons';
 
 interface TableActionProps {
   href?: string;
-  icon: IconType;
+  icon: typeof ItalicOutlined;
   tooltip: React.ReactNode;
   disabled?: boolean;
 }

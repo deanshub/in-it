@@ -6,8 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../basic/dropdown-menu';
-import { RiArrowDropDownLine } from 'react-icons/ri';
-import { AiOutlineBranches } from 'react-icons/ai';
+import { BranchesOutlined, DownOutlined } from '@ant-design/icons';
 
 interface AvailableBranchesProps {
   branches: string[];
@@ -26,9 +25,9 @@ export function AvailableBranches({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="flex items-center gap-2 hover:bg-inherit">
-            <AiOutlineBranches />
+            <BranchesOutlined />
             <span>{currentBranch}</span>
-            <RiArrowDropDownLine />
+            <DownOutlined />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="start">

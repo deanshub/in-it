@@ -1,11 +1,10 @@
-import { VscServerEnvironment } from 'react-icons/vsc';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../basic/dropdown-menu';
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import { DownOutlined, EnvironmentOutlined } from '@ant-design/icons';
 import { Button } from '../basic/button';
 import Link from 'next/link';
 
@@ -25,9 +24,9 @@ export function AvailableEnvironments({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="flex items-center gap-2 hover:bg-inherit">
-          <VscServerEnvironment />
+          <EnvironmentOutlined />
           <span>{currentEnvironment}</span>
-          <RiArrowDropDownLine />
+          <DownOutlined />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
