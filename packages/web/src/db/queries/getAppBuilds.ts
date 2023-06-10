@@ -1,6 +1,6 @@
 import dbConnect from '@/db/dbConnect';
-// import { getServerSession } from 'next-auth';
-// import { nextAuthOptions } from './auth';
+import { getServerSession } from 'next-auth';
+import { nextAuthOptions } from '@/utils/auth';
 import { App, Stats } from '@/db/models';
 import { getStatsQuery } from './getStatsQuery';
 import { defaultBranches } from '@/utils/defaultBranches';
@@ -34,24 +34,44 @@ export interface AppBuilds {
 export async function getAppBuilds(
   appId: string,
   branch: string,
+  environment: string,
   { limit, offset }: { limit: number; offset: number },
 ): Promise<AppBuilds> {
   await dbConnect();
+  const session = await getServerSession(nextAuthOptions);
+
+  const userId = session?.user?.dbUserId;
 
   //   upsert the user?
-  //   const session = await getServerSession(nextAuthOptions);
 
   const [app, branches, buildAggregation, defaultBranchBuildAggregation] = await Promise.all([
     App.findById(appId),
     // get distinct branches in stats
     Stats.distinct('branch', {
       appId,
-      environment: 'ci',
+      environment,
     }),
-    Stats.aggregate(getStatsQuery(appId, branch, { limit, offset })),
+    environment === 'local' && !userId
+      ? []
+      : Stats.aggregate(
+          getStatsQuery(
+            {
+              appId,
+              branch,
+              environment,
+              userId: environment === 'local' ? userId : undefined,
+            },
+            { limit, offset },
+          ),
+        ),
     defaultBranches.includes(branch)
       ? undefined
-      : Stats.aggregate(getStatsQuery(appId, { $in: defaultBranches }, { limit: 1, offset: 0 })),
+      : Stats.aggregate(
+          getStatsQuery(
+            { appId, branch: { $in: defaultBranches }, environment: 'ci' },
+            { limit: 1, offset: 0 },
+          ),
+        ),
   ]);
 
   const count = buildAggregation[0]?.metadata[0]?.total ?? 0;

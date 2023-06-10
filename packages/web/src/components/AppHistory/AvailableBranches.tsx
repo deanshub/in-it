@@ -13,8 +13,14 @@ interface AvailableBranchesProps {
   branches: string[];
   currentBranch: string;
   appId: string;
+  environment: string;
 }
-export function AvailableBranches({ branches, currentBranch, appId }: AvailableBranchesProps) {
+export function AvailableBranches({
+  branches,
+  currentBranch,
+  appId,
+  environment,
+}: AvailableBranchesProps) {
   return (
     <div>
       <DropdownMenu>
@@ -29,7 +35,13 @@ export function AvailableBranches({ branches, currentBranch, appId }: AvailableB
           {branches.map((branch) => (
             <Link
               key={branch}
-              href={`/apps/${appId}${branch !== 'master' ? `?branch=${branch}` : ''}`}
+              href={{
+                pathname: `/apps/${appId}`,
+                query: {
+                  branch: branch !== 'master' ? branch : undefined,
+                  environment: environment !== 'ci' ? environment : undefined,
+                },
+              }}
             >
               <DropdownMenuItem>{branch}</DropdownMenuItem>
             </Link>
