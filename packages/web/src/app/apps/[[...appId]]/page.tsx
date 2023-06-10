@@ -14,7 +14,7 @@ export default async function Apps({
 }: AppsPageProps) {
   if (appId?.[0]) {
     let env: undefined | 'ci' | 'local' | 'web';
-    if ((environment && environment === 'web') || environment === 'local') {
+    if (environment === 'web' || environment === 'local') {
       env = environment;
     }
     connectUserToApp(appId[0]);

@@ -1,9 +1,13 @@
 import type { PipelineStage } from 'mongoose';
 
+interface GetStatsQuery {
+  appId: string;
+  branch: string | { $in: string[] };
+  environment: string;
+  userId?: string;
+}
 export function getStatsQuery(
-  appId: string,
-  branch: string | { $in: string[] },
-  environment: string,
+  { appId, branch, environment, userId }: GetStatsQuery,
   { limit, offset }: { limit: number; offset: number },
 ): PipelineStage[] {
   return [
@@ -12,6 +16,7 @@ export function getStatsQuery(
         appId,
         environment,
         branch,
+        userId,
       },
     },
     {
