@@ -15,6 +15,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: ({ children }) => <ol className="list-decimal list-inside">{children}</ol>,
     li: ({ children }) => <li className="my-4">{children}</li>,
     p: ({ children }) => <p className="inline mb-2">{children}</p>,
+    pre: ({ children }) => <pre className="bg-gray-800 text-white p-4 rounded">{children}</pre>,
     ...components,
   };
 }
