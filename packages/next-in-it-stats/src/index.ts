@@ -1,7 +1,6 @@
 import { join } from 'path';
-// FOR OPTIMIZATION PURPOSES IMPORTS MOVED TO REQUIERING AT RUNTIME
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-// import InItStatsWebpackPlugin from './InItStatsWebpackPlugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import InItStatsWebpackPlugin from './InItStatsWebpackPlugin.js';
 import type { NextStatsPluginOptions } from 'in-it-shared-types';
 import type { NextConfig } from 'next';
 
@@ -35,10 +34,11 @@ function nextInItStats({
           reportFilename = join(outDir, `${options.nextRuntime ?? 'client'}.json`);
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const InItStatsWebpackPlugin = require('./InItStatsWebpackPlugin').default;
+        // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+        // const { BundleAnalyzerPlugin } = await import('webpack-bundle-analyzer');
+
+        // const InItStatsWebpackPlugin = require('./InItStatsWebpackPlugin').default;
+        // const InItStatsWebpackPlugin = (await import('./InItStatsWebpackPlugin.js')).default;
 
         config.plugins.push(
           new BundleAnalyzerPlugin({

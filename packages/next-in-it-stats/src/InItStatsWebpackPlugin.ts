@@ -5,7 +5,7 @@ import pc from 'picocolors';
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 import isCI from 'is-ci';
-import { sizeCheckBundles } from './sizeCheckBundles';
+import { sizeCheckBundles } from './sizeCheckBundles.js';
 import readPackageUp from 'read-pkg-up';
 import {
   getCommitHash,
@@ -14,7 +14,8 @@ import {
   getRootDir,
   getUserEmail,
   getUserName,
-} from './git';
+} from './git.js';
+import { getDirname } from './getDirname.js';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
@@ -46,7 +47,8 @@ export default class InItStatsWebpackPlugin {
 
         const file = await fs.readFile(this.options.reportFilename);
         const appPackage = await readPackageUp();
-        const generatorPackage = await readPackageUp({ cwd: __dirname });
+        const cwd = getDirname();
+        const generatorPackage = await readPackageUp({ cwd });
         const userEmail = await getUserEmail();
         const userName = await getUserName();
         const branch = await getCurrentBranch();
@@ -100,6 +102,7 @@ export default class InItStatsWebpackPlugin {
           return;
         }
 
+        // @ts-ignore-next-line
         const response = await fetch(serverUrl.toString(), {
           method: 'POST',
           body: formData,
