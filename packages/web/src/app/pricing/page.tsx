@@ -53,10 +53,19 @@ export default function PricingPage() {
   //   };
 
   return (
-    <div className="prose dark:prose-dark pt-10 pb-14 px-24 leading-loose flex gap-10 justify-center">
+    <div className="prose dark:prose-dark pb-14 px-24 leading-loose flex gap-10 justify-center">
       {plans.map((plan) => {
         const priceText =
-          plan.price !== undefined ? `${plan.price}$ per month` : 'Contact us for pricing';
+          plan.price !== undefined ? (
+            `${plan.price}$ per month / project`
+          ) : (
+            <>
+              <a className="underline" href="mailto:support@nissix.com">
+                Contact us
+              </a>
+              for pricing
+            </>
+          );
         return (
           <Card key={plan.name} className="w-96 drop-shadow flex flex-col bg-violet-700">
             <CardHeader>

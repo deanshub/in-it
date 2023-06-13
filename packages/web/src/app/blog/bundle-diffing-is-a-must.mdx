@@ -1,0 +1,52 @@
+# Why Bundle Diffing is a must
+
+## Introduction to Bundle Analyzing
+
+When it comes to web development, bundles play a crucial role in delivering our code and dependencies to the client, server, or edge. A bundle is a file that contains all of our code and its dependencies. To gain insights into what's inside a bundle and optimize its contents, we employ a process called bundle analyzing.
+
+The most common tool for bundle analyzing is the [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) plugin, which provides a visual representation of the bundle's composition and the amount of space each part occupies.
+
+![Bundle Analyzer](https://cloud.githubusercontent.com/assets/302213/20628702/93f72404-b338-11e6-92d4-9a365550a701.gif)
+
+By analyzing our bundles, we can ensure that we're not shipping unused code and optimize our application's performance by reducing the amount of code sent to the client, server, or edge.
+
+## Understanding Bundle Diffing
+
+Bundle diffing is the process of comparing two bundles and identifying the differences between them. It allows us to determine what has been added to the bundle and quantify the impact of those additions.
+
+### The Importance of Bundle Diffing - A Real-Life Example
+
+To illustrate the significance of bundle diffing, let's consider a real-life scenario. We were working on an app and introduced a new feature. This feature required an icon from a library we were already using, specifically the `react-icons` library.
+
+```javascript
+import { FaReact } from 'react-icons/fa';
+
+// Rest of the code
+```
+
+After making the necessary changes and creating a pull request (PR), we decided to use bundle diffing to analyze the impact. Surprisingly, the bundle diff analyzer warned us that the addition of this feature increased the bundle size by a whopping *1MB*.
+
+![Bundle Size Limit Exceeded](https://i.ibb.co/ncxDzWs/Screenshot-2023-06-07-at-17-53-34.png)
+
+This revelation left us puzzled because we assumed that the `react-icons` library was already being tree-shaken, meaning that unused code would be eliminated during the bundling process. However, upon further investigation, we discovered that `react-icons` consists of [sub-packages](https://travis-jones.medium.com/packages-sub-packages-and-npm-414aff5096fe), and each sub-package was not tree-shakable.
+
+![PR bundle Diff](https://i.ibb.co/jVft0Tn/Screenshot-2023-06-12-at-21-21-33.png)
+
+Had we not employed bundle diffing, we would have unknowingly shipped extra 1MB of unused code to our clients, negatively impacting the application's performance and load times.
+
+## Performing Bundle Diffing
+
+To perform bundle diffing, we can use the following tools depending on the framework or bundler we are using:
+
+- For Next.js apps, we can utilize the [next-in-it-stats](https://www.npmjs.com/package/next-in-it-stats) package.
+- For Webpack-based apps, the [legacy-in-it-stats-plugin](https://www.npmjs.com/package/legacy-in-it-stats-plugin) is a suitable option.
+- For projects bundled with Rollup, the [rollup-plugin-in-it-stats](https://www.npmjs.com/package/rollup-plugin-in-it-stats) plugin can be utilized.
+
+Choose the appropriate tool based on your project's requirements to start benefiting from bundle diffing.
+
+
+## About the Author
+
+My name is [Dean Shub](https://twitter.com/deanshub), and I have been a software engineer for over 20 years. Aside from my professional experience, I am a husband, a father of two, and a proud dog owner. I am passionate about dev tools and love sharing my knowledge and insights with the community.
+
+Thank you for reading! If you have any questions or would like to share your thoughts, feel free to reach out.
