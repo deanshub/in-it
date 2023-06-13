@@ -7,6 +7,7 @@ import { Providers } from '@/components/Providers';
 import { getServerSession } from 'next-auth/next';
 import { nextAuthOptions } from '@/utils/auth';
 import { Analytics } from '@vercel/analytics/react';
+import { ClarityScript } from '@/components/Clarity/ClarityScript';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
+      <ClarityScript />
       <body className={clsx(inter.className, 'min-h-screen flex flex-col', 'dark')}>
         <Providers session={session}>
           <TopBar />

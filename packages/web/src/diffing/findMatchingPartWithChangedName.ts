@@ -21,7 +21,6 @@ export function findMatchingPartWithChangedName(
         targetPart.groups?.flatMap((group) => group.groups ?? []),
         basePart.groups?.flatMap((group) => group.groups ?? []),
       );
-      console.log({ secondGroupScore });
 
       return Math.min(firstGroupScore, secondGroupScore);
     }
