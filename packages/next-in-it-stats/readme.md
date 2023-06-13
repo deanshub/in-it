@@ -14,9 +14,9 @@ npm install next-in-it-stats
 
 ```js
 // next.config.js
-const withInItStats = require('next-in-it-stats')({
+const withInItStats = require('next-in-it-stats/cjs')({
   legacy: true,
-});
+}); // or import withInItStats from 'next-in-it-stats' if you use esm;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

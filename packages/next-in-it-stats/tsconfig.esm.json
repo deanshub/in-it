@@ -2,11 +2,12 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "types": ["vitest", "vitest/globals"],
-        "module": "esnext",
+        "module": "NodeNext",
         "target": "esnext",
-        "moduleResolution": "nodenext",
+        "moduleResolution": "NodeNext",
         "rootDir": "src",
-        "outDir": "dist/esm",
+        "outDir": "dist/esm"
+        
     },
-    "exclude":["vitest.config.ts"]
+    "exclude":["vitest.config.ts", "dist", "node_modules", "cjs/*", "esm/*"]
 }

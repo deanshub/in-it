@@ -2,18 +2,27 @@
   "name": "next-in-it-stats",
   "version": "1.0.37",
   "description": "next plugin to generate in-it stats",
+  "type": "module",
   "main": "dist/cjs/index.js",
   "exports": {
-    "require": "./dist/cjs/index.js",
-    "import": "./dist/esm/index.js"
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    },
+    "./cjs": {
+      "require": "./dist/cjs/index.js"
+    },
+    "./esm": {
+      "import": "./dist/esm/index.js"
+    }
   },
   "author": "Dean Shub <deanshub@gmail.com>",
   "license": "ISC",
   "scripts": {
     "clean": "rm -rf dist/",
     "build": "npm run clean && npm run build:cjs && npm run build:esm",
-    "build:cjs": "tsc -p tsconfig.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.json && cp cjs/* dist/cjs/",
+    "build:esm": "tsc -p tsconfig.esm.json && cp esm/* dist/esm/",
     "watch": "npm run clean && tsc -p tsconfig.json -w",
     "test": "vitest run --passWithNoTests",
     "npm:publish": "npm publish --access public"

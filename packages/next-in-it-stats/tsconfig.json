@@ -9,5 +9,5 @@
         "allowSyntheticDefaultImports": true,
         "allowJs": true
     },
-    "exclude":["vitest.config.ts", "dist", "node_modules"]
+    "exclude":["vitest.config.ts", "dist", "node_modules", "cjs/*", "esm/*"]
 }
