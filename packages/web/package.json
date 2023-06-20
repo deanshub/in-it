@@ -50,7 +50,6 @@
     "@nivo/core": "^0.83.0",
     "@nivo/line": "^0.83.0",
     "@octokit/auth-app": "^4.0.13",
-    "@octokit/oauth-authorization-url": "^6.0.2",
     "@octokit/rest": "^19.0.11",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-slot": "^1.0.1",
@@ -84,6 +83,7 @@
     "webpack-bundle-analyzer": "patch:webpack-bundle-analyzer@npm%3A4.9.0#../../.yarn/patches/webpack-bundle-analyzer-npm-4.9.0-76c6aafc1f.patch"
   },
   "devDependencies": {
+    "@octokit/request-error": "^4.0.2",
     "@types/webpack-bundle-analyzer": "^4.6.0",
     "in-it-shared-types": "1.0.38",
     "next-in-it-stats": "1.0.38",
