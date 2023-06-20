@@ -5,9 +5,9 @@ import { getOrThrow } from '@/utils/getOrThrow';
 import type { RequestError } from '@octokit/request-error';
 
 export async function GET(req: Request) {
-  const privateKey = getOrThrow('PLAYGROUND_GITHUB_PRIVATE_KEY').replace(/\\n/g, '\n');
-  const appId = getOrThrow('PLAYGROUND_GITHUB_APP_ID');
-  const baseUrl = getOrThrow('NEXTAUTH_URL');
+  const privateKey = getOrThrow('NISSIX_GITHUB_PRIVATE_KEY').replace(/\\n/g, '\n');
+  const appId = getOrThrow('NISSIX_GITHUB_APP_ID');
+  const githubAppUrl = getOrThrow('NISSIX_GITHUB_APP_URL');
 
   const { searchParams } = new URL(req.url);
   const head_sha = searchParams.get('head_sha');
@@ -67,7 +67,7 @@ export async function GET(req: Request) {
     const error = e as RequestError;
     if (error.status === 403) {
       return NextResponse.json({
-        message: `To enable bundle size status check please click here: ${baseUrl}/api/github/installation`,
+        message: `To enable bundle size status check please click here: ${githubAppUrl}`,
       });
     } else {
       throw e;
