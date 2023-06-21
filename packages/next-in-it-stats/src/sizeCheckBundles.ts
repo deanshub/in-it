@@ -55,6 +55,8 @@ export async function sizeCheckBundles({ outDir }: { outDir: string }): Promise<
     });
   });
 
+  // TODO send result to github status check
+
   // if there are any relative limits, compare to the previous\master build
   // gather all errors and print them
   // if there are any errors, exit with error code
