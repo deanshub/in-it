@@ -95,7 +95,8 @@ TODOs
     - [ ] nextjs
     - [ ] webpack
     - [ ] nextjs
-- [ ] lighter data format than json
+- [ ] lighter data format than json (cbor)
+- [x] add dependency graph
 
 
 ## Ideas

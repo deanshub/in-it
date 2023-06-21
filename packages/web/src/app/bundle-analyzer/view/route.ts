@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 // @ts-expect-error-next-line
 import { renderViewer } from 'webpack-bundle-analyzer/lib/template';
-import fetch from 'node-fetch';
 import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from '@/utils/auth';
 import { AppUsers } from '@/db/models';
@@ -20,9 +19,9 @@ export async function GET(request: Request) {
     });
   }
 
-  const fetchers = [fetch(statsUrl)];
+  const fetchers = [fetch(statsUrl, { cache: 'no-store' })];
   if (baseStatsUrl) {
-    fetchers.push(fetch(baseStatsUrl));
+    fetchers.push(fetch(baseStatsUrl, { cache: 'no-store' }));
   }
 
   const [statsResponse, baseStatsResponse] = await Promise.all(fetchers);
