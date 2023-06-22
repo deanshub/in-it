@@ -20,3 +20,20 @@ export interface SigmaEdge {
   label?: string;
   color?: string;
 }
+
+export interface Dependencies {
+  chunkDependencies: Set<string>;
+  gzipSize: number;
+  statSize: number;
+  parsedSize: number;
+}
+
+export interface DependencyProps {
+  chunkDependencies: string[];
+  parsedSize: number;
+  gzipSize: number;
+  statSize: number;
+}
+export interface MatterGraphProps {
+  data: Record<string, DependencyProps>;
+}

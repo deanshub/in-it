@@ -4,7 +4,7 @@ import {
   // random, circlepack
 } from 'graphology-layout';
 // import forceAtlas2 from 'graphology-layout-forceatlas2';
-import type { SigmaGraph, SigmaEdge } from '../types/basics';
+import type { SigmaGraph, SigmaEdge, MatterGraphProps } from '../types/basics';
 
 interface Node {
   id: string;
@@ -49,28 +49,27 @@ export function toGraph(data: SigmaGraph): Graph {
   return graph;
 }
 
-export function toSigmaGraph(deps: Record<string, string[]>): SigmaGraph {
+export function toSigmaGraph(deps: MatterGraphProps['data']): SigmaGraph {
   let index = 0;
   const nodes = new Map<string, Node>();
   const edges: SigmaEdge[] = [];
 
   for (const [chunkName, chunkDeps] of Object.entries(deps)) {
-    // deps.forEach((chunkDeps, chunkName) => {
     if (!nodes.has(chunkName)) {
       nodes.set(chunkName, {
         id: chunkName,
         label: chunkName,
-        size: 1,
+        size: chunkDeps.gzipSize,
         module: false,
       });
     }
 
-    for (const dep of chunkDeps) {
+    for (const dep of chunkDeps.chunkDependencies) {
       if (!nodes.has(dep)) {
         nodes.set(dep, {
           id: dep,
           label: dep,
-          size: 1,
+          size: deps[dep]?.gzipSize,
           module: false,
         });
       }

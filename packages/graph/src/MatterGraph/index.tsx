@@ -15,7 +15,7 @@ import {
 } from 'matter-js';
 import { getColor, gray } from './colors';
 import type Graph from 'graphology';
-import type { SigmaNode, SigmaEdge } from '../../types/basics';
+import type { SigmaNode, SigmaEdge, MatterGraphProps } from '../../types/basics';
 // @ts-expect-error-next-line
 import * as MatterAttractors from 'matter-attractors';
 import { setConstraintRenderer } from './renderers/constraintRenderer';
@@ -24,16 +24,18 @@ import { toGraph, toSigmaGraph } from '../graphology';
 import { setWorldRenderer } from './renderers/worldRenderer';
 import {
   bodyAttractionMagnitude,
-  boundsMultiplier,
+  defaultNodeSize,
   edgeColor,
   edgeLength,
   edgeStiffness,
+  minimumNodeSize,
   nodeLabelColor,
 } from './defaultConsts';
+import { SizeRatio, getSizeRatio } from './getSizeRatio';
 
 use(MatterAttractors);
 
-export default function MatterGraph({ data }: { data: Record<string, string[]> }) {
+export default function MatterGraph({ data }: MatterGraphProps) {
   const graph: Graph = toGraph(toSigmaGraph(data));
 
   const scene = useRef<HTMLDivElement>(null);
@@ -88,9 +90,11 @@ export default function MatterGraph({ data }: { data: Record<string, string[]> }
     //   Bodies.rectangle(cw + 0.5 * wallSize, ch / 2, wallSize, ch, { isStatic: true }),
     // ]);
 
+    const sizeRatio = getSizeRatio(graph);
+
     const nodesBodies = new Map<string, Matter.Body>();
     graph.forEachNode((id, node) => {
-      const nodeBody = addNode(engine, node as SigmaNode, cw, ch);
+      const nodeBody = addNode(engine, node as SigmaNode, cw, ch, sizeRatio);
       nodesBodies.set(id, nodeBody);
     });
     graph.forEachEdge((key, edge) => addEdge(engine, edge as SigmaEdge, nodesBodies));
@@ -184,14 +188,17 @@ export default function MatterGraph({ data }: { data: Record<string, string[]> }
   );
 }
 
-function addNode(engine: any, node: SigmaNode, cw: number, ch: number) {
+function addNode(engine: any, node: SigmaNode, cw: number, ch: number, sizeRatio: SizeRatio) {
   // const isSourceCodeNode = node.id === 'SOURCE_CODE';
   // const nodeX = isSourceCodeNode ? 700 : node.x! / 25;
   // const nodeY = isSourceCodeNode ? 700 : node.y! / 25;
   const nodeX = node.x! + cw / 2;
   const nodeY = node.y! + ch / 2;
 
-  const ball = Bodies.circle(nodeX, nodeY, 25, {
+  const normalizedSize = ((node?.size ?? defaultNodeSize) - sizeRatio.minSize) / sizeRatio.range;
+  const scaledSize = normalizedSize * sizeRatio.wantedRange + minimumNodeSize;
+
+  const ball = Bodies.circle(nodeX, nodeY, scaledSize, {
     label: node.label,
     density: 0.04,
     frictionAir: 0.005,

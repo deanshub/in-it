@@ -1,5 +1,6 @@
 import { getStats } from '@/utils/getStats';
 import { Graph } from 'nissix-graph';
+import type { Dependencies } from 'nissix-graph/types/basics';
 import type { BundleStatsReport } from 'in-it-shared-types';
 
 async function getDependencies(compilationStatsUrl: string) {
@@ -8,9 +9,12 @@ async function getDependencies(compilationStatsUrl: string) {
   const dependencies = bundleStatsReportToDependencies(bundleStatsReport);
 
   return Object.fromEntries(
-    Array.from(dependencies.entries()).map(([chunkName, chunkDependencies]) => [
+    Array.from(dependencies.entries()).map(([chunkName, chunk]) => [
       chunkName,
-      Array.from(chunkDependencies),
+      {
+        ...chunk,
+        chunkDependencies: Array.from(chunk.chunkDependencies),
+      },
     ]),
   );
 }
@@ -38,7 +42,7 @@ export default async function AppAnalyze({ params: { appId, statsId } }: AppAnal
 
 function bundleStatsReportToDependencies(
   bundleStatsReport: BundleStatsReport,
-  dependencies: Map<string, Set<string>> = new Map<string, Set<string>>(),
+  dependencies: Map<string, Dependencies> = new Map<string, Dependencies>(),
 ) {
   bundleStatsReport.forEach((bundle) => {
     const chunkDependencies = new Set<string>();
@@ -51,11 +55,23 @@ function bundleStatsReportToDependencies(
       bundleStatsReportToDependencies([group], dependencies);
     });
 
-    if (chunkDependencies.size > 0) {
+    if (name) {
       if (!dependencies.has(name)) {
-        dependencies.set(name, chunkDependencies);
+        dependencies.set(name, {
+          chunkDependencies,
+          parsedSize: bundle.parsedSize,
+          gzipSize: bundle.gzipSize,
+          statSize: bundle.statSize,
+        });
       } else {
-        dependencies.set(name, new Set([...dependencies.get(name)!, ...chunkDependencies]));
+        const originalBundleDependencies = dependencies.get(name)!;
+        dependencies.set(name, {
+          ...originalBundleDependencies,
+          chunkDependencies: new Set([
+            ...originalBundleDependencies.chunkDependencies,
+            ...chunkDependencies,
+          ]),
+        });
       }
     }
   });
