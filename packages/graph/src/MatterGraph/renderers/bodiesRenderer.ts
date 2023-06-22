@@ -126,7 +126,7 @@ export function setBodiesRenderer(): void {
           c.textAlign = 'center';
           c.fillStyle = color;
           c.font = fontsize + 'px ' + fontfamily;
-          c.fillText(content, part.position.x, part.position.y - 30);
+          c.fillText(content, part.position.x, part.position.y - part.circleRadius - 10);
         }
       }
     }
