@@ -1,11 +1,18 @@
 import { getStats } from '@/utils/getStats';
+import { Graph } from 'nissix-graph';
 import type { BundleStatsReport } from 'in-it-shared-types';
 
 async function getDependencies(compilationStatsUrl: string) {
   const bundleStatsReportResponse = await fetch(compilationStatsUrl, { cache: 'no-store' });
   const bundleStatsReport: BundleStatsReport = await bundleStatsReportResponse.json();
   const dependencies = bundleStatsReportToDependencies(bundleStatsReport);
-  return dependencies;
+
+  return Object.fromEntries(
+    Array.from(dependencies.entries()).map(([chunkName, chunkDependencies]) => [
+      chunkName,
+      Array.from(chunkDependencies),
+    ]),
+  );
 }
 
 interface AppAnalyzeProps {
@@ -24,16 +31,7 @@ export default async function AppAnalyze({ params: { appId, statsId } }: AppAnal
 
   return (
     <div className="flex flex-col gap-2">
-      {Array.from(dependencies.entries()).map(([chunkName, chunkDependencies]) => (
-        <div key={chunkName} className="flex flex-col gap-2">
-          <span>{chunkName}:</span>
-          <ul className="flex flex-col gap-2 list-disc list-inside">
-            {Array.from(chunkDependencies).map((chunkDependency) => (
-              <li key={chunkDependency}>{chunkDependency}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <Graph data={dependencies} />
     </div>
   );
 }

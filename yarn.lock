@@ -2244,6 +2244,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/matter-js@npm:^0.18.5":
+  version: 0.18.5
+  resolution: "@types/matter-js@npm:0.18.5"
+  checksum: 0747b8b8b811a13946f5fbf07160fb4ab30e5964b6fb280fcfd478388a8c7ef112aaeb5190c3188ccc2e7d0084788ed9c8514f8ae8749add5a0563652861220a
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^3.0.0":
   version: 3.0.11
   resolution: "@types/mdast@npm:3.0.11"
@@ -2366,6 +2373,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 97c4534e849edf991be0820b0911d036e794b8e2599a1544f500c769acbcb4f443ccde1a3f22298f22ce368ee7757f746e4a529e889567fc142a627698e2de39
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^18.2.13":
+  version: 18.2.13
+  resolution: "@types/react@npm:18.2.13"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: f7c15f19c164a29262993ea2aae2085fa38cddd9b8359fd8fefabfced91010b515a3abe2042b2b7f2f86e6b38a25b191415aa9313a9027175e3a000883c858cc
   languageName: node
   linkType: hard
 
@@ -4868,7 +4886,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"events@npm:^3.2.0":
+"events@npm:^3.2.0, events@npm:^3.3.0":
   version: 3.3.0
   resolution: "events@npm:3.3.0"
   checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
@@ -5392,6 +5410,46 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphology-layout@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "graphology-layout@npm:0.6.1"
+  dependencies:
+    graphology-utils: ^2.3.0
+    pandemonium: ^2.4.0
+  peerDependencies:
+    graphology-types: ">=0.19.0"
+  checksum: 5d5577c292702208e8455c241107362c3bad6c8dadb78509c0153f3bde5974fba00e94d1b4d91a6a80f39ff1075af05f90bf2b9c73267fc0650fc37291a877eb
+  languageName: node
+  linkType: hard
+
+"graphology-types@npm:^0.24.7":
+  version: 0.24.7
+  resolution: "graphology-types@npm:0.24.7"
+  checksum: 352de48ee759dbe9b02765209c287f43e967b5513f216240dfd2af41f502d74e033f8b28f9a57c838b15d24aa3a0e598aaef90b718cf1510ff9de2b4e4ce240e
+  languageName: node
+  linkType: hard
+
+"graphology-utils@npm:^2.3.0":
+  version: 2.5.2
+  resolution: "graphology-utils@npm:2.5.2"
+  peerDependencies:
+    graphology-types: ">=0.23.0"
+  checksum: 803e53795c073383416db73c6ae46bfac168aec0f810bbc531effc404fa3701ee1e7598b2be23174e25666e04d52df6bb8c11b1e742d9cefe76463eac43e7cc9
+  languageName: node
+  linkType: hard
+
+"graphology@npm:^0.25.1":
+  version: 0.25.1
+  resolution: "graphology@npm:0.25.1"
+  dependencies:
+    events: ^3.3.0
+    obliterator: ^2.0.2
+  peerDependencies:
+    graphology-types: ">=0.24.0"
+  checksum: 6f5b9391832d13aa39b68c87d815f0bdd848db6ca119b9576941c7654cd4aaaec17d1e388b0c88ca268500bcfc88eb24022f90a0f4cd5862b24b0c6d97f59ed8
+  languageName: node
+  linkType: hard
+
 "gzip-size@npm:^6.0.0":
   version: 6.0.0
   resolution: "gzip-size@npm:6.0.0"
@@ -5667,6 +5725,7 @@ __metadata:
     next: 13.4.5
     next-auth: ^4.22.1
     next-in-it-stats: 1.0.38
+    nissix-graph: 1.0.38
     node-jose-tools: ^2.0.2
     octokit: ^2.0.19
     postcss: 8.4.23
@@ -6562,6 +6621,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"matter-attractors@npm:^0.1.6":
+  version: 0.1.6
+  resolution: "matter-attractors@npm:0.1.6"
+  checksum: d0c7ce1cb375f26d7ef3ae72b7421a7a96d893894db0f5d844ea7b72810127a785d9e767feedb3e9113c94b8ad7f788c3c2c5ac39964ac6a87bbe180940d4bc2
+  languageName: node
+  linkType: hard
+
+"matter-js@npm:^0.19.0":
+  version: 0.19.0
+  resolution: "matter-js@npm:0.19.0"
+  checksum: 1f226a0826ad9700e7d171daeb17f6d18b7f4fcc94a6530b7dd190d2e3c7380b5b4d518a4d0272aaf6a674475b2ef777a44320ab639ce2e8974ebb02a58a50ca
+  languageName: node
+  linkType: hard
+
 "md5-hex@npm:^3.0.1":
   version: 3.0.1
   resolution: "md5-hex@npm:3.0.1"
@@ -7263,6 +7336,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mnemonist@npm:^0.39.2":
+  version: 0.39.5
+  resolution: "mnemonist@npm:0.39.5"
+  dependencies:
+    obliterator: ^2.0.1
+  checksum: 6669d687a434226924b2c84ee6eb7ce7d0f83dfc5caad8bcc164c73c0c11fb6d43cbe32636e710f068046f4b40a56c3032532554e93e02640aafc6ca3dd222e6
+  languageName: node
+  linkType: hard
+
 "mongodb-connection-string-url@npm:^2.6.0":
   version: 2.6.0
   resolution: "mongodb-connection-string-url@npm:2.6.0"
@@ -7598,6 +7680,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nissix-graph@1.0.38, nissix-graph@workspace:packages/graph":
+  version: 0.0.0-use.local
+  resolution: "nissix-graph@workspace:packages/graph"
+  dependencies:
+    "@types/matter-js": ^0.18.5
+    "@types/react": ^18.2.13
+    graphology: ^0.25.1
+    graphology-layout: ^0.6.1
+    graphology-types: ^0.24.7
+    matter-attractors: ^0.1.6
+    matter-js: ^0.19.0
+    react: ^18.2.0
+    react-graph-vis: ^1.0.7
+    typescript: ^5.0.4
+    vitest: ^0.30.1
+  languageName: unknown
+  linkType: soft
+
 "node-emoji@npm:^1.11.0":
   version: 1.11.0
   resolution: "node-emoji@npm:1.11.0"
@@ -7861,6 +7961,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"obliterator@npm:^2.0.1, obliterator@npm:^2.0.2":
+  version: 2.0.4
+  resolution: "obliterator@npm:2.0.4"
+  checksum: f28ad35b6d812089315f375dc3e6e5f9bebf958ebe4b10ccd471c7115cbcf595e74bdac4783ae758e5b1f47e3096427fdb37cfa7bed566b132df92ff317b9a7c
+  languageName: node
+  linkType: hard
+
 "octokit@npm:^2.0.19":
   version: 2.0.19
   resolution: "octokit@npm:2.0.19"
@@ -8023,6 +8130,15 @@ __metadata:
   version: 2.1.0
   resolution: "pako@npm:2.1.0"
   checksum: 71666548644c9a4d056bcaba849ca6fd7242c6cf1af0646d3346f3079a1c7f4a66ffec6f7369ee0dc88f61926c10d6ab05da3e1fca44b83551839e89edd75a3e
+  languageName: node
+  linkType: hard
+
+"pandemonium@npm:^2.4.0":
+  version: 2.4.1
+  resolution: "pandemonium@npm:2.4.1"
+  dependencies:
+    mnemonist: ^0.39.2
+  checksum: ada32ba457a0dd3ae8eb656e381b71eae3e36a81cb18b71236fd3e1534ab48fa2243da47198647c4df60aca78cf372df8a180e65c3dcfeec4910d28956347974
   languageName: node
   linkType: hard
 
@@ -8388,7 +8504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.10, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -8447,6 +8563,21 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
   checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-graph-vis@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "react-graph-vis@npm:1.0.7"
+  dependencies:
+    lodash: ^4.17.15
+    prop-types: ^15.5.10
+    uuid: ^2.0.1
+    vis-data: ^7.1.2
+    vis-network: ^9.0.0
+  peerDependencies:
+    react: "*"
+  checksum: f5f6185cff169f541f91a361ea598df13cde429b0ef3c20ee9fe4adc3a0b5d1faf9e692257f2e2a620d606048bb53ce05cd73de8c5988131ac2f4260b70e6d34
   languageName: node
   linkType: hard
 
@@ -8532,7 +8663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:18.2.0":
+"react@npm:18.2.0, react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
   dependencies:
@@ -10076,6 +10207,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:^2.0.1":
+  version: 2.0.3
+  resolution: "uuid@npm:2.0.3"
+  checksum: 44adb0e235a683005fda9a869ddf2e88decbea082ea6b938e6f21b83147fda494fdc25ed8eba56196c4d5794ffc1c3efa4e3fef3e6205be2ee4084497f434e0f
+  languageName: node
+  linkType: hard
+
 "uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
@@ -10137,6 +10275,31 @@ __metadata:
     unist-util-stringify-position: ^3.0.0
     vfile-message: ^3.0.0
   checksum: 642cce703afc186dbe7cabf698dc954c70146e853491086f5da39e1ce850676fc96b169fcf7898aa3ff245e9313aeec40da93acd1e1fcc0c146dc4f6308b4ef9
+  languageName: node
+  linkType: hard
+
+"vis-data@npm:^7.1.2":
+  version: 7.1.6
+  resolution: "vis-data@npm:7.1.6"
+  peerDependencies:
+    uuid: ^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+    vis-util: ^5.0.1
+  checksum: ef461d13e0c340c29aef38b70247c0722d293b9aab029fdbffe6802e473c47ea83e2c3c9563cd03e092d1e579b5f98326ce704eb1b3d51eee8f0eadaf6618f99
+  languageName: node
+  linkType: hard
+
+"vis-network@npm:^9.0.0":
+  version: 9.1.6
+  resolution: "vis-network@npm:9.1.6"
+  peerDependencies:
+    "@egjs/hammerjs": ^2.0.0
+    component-emitter: ^1.3.0
+    keycharm: ^0.2.0 || ^0.3.0 || ^0.4.0
+    timsort: ^0.3.0
+    uuid: ^3.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+    vis-data: ^6.3.0 || ^7.0.0
+    vis-util: ^5.0.1
+  checksum: a3e5de0c21a2045708a989d4b07749e207ee135a0f4c0a9fc2c23e19e662391d1532c17c9402eb84e3e6a1d3fe85fefa220973e79c845032cbcf228931096e84
   languageName: node
   linkType: hard
 
