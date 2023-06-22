@@ -60,18 +60,18 @@ export default function MatterGraph({ data }: { data: Record<string, string[]> }
         height: ch,
         wireframes: false,
         background: 'transparent',
-        hasBounds: true,
+        // hasBounds: true,
       },
-      bounds: {
-        min: {
-          x: -boundsMultiplier * cw,
-          y: -boundsMultiplier * ch,
-        },
-        max: {
-          x: boundsMultiplier * cw,
-          y: boundsMultiplier * ch,
-        },
-      },
+      // bounds: {
+      //   min: {
+      //     x: -boundsMultiplier * cw,
+      //     y: -boundsMultiplier * ch,
+      //   },
+      //   max: {
+      //     x: boundsMultiplier * cw,
+      //     y: boundsMultiplier * ch,
+      //   },
+      // },
     });
 
     engine.current.gravity.y = 0;
@@ -90,7 +90,7 @@ export default function MatterGraph({ data }: { data: Record<string, string[]> }
 
     const nodesBodies = new Map<string, Matter.Body>();
     graph.forEachNode((id, node) => {
-      const nodeBody = addNode(engine, node as SigmaNode);
+      const nodeBody = addNode(engine, node as SigmaNode, cw, ch);
       nodesBodies.set(id, nodeBody);
     });
     graph.forEachEdge((key, edge) => addEdge(engine, edge as SigmaEdge, nodesBodies));
@@ -122,6 +122,14 @@ export default function MatterGraph({ data }: { data: Record<string, string[]> }
 
     const runner = Runner.create();
     Runner.run(runner, engine.current);
+
+    // const sourceNode = nodesBodies.get('SOURCE_CODE');
+    // if (sourceNode) {
+    //   Render.lookAt(render, sourceNode, {
+    //     x: cw / 2,
+    //     y: ch / 2,
+    //   });
+    // }
 
     return () => {
       Render.stop(render);
@@ -176,12 +184,12 @@ export default function MatterGraph({ data }: { data: Record<string, string[]> }
   );
 }
 
-function addNode(engine: any, node: SigmaNode) {
+function addNode(engine: any, node: SigmaNode, cw: number, ch: number) {
   // const isSourceCodeNode = node.id === 'SOURCE_CODE';
   // const nodeX = isSourceCodeNode ? 700 : node.x! / 25;
   // const nodeY = isSourceCodeNode ? 700 : node.y! / 25;
-  const nodeX = node.x!;
-  const nodeY = node.y!;
+  const nodeX = node.x! + cw / 2;
+  const nodeY = node.y! + ch / 2;
 
   const ball = Bodies.circle(nodeX, nodeY, 25, {
     label: node.label,
