@@ -13,7 +13,7 @@ import {
   use,
   Runner,
 } from 'matter-js';
-import { getColor, gray } from './colors';
+import { gray } from './colors';
 import type Graph from 'graphology';
 import type { SigmaNode, SigmaEdge, MatterGraphProps } from '../../types/basics';
 // @ts-expect-error-next-line
@@ -32,6 +32,30 @@ import {
   nodeLabelColor,
 } from './defaultConsts';
 import { SizeRatio, getSizeRatio } from './getSizeRatio';
+import colors from 'nice-color-palettes';
+
+let colorIndex = 0;
+let paletIndex = 0;
+const colorMap = new Map();
+const createColor = (name: string) => {
+  if (name === 'SOURCE_CODE') {
+    return gray;
+  }
+  if (!colorMap.has(name)) {
+    colorIndex++;
+    if (colorIndex >= colors[paletIndex].length) {
+      paletIndex++;
+      colorIndex = 0;
+    }
+    if (paletIndex >= colors.length) {
+      paletIndex = 0;
+    }
+    const colorValue = colors[paletIndex][colorIndex];
+
+    colorMap.set(name, colorValue);
+  }
+  return colorMap.get(name);
+};
 
 use(MatterAttractors);
 
@@ -205,7 +229,7 @@ function addNode(engine: any, node: SigmaNode, cw: number, ch: number, sizeRatio
     frictionAir: 0.005,
     // isStatic: isSourceCodeNode,
     render: {
-      fillStyle: node.module ? gray : getColor(),
+      fillStyle: createColor(node.id),
       // @ts-expect-error-next-line
       text: {
         content: node.label,

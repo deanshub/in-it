@@ -101,7 +101,7 @@ TODOs
     - [x] allow sizes of nodes
     - [ ] allow directions in graph
     - [ ] check if esbuild thing is better
-    - [ ] colors should mean something
+    - [x] colors should mean something
 
 
 ## Ideas
