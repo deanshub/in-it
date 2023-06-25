@@ -42,17 +42,18 @@ export default async function AppAnalyze({ params: { appId, statsId } }: AppAnal
 
 function bundleStatsReportToDependencies(
   bundleStatsReport: BundleStatsReport,
+  origin?: string,
   dependencies: Map<string, Dependencies> = new Map<string, Dependencies>(),
 ) {
   bundleStatsReport.forEach((bundle) => {
     const chunkDependencies = new Set<string>();
-    const name = normalizeChunkName(bundle.label);
+    const name = origin ?? normalizeChunkName(bundle.path ?? bundle.label);
     bundle.groups?.forEach((group) => {
-      const subChunkName = normalizeChunkName(group.label);
-      if (subChunkName && subChunkName !== SOURCE_CODE_NAME) {
+      const subChunkName = normalizeChunkName(group.path ?? group.label);
+      if (subChunkName && subChunkName !== name && subChunkName !== SOURCE_CODE_NAME) {
         chunkDependencies.add(subChunkName);
       }
-      bundleStatsReportToDependencies([group], dependencies);
+      bundleStatsReportToDependencies([group], subChunkName || name, dependencies);
     });
 
     if (name) {
