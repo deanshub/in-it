@@ -1,6 +1,6 @@
-export const edgeLength = 120;
+export const edgeLength = 150;
 export const edgeStiffness = 0.008;
-export const bodyAttractionMagnitude = 10;
+export const bodyAttractionMagnitude = 15;
 
 export const boundsMultiplier = 0.5;
 

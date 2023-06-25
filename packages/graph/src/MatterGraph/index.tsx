@@ -127,13 +127,14 @@ export default function MatterGraph({ data }: MatterGraphProps) {
     const runner = Runner.create();
     Runner.run(runner, engine.current);
 
-    // const sourceNode = nodesBodies.get('SOURCE_CODE');
-    // if (sourceNode) {
-    //   Render.lookAt(render, sourceNode, {
-    //     x: cw / 2,
-    //     y: ch / 2,
-    //   });
-    // }
+    const sourceNode = nodesBodies.get('SOURCE_CODE');
+    if (sourceNode) {
+      sourceNode.isStatic = true;
+      //   Render.lookAt(render, sourceNode, {
+      //     x: cw / 2,
+      //     y: ch / 2,
+      //   });
+    }
 
     return () => {
       Render.stop(render);
