@@ -128,12 +128,14 @@ function BuildItem({
             icon={SiGithub}
           />
         ) : null}
-        <TableAction disabled tooltip="Dependency Graph" icon={AiOutlineDeploymentUnit} />
+        <TableAction
+          tooltip="Dependency Graph"
+          href={`/dependencies/${appId}/${compilation.id}`}
+          icon={AiOutlineDeploymentUnit}
+        />
         <TableAction
           disabled={!previousCompilationId}
-          tooltip={
-            defaultBranchName ? `Diff with latest ${defaultBranchName}` : 'Diff with Previous'
-          }
+          tooltip={defaultBranchName ? `Diff latest ${defaultBranchName}` : 'Diff previous version'}
           href={`/analyze/${appId}/${compilation.id}-${
             defaultBranchName ? latestCompilationIdInDefaultBranch : previousCompilationId
           }`}

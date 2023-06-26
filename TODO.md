@@ -95,7 +95,13 @@ TODOs
     - [ ] nextjs
     - [ ] webpack
     - [ ] nextjs
-- [ ] lighter data format than json
+- [ ] lighter data format than json (cbor)
+- [x] add dependency graph
+    - [x] allow drag and drop with pinning
+    - [x] allow sizes of nodes
+    - [ ] allow directions in graph
+    - [ ] check if esbuild thing is better
+    - [x] colors should mean something
 
 
 ## Ideas
