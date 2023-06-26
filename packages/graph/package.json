@@ -1,6 +1,6 @@
 {
   "name": "nissix-graph",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "description": "Graph component for Nissix",
   "main": "dist/src/index.js",
   "author": "Dean Shub <deanshub@gmail.com>",

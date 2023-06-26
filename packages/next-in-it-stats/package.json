@@ -1,6 +1,6 @@
 {
   "name": "next-in-it-stats",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "description": "next plugin to generate in-it stats",
   "type": "module",
   "keywords": [
@@ -59,7 +59,7 @@
     "@types/node-fetch": "^2.6.4",
     "@types/terminal-link": "^1.2.0",
     "@types/webpack-bundle-analyzer": "^4.6.0",
-    "in-it-shared-types": "1.0.38",
+    "in-it-shared-types": "1.0.39",
     "next": "^13.4.2",
     "typescript": "^5.0.4",
     "vitest": "^0.30.1"
