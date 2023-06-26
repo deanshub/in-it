@@ -4,6 +4,16 @@
   "description": "Graph component for Nissix",
   "main": "dist/src/index.js",
   "author": "Dean Shub <deanshub@gmail.com>",
+  "keywords": [
+    "matter",
+    "matterjs",
+    "physics",
+    "graphology",
+    "component",
+    "graph",
+    "react",
+    "nissix"
+  ],
   "license": "ISC",
   "scripts": {
     "clean": "rm -rf dist/",
