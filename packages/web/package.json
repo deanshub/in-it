@@ -1,6 +1,6 @@
 {
   "name": "in-it-web",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "private": true,
   "scripts": {
     "dev": "npm run prebuild && next dev -p 3001",
@@ -71,7 +71,7 @@
     "mongoose": "^7.2.0",
     "next": "13.4.5",
     "next-auth": "^4.22.1",
-    "nissix-graph": "1.0.41",
+    "nissix-graph": "1.0.42",
     "octokit": "^2.0.19",
     "postcss": "8.4.23",
     "react": "18.2.0",
@@ -86,8 +86,8 @@
   "devDependencies": {
     "@octokit/request-error": "^4.0.2",
     "@types/webpack-bundle-analyzer": "^4.6.0",
-    "in-it-shared-types": "1.0.41",
-    "next-in-it-stats": "1.0.41",
+    "in-it-shared-types": "1.0.42",
+    "next-in-it-stats": "1.0.42",
     "node-jose-tools": "^2.0.2"
   }
 }
