@@ -9,6 +9,7 @@ env:
   BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
   NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
   JWT_SIGNING_PRIVATE_KEY: ${{ secrets.JWT_SIGNING_PRIVATE_KEY }}
+  NISSIX_GITHUB_PRIVATE_KEY: ${{ secrets.NISSIX_GITHUB_PRIVATE_KEY }}
 jobs:
   tagged-release:
     name: Tagged Release
