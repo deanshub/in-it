@@ -82,12 +82,11 @@ export async function POST(request: Request) {
             };
           } else {
             // check percentage increase
-            console.log('statsFromDefaultBranch.length', statsFromDefaultBranch);
             if (statsFromDefaultBranch.length === 1) {
               const defaultBranchTrackedFiles = statsFromDefaultBranch[0].trackedFiles;
               const defaultBranchFileSize = defaultBranchTrackedFiles[file]?.size;
               if (defaultBranchFileSize) {
-                const percentageIncrease = (fileSize / defaultBranchFileSize) * 100;
+                const percentageIncrease = ((fileSize - defaultBranchFileSize) / defaultBranchFileSize) * 100;
                 if (limit.maxDifference && percentageIncrease > parseFloat(limit.maxDifference)) {
                   errors.push(
                     `File ${pc.bold(file)} size increased by ${pc.bold(
