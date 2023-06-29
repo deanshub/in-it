@@ -56,3 +56,8 @@ export async function getRootDir() {
     //
   }
 }
+
+export async function getDefaultBranch() {
+  const defaultBranch = await simpleGit().raw(['symbolic-ref', 'refs/remotes/origin/HEAD']);
+  return defaultBranch.trim().replace(/^refs\/remotes\/origin\//, '');
+}

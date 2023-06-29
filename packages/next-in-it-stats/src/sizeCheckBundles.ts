@@ -2,13 +2,27 @@ import { cosmiconfig } from 'cosmiconfig';
 import globby from 'globby';
 import fs from 'fs-extra';
 import path from 'path';
-import multimatch from 'multimatch';
-import filesize from 'filesize';
 import { InItConfig } from 'in-it-shared-types';
-import { parse } from 'bytes';
 import pc from 'picocolors';
+import { getDefaultBranch } from './git.js';
+import isCI from 'is-ci';
 
-export async function sizeCheckBundles({ outDir }: { outDir: string }): Promise<void> {
+interface SizeCheckBundlesOptions {
+  serverUrl: URL;
+  outDir: string;
+  buildId: string;
+  provider?: string;
+  repository?: string;
+  packagePath: string;
+  name?: string;
+  packageName: string;
+  branch?: string;
+  commitHash?: string;
+}
+export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promise<void> {
+  const { serverUrl, outDir, buildId, provider, repository, packagePath, name, packageName, branch, commitHash } =
+    options;
+
   // get config
   const explorer = cosmiconfig('in-it');
   const result = await explorer.search();
@@ -32,39 +46,40 @@ export async function sizeCheckBundles({ outDir }: { outDir: string }): Promise<
     }),
   );
 
-  const errors: string[] = [];
-  const matchedFiles = new Set<string>();
+  const formData = new FormData();
+  const defaultBranch = await getDefaultBranch();
 
-  // compare to hard coded limits
-  inItConfig.limits?.forEach((limit) => {
-    Object.entries(limit).forEach(([limitedGlobby, limit]) => {
-      const matches = multimatch(trackedFiles, limitedGlobby);
-      matches
-        .filter((file) => !matchedFiles.has(file))
-        .forEach((file) => {
-          matchedFiles.add(file);
-          const fileSize = fileSizes[file];
-          if (limit.maxSize && fileSize >= parse(limit.maxSize)) {
-            errors.push(
-              `File ${pc.bold(file)} size is ${pc.bold(
-                filesize(fileSize) as string,
-              )}, which is more than the limit of ${pc.bold(limit.maxSize)}`,
-            );
-          }
-        });
-    });
+  setFormData(formData, 'environment', isCI ? 'ci' : 'local');
+  setFormData(formData, 'defaultBranch', defaultBranch);
+  setFormData(formData, 'branch', branch);
+  setFormData(formData, 'commitHash', commitHash);
+  setFormData(formData, 'inItConfig', JSON.stringify(inItConfig));
+  setFormData(formData, 'buildId', buildId);
+  setFormData(formData, 'provider', provider);
+  setFormData(formData, 'repository', repository);
+  setFormData(formData, 'packagePath', packagePath);
+  setFormData(formData, 'name', name);
+  setFormData(formData, 'packageName', packageName);
+  setFormData(formData, 'trackedFiles', JSON.stringify(trackedFiles));
+  setFormData(formData, 'fileSizes', JSON.stringify(fileSizes));
+
+  // @ts-ignore-next-line
+  const response = await fetch(`${serverUrl.toString()}/bundle-size-check`, {
+    method: 'POST',
+    body: formData,
   });
 
-  // TODO send result to github status check
-
-  // if there are any relative limits, compare to the previous\master build
-  // gather all errors and print them
-  // if there are any errors, exit with error code
-  if (errors.length) {
-    console.error(errors.join('\n'));
+  if (response.status !== 200) {
+    console.error(await response.text());
     console.error(pc.red('Error: Size check failed'));
     // throw new Error('Size check failed');
     process.exit(1);
   }
   // if there are no errors, exit with success code
+}
+
+function setFormData(formData: FormData, key: string, value: undefined | string) {
+  if (value) {
+    formData.append(key, value);
+  }
 }

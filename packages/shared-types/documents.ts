@@ -62,3 +62,17 @@ export interface FileTrackingDocument {
 }
 
 export type UserWithApps = UserDocument & { apps: AppsDocument[] };
+
+export interface BundleSizeValidationDocument {
+  buildId: string; // (PK)
+  appId: string; // (FK)
+  commitHash: string;
+  trackedFiles: {
+    [filePath: string]: {
+      size: number;
+      status: 'passed' | 'failed';
+      reason?: string; //'size limit exceeded' | 'percentage of change exceeded';
+    };
+  };
+  status: 'passed' | 'failed';
+}

@@ -69,6 +69,7 @@
     "kuuid": "^1.0.1",
     "lucide-react": "^0.220.0",
     "mongoose": "^7.2.0",
+    "multimatch": "^6.0.0",
     "next": "13.4.5",
     "next-auth": "^4.22.1",
     "nissix-graph": "1.0.42",
