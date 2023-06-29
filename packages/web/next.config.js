@@ -3,7 +3,7 @@
 const withInItStats = require('next-in-it-stats/cjs')({
   legacy: true,
   // serverUrl: '',
-  // serverUrl: 'http://localhost:3001/api/stats',
+  // serverUrl: 'http://localhost:3001/api',
 });
 const withMDX = require('@next/mdx')({
   options: {
