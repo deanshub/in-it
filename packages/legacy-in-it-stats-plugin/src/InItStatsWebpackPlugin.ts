@@ -20,7 +20,7 @@ import { getDirname } from './getDirname.js';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
-interface InItStatsWebpackPluginOptions {
+export interface InItLegacyStatsWebpackPluginOptions {
   reportFilename: string;
   serverUrl: string;
   buildId: string;
@@ -30,10 +30,10 @@ interface InItStatsWebpackPluginOptions {
 
 const pluginName = 'InItStatsWebpackPlugin';
 
-export default class InItStatsWebpackPlugin {
+export default class InItLegacyStatsWebpackPlugin {
   bundleAnalyzerPlugin: BundleAnalyzerPlugin;
 
-  constructor(private options: InItStatsWebpackPluginOptions) {
+  constructor(private options: InItLegacyStatsWebpackPluginOptions) {
     this.bundleAnalyzerPlugin = new BundleAnalyzerPlugin({
       // analyzerMode: 'static',
       // openAnalyzer: true,

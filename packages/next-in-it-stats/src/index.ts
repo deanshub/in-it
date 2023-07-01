@@ -1,5 +1,5 @@
 import { join } from 'path';
-import InItStatsWebpackPlugin from './InItStatsWebpackPlugin.js';
+import { LegacyInItStatsPlugin } from 'legacy-in-it-stats-plugin';
 import type { NextStatsPluginOptions } from 'in-it-shared-types';
 import type { NextConfig } from 'next';
 
@@ -40,7 +40,7 @@ function nextInItStats({
         // const InItStatsWebpackPlugin = (await import('./InItStatsWebpackPlugin.js')).default;
 
         config.plugins.push(
-          new InItStatsWebpackPlugin({
+          new LegacyInItStatsPlugin({
             serverUrl,
             reportFilename,
             buildId: options.buildId,
