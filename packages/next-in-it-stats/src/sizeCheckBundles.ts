@@ -62,7 +62,7 @@ export async function sizeCheckBundles({ outDir }: { outDir: string }): Promise<
   // if there are any errors, exit with error code
   if (errors.length) {
     console.error(errors.join('\n'));
-    console.error(pc.red('Size check failed'));
+    console.error(pc.red('Error: Size check failed'));
     // throw new Error('Size check failed');
     process.exit(1);
   }
