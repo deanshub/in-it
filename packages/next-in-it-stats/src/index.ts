@@ -1,5 +1,4 @@
 import { join } from 'path';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import InItStatsWebpackPlugin from './InItStatsWebpackPlugin.js';
 import type { NextStatsPluginOptions } from 'in-it-shared-types';
 import type { NextConfig } from 'next';
@@ -41,15 +40,6 @@ function nextInItStats({
         // const InItStatsWebpackPlugin = (await import('./InItStatsWebpackPlugin.js')).default;
 
         config.plugins.push(
-          new BundleAnalyzerPlugin({
-            // analyzerMode: 'static',
-            // openAnalyzer: true,
-            // reportFilename: `${reportFilename}.html`,
-
-            analyzerMode: 'json',
-            reportFilename,
-            logLevel: 'silent',
-          }),
           new InItStatsWebpackPlugin({
             serverUrl,
             reportFilename,

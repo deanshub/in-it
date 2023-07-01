@@ -64,8 +64,9 @@ TODOs
 - [x] dropdown of branches in app
 - [x] change domain to in-it.nissix.com and redirect nissix.com to it
 - [x] create blog post "why bundle diffing is a must"
-- [ ] release the legacy webpack plugin as package
 - [x] fix esm issue /cjs /esm  (without any suffix should lead to esm) add to docs
+- [ ] prepare twitter thread
+- [ ] release the legacy webpack plugin as package
 - [ ] replace react icons with something lighter\ tree-shakable (then reset the limit to 1mb)
 - [ ] marketing (get 5 users)
 - [ ] handle empty state of diff
