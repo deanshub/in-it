@@ -6,7 +6,6 @@
         "target": "ES2015",
         "rootDir": "./src",
         "outDir": "dist/cjs",
-        "allowSyntheticDefaultImports": true,
         "allowJs": true,
         "composite": true
     },

@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { LegacyInItStatsPlugin } from 'legacy-in-it-stats-plugin';
+import LegacyInItStatsPlugin from 'legacy-in-it-stats-plugin';
 import type { NextStatsPluginOptions } from 'in-it-shared-types';
 import type { NextConfig } from 'next';
 
