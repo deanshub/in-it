@@ -3,6 +3,9 @@
   "version": "1.0.42",
   "description": "next plugin to generate in-it stats",
   "type": "module",
+  "installConfig": {
+    "hoistingLimits": "workspaces"
+  },
   "keywords": [
     "in-it",
     "in-it-stats",
