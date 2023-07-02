@@ -10,9 +10,6 @@
     "lint": "next lint",
     "genereateKey": "jose newkey -s 512 -t oct -a HS512"
   },
-  "installConfig": {
-    "hoistingLimits": "workspaces"
-  },
   "in-it": {
     "track": "**/*",
     "limits": [
