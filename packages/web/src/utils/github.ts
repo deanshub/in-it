@@ -58,7 +58,7 @@ ReportBundleSizeStatusCheckParams) {
       installationId,
       owner,
       repo: repoName,
-      name: `bundle size check - ${packageName}`,
+      name: `${packageName} - bundle size check`,
       head_sha,
       status: status ?? 'completed', //queued, in_progress, or completed
       conclusion: conclusion ?? 'success', //success, failure, neutral, cancelled, timed_out, or action_required
