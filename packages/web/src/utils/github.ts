@@ -25,8 +25,7 @@ ReportBundleSizeStatusCheckParams) {
   const appId = getOrThrow('NISSIX_GITHUB_APP_ID');
   const githubAppUrl = getOrThrow('NISSIX_GITHUB_APP_URL');
 
-  const owner = repository.split('/')[0];
-  const repoName = repository.split('/')[1];
+  const [owner, repoName] = repository.split('/');
 
   const octokit = new Octokit({
     authStrategy: createAppAuth,
