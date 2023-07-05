@@ -1,7 +1,6 @@
 import GithubProvider from 'next-auth/providers/github';
 import { getOrThrow } from '@/utils/getOrThrow';
 import type { AuthOptions } from 'next-auth';
-import dbConnect from '@/db/dbConnect';
 import { upsertUserByProvider } from '@/db/queries';
 import { SourceCodeProvider } from 'in-it-shared-types';
 import { getNullAsUndefined } from './getNullAsUndefined';
@@ -32,8 +31,6 @@ export const nextAuthOptions: AuthOptions = {
       if (account && user) {
         const { id: username, name, email, image } = user;
         const { provider } = account;
-
-        await dbConnect();
 
         let dbUser;
         try {

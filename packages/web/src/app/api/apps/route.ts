@@ -1,12 +1,9 @@
-import dbConnect from '@/db/dbConnect';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { nextAuthOptions } from '@/utils/auth';
 import { AppUsers } from '@/db/models';
 
 export async function GET() {
-  await dbConnect();
-
   const session = await getServerSession(nextAuthOptions);
 
   if (!session?.user) {

@@ -1,5 +1,6 @@
 import { UserWithApps } from 'in-it-shared-types';
 import { Schema, model, models, Model } from 'mongoose';
+import { wrapWithDbConnect } from '../helpers/wrapWithDbConnect';
 
 const userSchema = new Schema<UserWithApps>(
   {
@@ -39,4 +40,4 @@ userSchema.virtual('apps', {
 
 const User: Model<UserWithApps> = models.User ?? model<UserWithApps>('User', userSchema);
 
-export default User;
+export default wrapWithDbConnect(User);

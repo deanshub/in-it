@@ -1,4 +1,3 @@
-import dbConnect from '@/db/dbConnect';
 import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from '@/utils/auth';
 import { App, Stats } from '@/db/models';
@@ -37,7 +36,6 @@ export async function getAppBuilds(
   environment: string,
   { limit, offset }: { limit: number; offset: number },
 ): Promise<AppBuilds> {
-  await dbConnect();
   const session = await getServerSession(nextAuthOptions);
 
   const userId = session?.user?.dbUserId;
