@@ -65,7 +65,7 @@ ReportBundleSizeStatusCheckParams) {
       // target_url,
       description,
     });
-    return `Bundle size analysis status check was created, you can follow its run here: ${response.data.html_url}`;
+    return `Bundle size analysis status check was created, you can follow it's run here: ${response.data.html_url}`;
   } catch (e: unknown) {
     const error = e as RequestError;
     if (error.status === 403) {
