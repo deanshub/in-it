@@ -1,5 +1,6 @@
 import { AppsDocument } from 'in-it-shared-types';
 import { Schema, model, models, Model } from 'mongoose';
+import { wrapWithDbConnect } from '../helpers/wrapWithDbConnect';
 
 const appSchema = new Schema<AppsDocument>(
   {
@@ -24,4 +25,4 @@ const appSchema = new Schema<AppsDocument>(
 
 const App: Model<AppsDocument> = models.App ?? model<AppsDocument>('App', appSchema);
 
-export default App;
+export default wrapWithDbConnect(App);

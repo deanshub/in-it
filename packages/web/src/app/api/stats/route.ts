@@ -4,7 +4,6 @@ import { getAppId } from '@/utils/getAppId';
 import { getUserId } from '@/utils/getUserId';
 import { createApp } from '@/db/helpers/createApp';
 import { updateApp } from '@/db/helpers/updateApp';
-import dbConnect from '@/db/dbConnect';
 import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from '@/utils/auth';
 import { createUser } from '@/db/helpers/createUser';
@@ -54,7 +53,6 @@ export async function POST(request: Request) {
     });
   }
 
-  await dbConnect();
   let appId = await getAppId({
     provider: provider as undefined | SourceCodeProvider,
     repository,

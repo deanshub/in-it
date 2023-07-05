@@ -1,5 +1,6 @@
 import { StatsDocument } from 'in-it-shared-types';
 import { Schema, model, models, Model } from 'mongoose';
+import { wrapWithDbConnect } from '../helpers/wrapWithDbConnect';
 
 const statsSchema = new Schema<StatsDocument>(
   {
@@ -79,4 +80,4 @@ statsSchema.index({ repository: 1, packagePath: 1 });
 
 const Stats: Model<StatsDocument> = models.Stats ?? model<StatsDocument>('Stats', statsSchema);
 
-export default Stats;
+export default wrapWithDbConnect(Stats);
