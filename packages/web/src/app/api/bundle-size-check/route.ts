@@ -1,5 +1,4 @@
 import { getBundleSizeValidation } from '@/db/queries';
-import { getStatsQuery } from '@/db/queries/getStatsQuery';
 import type {
   BundleSizeValidationDocument,
   InItConfig,
@@ -16,20 +15,23 @@ import { createBundleSizeValidation } from '@/db/helpers/createBundleSizeValidat
 import { reportBundleSizeStatusCheck } from '@/utils/github';
 
 export async function POST(request: Request) {
-  const form = await request.formData();
+  const body = await request.json();
 
-  const branch = form.get('branch') as string;
-  const defaultBranch = form.get('defaultBranch') as string;
-  const inItConfig = JSON.parse(form.get('inItConfig') as string) as InItConfig;
-  const provider = form.get('provider') as string;
-  const repository = form.get('repository') as string;
-  const packagePath = form.get('packagePath') as string;
-  const packageName = form.get('packageName') as string;
-  const commitHash = form.get('commitHash') as string;
-  const buildId = form.get('buildId') as string;
-  const name = form.get('name') as string;
-  const environment = form.get('environment') as string;
-
+  const {
+    branch,
+    defaultBranch,
+    inItConfig,
+    provider,
+    repository,
+    packagePath,
+    packageName,
+    commitHash,
+    buildId,
+    name,
+    environment,
+    trackedFiles,
+    fileSizes,
+  } = body;
   await dbConnect();
   const appId = await getAppId({
     provider: provider as undefined | SourceCodeProvider,
@@ -45,9 +47,6 @@ export async function POST(request: Request) {
     });
   }
 
-  const trackedFiles = JSON.parse(form.get('trackedFiles') as string) as string[];
-  const fileSizes = JSON.parse(form.get('fileSizes') as string) as Record<string, number>;
-
   const errors: string[] = [];
   const trackedFilesStatus: BundleSizeValidationDocument['trackedFiles'] = {};
   const matchedFiles = new Set<string>();
@@ -61,7 +60,7 @@ export async function POST(request: Request) {
   );
 
   // compare to hard coded limits
-  inItConfig.limits?.forEach((limit) => {
+  (inItConfig as InItConfig).limits?.forEach((limit) => {
     Object.entries(limit).forEach(([limitedGlobby, limit]) => {
       const matches = multimatch(trackedFiles, limitedGlobby);
       matches
@@ -116,7 +115,7 @@ export async function POST(request: Request) {
   let responseStatus;
 
   if (defaultBranch === branch) {
-    responseStatus = haveErrors ? 400 : 200;
+    responseStatus = haveErrors ? 406 : 200;
     if (environment === 'ci') {
       createBundleSizeValidation({
         buildId,

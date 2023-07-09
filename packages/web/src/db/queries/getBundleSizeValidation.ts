@@ -11,12 +11,6 @@ export function getBundleSizeValidation(
   { appId, status }: BundleSizeValidationFilter,
   { limit, offset }: { limit: number; offset: number },
 ) {
-  console.log('getBundleSizeValidation', {
-    appId,
-    // buildId,
-    // commitHash,
-    status,
-  });
   return BundleSizeValidation.find({
     appId,
     // buildId,

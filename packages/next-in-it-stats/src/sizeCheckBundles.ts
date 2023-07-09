@@ -46,37 +46,39 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     }),
   );
 
-  const formData = new FormData();
   const defaultBranch = await getDefaultBranch();
-
-  setFormData(formData, 'environment', isCI ? 'ci' : 'local');
-  setFormData(formData, 'defaultBranch', defaultBranch);
-  setFormData(formData, 'branch', branch);
-  setFormData(formData, 'commitHash', commitHash);
-  setFormData(formData, 'inItConfig', JSON.stringify(inItConfig));
-  setFormData(formData, 'buildId', buildId);
-  setFormData(formData, 'provider', provider);
-  setFormData(formData, 'repository', repository);
-  setFormData(formData, 'packagePath', packagePath);
-  setFormData(formData, 'name', name);
-  setFormData(formData, 'packageName', packageName);
-  setFormData(formData, 'trackedFiles', JSON.stringify(trackedFiles));
-  setFormData(formData, 'fileSizes', JSON.stringify(fileSizes));
+  const body = {
+    environment: isCI ? 'ci' : 'local',
+    defaultBranch,
+    branch,
+    commitHash,
+    inItConfig,
+    buildId,
+    provider,
+    repository,
+    packagePath,
+    name,
+    packageName,
+    trackedFiles,
+    fileSizes,
+  };
 
   // @ts-ignore-next-line
   const response = await fetch(`${serverUrl.toString()}/bundle-size-check`, {
     method: 'POST',
-    body: formData,
+    body: JSON.stringify(body),
   });
+  const { status } = response;
 
-  if (response.status !== 200) {
+  if (status !== 200) {
     console.error(await response.text());
-    console.error(pc.red('Error: Size check failed'));
-    // throw new Error('Size check failed');
+
+    if (status === 406) {
+      console.error(pc.red('Error: Size check failed'));
+    }
     process.exit(1);
   }
   // if there are no errors, exit with success code
-}
 
 function setFormData(formData: FormData, key: string, value: undefined | string) {
   if (value) {
