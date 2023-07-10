@@ -56,3 +56,14 @@ export async function getRootDir() {
     //
   }
 }
+
+export async function getDefaultBranch() {
+  try {
+    const defaultBranch = await simpleGit().raw(['remote', 'show', 'origin']);
+    const match = defaultBranch.match(/HEAD branch: (.*)/);
+    return match?.[1];
+
+  } catch (error) {
+    //
+  }
+}

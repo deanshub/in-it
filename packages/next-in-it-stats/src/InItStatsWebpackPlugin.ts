@@ -29,13 +29,24 @@ interface InItStatsWebpackPluginOptions {
 
 const pluginName = 'InItStatsWebpackPlugin';
 
-// const log = (...args: any[]) => console.log(...args.map((a) => pc.bold(pc.gray(a))));
-
 export default class InItStatsWebpackPlugin {
   constructor(private options: InItStatsWebpackPluginOptions) {}
   apply(compiler: Compiler) {
     compiler.hooks.done.tapPromise(pluginName, async (compilation) => {
       const exists = await fs.exists(this.options.reportFilename);
+      const branch = await getCurrentBranch();
+      const commitHash = await getCommitHash();
+      const remoteUrl = await getRemoteUrl();
+      const provider = process.env.VERCEL_GIT_PROVIDER ?? getProviderFromUrl(remoteUrl);
+      const repository =
+        process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_SLUG
+          ? `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}`
+          : getRepositoryFromUrl(remoteUrl);
+      const gitRootDir = await getRootDir();
+      const packagePath = gitRootDir ? path.relative(gitRootDir, process.cwd()) : process.cwd();
+      const appPackage = await readPackageUp();
+      const serverUrl = new URL(this.options.serverUrl);
+
       if (exists) {
         const fileStat = await fs.stat(this.options.reportFilename);
         const emptyStats = fileStat.size < 3;
@@ -43,24 +54,12 @@ export default class InItStatsWebpackPlugin {
           //   console.warn(`in-it stats serverUrl is not defined`);
           return;
         }
-        const serverUrl = new URL(this.options.serverUrl);
 
         const file = await fs.readFile(this.options.reportFilename);
-        const appPackage = await readPackageUp();
         const cwd = getDirname();
         const generatorPackage = await readPackageUp({ cwd });
         const userEmail = await getUserEmail();
         const userName = await getUserName();
-        const branch = await getCurrentBranch();
-        const remoteUrl = await getRemoteUrl();
-        const commitHash = await getCommitHash();
-        const provider = process.env.VERCEL_GIT_PROVIDER ?? getProviderFromUrl(remoteUrl);
-        const repository =
-          process.env.VERCEL_GIT_REPO_OWNER && process.env.VERCEL_GIT_REPO_SLUG
-            ? `${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}`
-            : getRepositoryFromUrl(remoteUrl);
-        const gitRootDir = await getRootDir();
-        const packagePath = gitRootDir ? path.relative(gitRootDir, process.cwd()) : process.cwd();
         const compilation = path.basename(this.options.reportFilename, '.json');
 
         const formData = new FormData();
@@ -103,7 +102,7 @@ export default class InItStatsWebpackPlugin {
         }
 
         // @ts-ignore-next-line
-        const response = await fetch(serverUrl.toString(), {
+        const response = await fetch(`${serverUrl.toString()}/stats`, {
           method: 'POST',
           body: formData,
         });
@@ -125,7 +124,18 @@ export default class InItStatsWebpackPlugin {
         console.log(pc.yellow(`in-it stats "${this.options.reportFilename}" does not exist`));
       }
 
-      await sizeCheckBundles({ outDir: this.options.outDir });
+      await sizeCheckBundles({
+        serverUrl,
+        outDir: this.options.outDir,
+        buildId: this.options.buildId,
+        branch,
+        commitHash,
+        provider,
+        repository,
+        packagePath,
+        packageName: appPackage?.packageJson?.name!,
+        name: this.options.name,
+      });
     });
   }
 }

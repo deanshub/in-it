@@ -8,7 +8,7 @@ import type { NextConfig } from 'next';
 function nextInItStats({
   legacy = false,
   outDir = './in-it-stats',
-  serverUrl = 'https://in-it.nissix.com/api/stats',
+  serverUrl = 'https://in-it.nissix.com/api',
   name,
 }: Partial<NextStatsPluginOptions> = {}) {
   return (nextConfig: NextConfig = {}) => {
