@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const withInItStats = require('next-in-it-stats/cjs')({
-  legacy: true,
-  // serverUrl: '',
-  // serverUrl: 'http://localhost:3001/api',
-});
+// const withInItStats = require('next-in-it-stats/cjs')({
+//   legacy: true,
+//   // serverUrl: '',
+//   // serverUrl: 'http://localhost:3001/api',
+// });
 const withMDX = require('@next/mdx')({
   options: {
     remarkPlugins: [],
@@ -38,4 +38,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withInItStats(withMDX(nextConfig));
+module.exports = withMDX(nextConfig);
