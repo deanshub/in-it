@@ -114,8 +114,6 @@ export async function POST(request: Request) {
   const haveErrors = Object.keys(errors).length > 0;
   let responseStatus;
 
-  console.log('----- branch ----- ', branch, defaultBranch, environment);
-
   if (defaultBranch === branch) {
     responseStatus = haveErrors ? 406 : 200;
     if (environment === 'ci') {
