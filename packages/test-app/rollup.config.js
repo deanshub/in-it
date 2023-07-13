@@ -11,7 +11,7 @@ export default {
   plugins: [
     new InIt({
       name: 'test-app',
-      serverUrl: '/',
+      serverUrl: false,
     }),
   ],
 };
