@@ -33,8 +33,6 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     commitHash,
   } = options;
 
-  console.log('------- sizeCheckBundles 1 -------');
-
   // get config
   const explorer = cosmiconfig('in-it');
   const result = await explorer.search();
@@ -43,8 +41,6 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
   }
   const trackGlob = result.config.track ?? '**/*';
   const inItConfig = result.config as InItConfig;
-
-  console.log('------- sizeCheckBundles 2 -------');
 
   // get with globy the relevant files
   const trackedFiles = await globby(trackGlob, {
@@ -59,8 +55,6 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
       fileSizes[file] = fileSize;
     }),
   );
-
-  console.log('------- sizeCheckBundles 3 -------');
 
   const defaultBranch = await getDefaultBranch();
   const body = {
@@ -79,8 +73,6 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     fileSizes,
   };
 
-  console.log('------- sizeCheckBundles 4 -------');
-
   // @ts-ignore-next-line
   const response = await fetch(`${serverUrl.toString()}/bundle-size-check`, {
     method: 'POST',
@@ -88,7 +80,7 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
   });
   const { status } = response;
 
-  console.log('------- sizeCheckBundles 5 -------');
+  console.log('------- sizeCheckBundles 5 -------', `${serverUrl.toString()}/bundle-size-check`);
 
   if (status !== 200) {
     console.error(await response.text());
@@ -96,6 +88,8 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     if (status === 406) {
       console.error(pc.red('Error: Size check failed'));
     }
+
+    console.error(pc.red('Error: Failed to send bundle size check to in-it server'));
     process.exit(1);
   }
 }
