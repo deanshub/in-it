@@ -86,6 +86,8 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     if (status === 406) {
       console.error(pc.red('Error: Size check failed'));
     }
+
+    console.error(pc.red('Error: Failed to send bundle size check to in-it server'));
     process.exit(1);
   }
 }

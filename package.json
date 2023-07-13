@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach -pt run build",
+    "build": "yarn workspaces foreach -ptv run build",
     "test": "yarn workspaces foreach -p run test",
     "npm:publish": "yarn workspaces foreach run npm:publish",
     "lint": "eslint . && npm run fix-mismatches",
