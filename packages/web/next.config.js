@@ -5,6 +5,7 @@ const withInItStats = require('next-in-it-stats/cjs')({
   // serverUrl: '',
   // serverUrl: 'http://localhost:3001/api',
 });
+
 const withMDX = require('@next/mdx')({
   options: {
     remarkPlugins: [],
