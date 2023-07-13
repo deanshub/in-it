@@ -20,8 +20,18 @@ interface SizeCheckBundlesOptions {
   commitHash?: string;
 }
 export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promise<void> {
-  const { serverUrl, outDir, buildId, provider, repository, packagePath, name, packageName, branch, commitHash } =
-    options;
+  const {
+    serverUrl,
+    outDir,
+    buildId,
+    provider,
+    repository,
+    packagePath,
+    name,
+    packageName,
+    branch,
+    commitHash,
+  } = options;
 
   // get config
   const explorer = cosmiconfig('in-it');
@@ -77,11 +87,5 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
       console.error(pc.red('Error: Size check failed'));
     }
     process.exit(1);
-  }
-  // if there are no errors, exit with success code
-
-function setFormData(formData: FormData, key: string, value: undefined | string) {
-  if (value) {
-    formData.append(key, value);
   }
 }
