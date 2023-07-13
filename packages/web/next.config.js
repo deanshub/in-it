@@ -1,3 +1,5 @@
+console.log('before next-in-it-stats/cjs import -------- ')
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const withInItStats = require('next-in-it-stats/cjs')({
@@ -5,6 +7,9 @@ const withInItStats = require('next-in-it-stats/cjs')({
   // serverUrl: '',
   // serverUrl: 'http://localhost:3001/api',
 });
+
+console.log('after next-in-it-stats/cjs import -------- ')
+
 const withMDX = require('@next/mdx')({
   options: {
     remarkPlugins: [],
