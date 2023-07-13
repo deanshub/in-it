@@ -80,8 +80,6 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
   });
   const { status } = response;
 
-  console.log('------- sizeCheckBundles 5 -------', `${serverUrl.toString()}/bundle-size-check`);
-
   if (status !== 200) {
     console.error(await response.text());
 
