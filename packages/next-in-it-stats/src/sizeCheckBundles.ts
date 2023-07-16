@@ -82,8 +82,8 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
 
   if (status !== 200) {
     console.error(pc.red(`status: ${status}`));
-    const { message } = await response.json();
-    console.error(pc.red(`body: ${message}`));
+    // const { message } = await response.json();
+    // console.error(pc.red(`body: ${message}`));
 
     if (status === 406) {
       console.error(pc.red('Error: Size check failed'));
