@@ -111,7 +111,7 @@ export async function POST(request: Request) {
     });
   });
 
-  const haveErrors = Object.keys(errors).length > 0;
+  const haveErrors = errors.length > 0;
   let responseStatus;
 
   if (defaultBranch === branch) {
@@ -141,7 +141,10 @@ export async function POST(request: Request) {
     });
   }
 
-  return new NextResponse(`${haveErrors ? errors.join('\n') : ''} \n\n ${checkStatusMessage}`, {
-    status: responseStatus,
-  });
+  return NextResponse.json(
+    { message: `${haveErrors ? errors.join('\n') : ''} \n\n ${checkStatusMessage}` },
+    {
+      status: responseStatus,
+    },
+  );
 }
