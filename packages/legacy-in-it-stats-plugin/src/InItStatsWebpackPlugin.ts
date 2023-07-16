@@ -5,8 +5,9 @@ import pc from 'picocolors';
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 import isCI from 'is-ci';
-import { sizeCheckBundles } from './sizeCheckBundles.js';
 import readPackageUp from 'read-pkg-up';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { sizeCheckBundles } from './sizeCheckBundles.js';
 import {
   getCommitHash,
   getCurrentBranch,
@@ -19,7 +20,7 @@ import { getDirname } from './getDirname.js';
 import type { PostStatsResponse } from 'in-it-shared-types';
 import type { Compiler } from 'webpack';
 
-interface InItStatsWebpackPluginOptions {
+export interface InItLegacyStatsWebpackPluginOptions {
   reportFilename: string;
   serverUrl: string;
   buildId: string;
@@ -29,9 +30,23 @@ interface InItStatsWebpackPluginOptions {
 
 const pluginName = 'InItStatsWebpackPlugin';
 
-export default class InItStatsWebpackPlugin {
-  constructor(private options: InItStatsWebpackPluginOptions) {}
+export default class InItLegacyStatsWebpackPlugin {
+  bundleAnalyzerPlugin: BundleAnalyzerPlugin;
+
+  constructor(private options: InItLegacyStatsWebpackPluginOptions) {
+    this.bundleAnalyzerPlugin = new BundleAnalyzerPlugin({
+      // analyzerMode: 'static',
+      // openAnalyzer: true,
+      // reportFilename: `${reportFilename}.html`,
+
+      analyzerMode: 'json',
+      reportFilename: options.reportFilename,
+      logLevel: 'silent',
+    });
+  }
   apply(compiler: Compiler) {
+    this.bundleAnalyzerPlugin.apply(compiler);
+
     compiler.hooks.done.tapPromise(pluginName, async (compilation) => {
       const exists = await fs.exists(this.options.reportFilename);
       const branch = await getCurrentBranch();

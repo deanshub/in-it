@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const withInItStats = require('next-in-it-stats/cjs')({
+const withInItStats = require('next-in-it-stats')({
   legacy: true,
   // serverUrl: '',
   // serverUrl: 'http://localhost:3001/api',

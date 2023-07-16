@@ -6,12 +6,8 @@
         "target": "ES2015",
         "rootDir": "./src",
         "outDir": "dist/cjs",
-        "allowSyntheticDefaultImports": true,
         "allowJs": true,
         "composite": true
     },
-    "exclude":["vitest.config.ts", "dist", "node_modules", "cjs/*", "esm/*"],
-    "references": [{
-        "path": "../legacy-in-it-stats-plugin"
-    }]
+    "exclude":["vitest.config.ts", "dist", "node_modules", "cjs/*", "esm/*"]
 }
