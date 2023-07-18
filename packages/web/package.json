@@ -72,7 +72,7 @@
     "lucide-react": "^0.220.0",
     "mongoose": "^7.2.0",
     "multimatch": "^6.0.0",
-    "next": "latest",
+    "next": "^13.4.10",
     "next-auth": "^4.22.1",
     "nissix-graph": "1.0.42",
     "octokit": "^2.0.19",
