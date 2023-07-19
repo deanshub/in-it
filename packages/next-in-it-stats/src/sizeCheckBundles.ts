@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import { cosmiconfig } from 'cosmiconfig';
 import globby from 'globby';
 import fs from 'fs-extra';
@@ -77,6 +78,7 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
   const response = await fetch(`${serverUrl.toString()}/bundle-size-check`, {
     method: 'POST',
     body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
   });
   const { status } = response;
 

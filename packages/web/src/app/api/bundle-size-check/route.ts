@@ -15,7 +15,7 @@ import { createBundleSizeValidation } from '@/db/helpers/createBundleSizeValidat
 import { reportBundleSizeStatusCheck } from '@/utils/github';
 
 export async function POST(request: Request) {
-  const body = await request.json();
+  const body = await request.json(); // TODO: type
 
   const {
     branch,
@@ -32,6 +32,7 @@ export async function POST(request: Request) {
     trackedFiles,
     fileSizes,
   } = body;
+
   await dbConnect();
   const appId = await getAppId({
     provider: provider as undefined | SourceCodeProvider,
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
           } else {
             // check percentage increase
             if (statsFromDefaultBranch.length === 1) {
-              const defaultBranchTrackedFiles = statsFromDefaultBranch[0].trackedFiles;
+              const defaultBranchTrackedFiles = statsFromDefaultBranch[0].trackedFiles ?? {};
               const defaultBranchFileSize = defaultBranchTrackedFiles[file]?.size;
               if (defaultBranchFileSize) {
                 const percentageIncrease =
