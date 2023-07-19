@@ -92,6 +92,6 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     }
 
     console.error(pc.red('Error: Failed to send bundle size check to in-it server'));
-    process.exit(1);
+    // process.exit(1);
   }
 }
