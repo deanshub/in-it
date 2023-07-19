@@ -82,8 +82,10 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
   });
   const { status } = response;
 
-  if (status !== 200) {
+  if (!response.ok) {
     console.error(pc.red(`status: ${status}`));
+    console.error(pc.red(`Status Text: ${response.statusText}`));
+
     const { message } = await response.json();
     console.error(pc.red(`body: ${message}`));
 
