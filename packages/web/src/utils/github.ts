@@ -68,6 +68,8 @@ ReportBundleSizeStatusCheckParams) {
     return `Bundle size analysis status check was created, you can follow it's run here: ${response.data.html_url}`;
   } catch (e: unknown) {
     const error = e as RequestError;
+    console.error('error creating status check', error.status, error.message);
+
     if (error.status === 403) {
       return `To enable bundle size status check please click here: ${githubAppUrl}`;
     } else {
