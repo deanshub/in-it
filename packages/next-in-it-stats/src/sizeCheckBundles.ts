@@ -74,6 +74,8 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     fileSizes,
   };
 
+  console.log(`url: ${serverUrl.toString()}/bundle-size-check`);
+
   // @ts-ignore-next-line
   const response = await fetch(`${serverUrl.toString()}/bundle-size-check`, {
     method: 'POST',
@@ -98,6 +100,5 @@ export async function sizeCheckBundles(options: SizeCheckBundlesOptions): Promis
     }
 
     console.error(pc.red('Error: Failed to send bundle size check to in-it server'));
-    process.exit(1);
   }
 }
