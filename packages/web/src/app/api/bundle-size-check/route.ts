@@ -112,11 +112,11 @@ export async function POST(request: Request) {
     });
   });
 
-  const haveErrors = errors.length > 0;
+  const hasErrors = errors.length > 0;
   let responseStatus;
 
   if (defaultBranch === branch) {
-    responseStatus = haveErrors ? 406 : 200;
+    responseStatus = hasErrors ? 406 : 200;
     if (environment === 'ci') {
       createBundleSizeValidation({
         buildId,
@@ -143,7 +143,7 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json(
-    { message: `${haveErrors ? errors.join('\n') : ''} \n\n ${checkStatusMessage}` },
+    { message: `${hasErrors ? errors.join('\n') : ''} \n\n ${checkStatusMessage}` },
     {
       status: responseStatus,
     },
