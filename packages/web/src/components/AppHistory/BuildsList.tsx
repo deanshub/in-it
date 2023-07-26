@@ -134,7 +134,7 @@ function BuildItem({
           icon={AiOutlineDeploymentUnit}
         />
         <TableAction
-          disabled={!previousCompilationId}
+          disabled={!previousCompilationId && !defaultBranchName}
           tooltip={defaultBranchName ? `Diff latest ${defaultBranchName}` : 'Diff previous version'}
           href={`/analyze/${appId}/${compilation.id}-${
             defaultBranchName ? latestCompilationIdInDefaultBranch : previousCompilationId
