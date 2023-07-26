@@ -12,7 +12,7 @@ const bundleSizeValidationSchema = new Schema<BundleSizeValidationDocument>(
     buildId: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
     commitHash: {
       type: String,
