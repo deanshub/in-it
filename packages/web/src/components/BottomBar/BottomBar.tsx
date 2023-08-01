@@ -24,9 +24,9 @@ export function BottomBar() {
         <Link prefetch={false} href="/faq">
           FAQ
         </Link>
-        <Link prefetch={false} href="/pricing">
+        {/* <Link prefetch={false} href="/pricing">
           Pricing
-        </Link>
+        </Link> */}
       </div>
     </footer>
   );
