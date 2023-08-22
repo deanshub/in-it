@@ -37,6 +37,11 @@ Or you can see your apps page (after logging in) and click on the app you want t
 ![apps page](https://i.ibb.co/3WkM0JT/apps-page.png)
 
 
+## Video from a NextjsIL conf
+
+[![next-in-it-stats](https://i.ibb.co/3WkM0JT/apps-page.png)](https://youtu.be/iQuIw6Ik1xI?t=884 "next-in-it-stats")
+
+
 ## Limit bundles (work in progress)
 
 ```js
